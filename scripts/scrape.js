@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // ABAP Documentation Scraper
 // Fetches HTML documentation from SAP ABAP Keyword Documentation
+// Supports two libraries: "standard" (latest) and "cloud" (cp)
 
 import fs from 'node:fs';
 import fsp from 'node:fs/promises';
@@ -12,18 +13,32 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, '..');
 
+// Library configuration
+const LIBRARY_CONFIG = {
+  standard: {
+    urlPattern: 'abapdocu_latest_index_htm',
+    pathSegment: 'latest',
+    name: 'Standard ABAP'
+  },
+  cloud: {
+    urlPattern: 'abapdocu_cp_index_htm',
+    pathSegment: 'CLOUD',
+    name: 'ABAP Cloud'
+  }
+};
+
 function parseArgs(argv) {
   const args = {};
   for (let i = 2; i < argv.length; i++) {
     const a = argv[i];
-    if (a === '--version') { args.version = argv[++i]; continue; }
+    if (a === '--library') { args.library = argv[++i]; continue; }
     if (a === '--limit') { args.limit = Number(argv[++i]); continue; }
     if (a === '--concurrency') { args.concurrency = Number(argv[++i]); continue; }
     if (a === '--all') { args.all = true; continue; }
     if (a === '--force') { args.force = true; continue; }
   }
   return {
-    version: args.version || 'latest',
+    library: args.library || 'standard',
     limit: Number.isFinite(args.limit) ? args.limit : Infinity,
     concurrency: Number.isFinite(args.concurrency) ? args.concurrency : 8,
     all: Boolean(args.all),
@@ -41,9 +56,16 @@ async function readRoots() {
   return content.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
 }
 
-function versionFromRootUrl(url) {
-  const m = url.match(/\/([0-9]+\.[0-9]+)\//);
-  return m ? m[1] : 'latest';
+/**
+ * Determines library type from root URL
+ * @param {string} url - The root URL
+ * @returns {'standard' | 'cloud'} - The library type
+ */
+function libraryFromRootUrl(url) {
+  if (url.includes(LIBRARY_CONFIG.cloud.urlPattern) || url.includes('/CLOUD/')) {
+    return 'cloud';
+  }
+  return 'standard';
 }
 
 function normalizeUrl(u) {
@@ -114,8 +136,8 @@ function deriveBasePrefix(rootUrl) {
   return prefix;
 }
 
-function getOutputDirs(version) {
-  const base = path.resolve(repoRoot, 'docs', version);
+function getOutputDirs(library) {
+  const base = path.resolve(repoRoot, 'docs', library);
   const html = path.resolve(base, 'html');
   return { base, html };
 }
@@ -156,13 +178,15 @@ async function getSeedUrls(rootUrl) {
   return { basePrefix, seeds: Array.from(seeds) };
 }
 
-async function scrapeVersion(rootUrl, opts) {
+async function scrapeLibrary(rootUrl, opts) {
   const { limit, concurrency, force } = opts;
-  const version = versionFromRootUrl(rootUrl);
+  const library = libraryFromRootUrl(rootUrl);
+  const config = LIBRARY_CONFIG[library];
   const { basePrefix, seeds } = await getSeedUrls(rootUrl);
-  const dirs = getOutputDirs(version);
+  const dirs = getOutputDirs(library);
   
-  console.log(`🔄 Scraping ABAP documentation for version ${version}...`);
+  console.log(`🔄 Scraping ${config.name} documentation...`);
+  console.log(`   Library: ${library}`);
   console.log(`   Root URL: ${rootUrl}`);
   console.log(`   Base prefix: ${basePrefix}`);
   
@@ -234,7 +258,8 @@ async function scrapeVersion(rootUrl, opts) {
 
   // Create manifest
   const manifest = {
-    version,
+    library,
+    libraryName: config.name,
     rootUrl,
     basePrefix,
     savedCount: saved.length,
@@ -248,7 +273,7 @@ async function scrapeVersion(rootUrl, opts) {
   
   await fsp.writeFile(manifestPath, JSON.stringify(manifest, null, 2));
 
-  console.log(`   ✅ Scraped ${saved.length} files for version ${version}`);
+  console.log(`   ✅ Scraped ${saved.length} files for ${config.name}`);
   return manifest;
 }
 
@@ -257,36 +282,36 @@ async function main() {
   const roots = await readRoots();
   
   if (args.all) {
-    console.log(`🚀 Scraping all ABAP documentation versions...`);
+    console.log(`🚀 Scraping all ABAP documentation libraries...`);
     const results = [];
     
     for (const rootUrl of roots) {
       try {
-        const result = await scrapeVersion(rootUrl, args);
+        const result = await scrapeLibrary(rootUrl, args);
         results.push(result);
       } catch (err) {
-        const version = versionFromRootUrl(rootUrl);
-        console.error(`❌ Failed to scrape ${version}: ${err.message}`);
+        const library = libraryFromRootUrl(rootUrl);
+        console.error(`❌ Failed to scrape ${library}: ${err.message}`);
       }
     }
     
     console.log(`\n📊 Scraping Summary:`);
-    console.log(`   Versions processed: ${results.length}`);
+    console.log(`   Libraries processed: ${results.length}`);
     console.log(`   Total files: ${results.reduce((sum, r) => sum + r.savedCount, 0)}`);
     
     return results;
   }
   
-  // Single version
-  const rootForVersion = roots.find(r => r.includes(`/${args.version}/`)) || roots[0];
-  if (!rootForVersion) {
-    throw new Error(`No root URL found for version ${args.version}`);
+  // Single library
+  const rootForLibrary = roots.find(r => libraryFromRootUrl(r) === args.library);
+  if (!rootForLibrary) {
+    throw new Error(`No root URL found for library "${args.library}". Valid options: standard, cloud`);
   }
   
-  const result = await scrapeVersion(rootForVersion, args);
-  console.log(`\n✅ Scraping completed for version ${result.version}`);
+  const result = await scrapeLibrary(rootForLibrary, args);
+  console.log(`\n✅ Scraping completed for ${result.libraryName}`);
   console.log(`   Files scraped: ${result.savedCount}`);
-  console.log(`   Output directory: docs/${result.version}/html/`);
+  console.log(`   Output directory: docs/${result.library}/html/`);
   
   return result;
 }

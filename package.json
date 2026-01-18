@@ -1,7 +1,7 @@
 {
   "name": "abap-docs",
   "version": "1.0.0",
-  "description": "",
+  "description": "ABAP Documentation Scraper & Generator for Standard and Cloud libraries",
   "type": "module",
   "main": "index.js",
   "scripts": {
@@ -9,20 +9,20 @@
     
     "// === MAIN SCRIPTS ===": "",
     "scrape": "node scripts/scrape.js",
+    "scrape:standard": "node scripts/scrape.js --library standard --force",
+    "scrape:cloud": "node scripts/scrape.js --library cloud --force",
     "scrape:all": "node scripts/scrape.js --all",
-    "scrape:758": "node scripts/scrape.js --version 7.58 --force",
-    "scrape:latest": "node scripts/scrape.js --version latest --force",
     
     "generate": "node scripts/generate.js",
+    "generate:standard": "node scripts/generate.js --library standard --force",
+    "generate:cloud": "node scripts/generate.js --library cloud --force",
     "generate:all": "node scripts/generate.js --all",
-    "generate:758": "node scripts/generate.js --version 7.58 --force",
-    "generate:756": "node scripts/generate.js --version 7.56 --force",
-    "generate:latest": "node scripts/generate.js --version latest --force",
     
     "// === COMPLETE PIPELINE ===": "",
     "pipeline": "npm run scrape && npm run generate",
-    "pipeline:all": "npm run scrape:all && npm run generate:all",
-    "pipeline:758": "npm run scrape:758 && npm run generate:758"
+    "pipeline:standard": "npm run scrape:standard && npm run generate:standard",
+    "pipeline:cloud": "npm run scrape:cloud && npm run generate:cloud",
+    "pipeline:all": "npm run scrape:all && npm run generate:all"
   },
   "keywords": [],
   "author": "",

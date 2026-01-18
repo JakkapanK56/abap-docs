@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // ABAP Documentation Generator
 // Converts HTML to Markdown, creates bundles, and applies all enhancements
+// Supports two libraries: "standard" (latest) and "cloud" (cp)
 
 import fs from 'node:fs';
 import fsp from 'node:fs/promises';
@@ -13,18 +14,32 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, '..');
 
+// Library configuration
+const LIBRARY_CONFIG = {
+  standard: {
+    baseUrl: 'https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US',
+    name: 'Standard ABAP',
+    description: 'Standard ABAP language reference documentation'
+  },
+  cloud: {
+    baseUrl: 'https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US',
+    name: 'ABAP Cloud',
+    description: 'ABAP Cloud language reference documentation'
+  }
+};
+
 function parseArgs(argv) {
   const args = {};
   for (let i = 2; i < argv.length; i++) {
     const a = argv[i];
-    if (a === '--version') { args.version = argv[++i]; continue; }
+    if (a === '--library') { args.library = argv[++i]; continue; }
     if (a === '--all') { args.all = true; continue; }
     if (a === '--force') { args.force = true; continue; }
     if (a === '--bundle-budget') { args.bundleBudget = Number(argv[++i]); continue; }
     if (a === '--standard-system') { args.standardSystem = true; continue; }
   }
   return {
-    version: args.version || '7.58',
+    library: args.library || 'standard',
     all: Boolean(args.all),
     force: Boolean(args.force),
     bundleBudget: Number.isFinite(args.bundleBudget) ? args.bundleBudget : 60000,
@@ -32,8 +47,8 @@ function parseArgs(argv) {
   };
 }
 
-function getOutputDirs(version) {
-  const base = path.resolve(repoRoot, 'docs', version);
+function getOutputDirs(library) {
+  const base = path.resolve(repoRoot, 'docs', library);
   const html = path.resolve(base, 'html');
   const md = path.resolve(base, 'md');
   const bundles = path.resolve(base, 'bundles');
@@ -48,7 +63,7 @@ async function ensureDir(dir) {
 
 // === HTML TO MARKDOWN CONVERSION WITH FRONTMATTER ===
 
-function convertAndEnhanceMarkdown(html, htmlFile, version) {
+function convertAndEnhanceMarkdown(html, htmlFile, library) {
   const $ = loadHtml(html);
   $('script, style, noscript, link').remove();
   
@@ -70,10 +85,10 @@ function convertAndEnhanceMarkdown(html, htmlFile, version) {
   let content = turndown.turndown(fragment);
   
   // Fix JavaScript links
-  content = fixJavaScriptLinks(content, version);
+  content = fixJavaScriptLinks(content, library);
   
   // Extract metadata for frontmatter
-  const metadata = extractMetadataFromContent(content, htmlFile, version);
+  const metadata = extractMetadataFromContent(content, htmlFile, library);
   
   // Optimize content structure
   content = optimizeContentStructure(content);
@@ -81,7 +96,9 @@ function convertAndEnhanceMarkdown(html, htmlFile, version) {
   return { content, metadata };
 }
 
-function extractMetadataFromContent(content, htmlFile, version) {
+function extractMetadataFromContent(content, htmlFile, library) {
+  const config = LIBRARY_CONFIG[library];
+  
   // Extract title from content
   const lines = content.split(/\r?\n/);
   let title = htmlFile.replace(/\.(htm|html)$/i, '').replace('aben', '');
@@ -137,7 +154,7 @@ function extractMetadataFromContent(content, htmlFile, version) {
   
   let description = meaningfulLines.join(' ').trim();
   if (description.length < 50) {
-    description = `${title} - ABAP ${version} language reference documentation`;
+    description = `${title} - ${config.description}`;
   }
   
   // Extract ABAP-specific keywords
@@ -148,8 +165,9 @@ function extractMetadataFromContent(content, htmlFile, version) {
     title,
     description: description.substring(0, 300),
     category: determineCategory(title),
-    version,
-    sourceUrl: getAbapFileUrl(htmlFile.replace(/\.(htm|html)$/i, '.md'), version),
+    library,
+    libraryName: config.name,
+    sourceUrl: getAbapFileUrl(htmlFile.replace(/\.(htm|html)$/i, '.md'), library),
     keywords: [...new Set(keywords)],
     abapFile: htmlFile,
     type: 'abap-reference'
@@ -180,7 +198,8 @@ function generateFrontmatter(metadata) {
   return `title: "${cleanTitle}"
 description: |
   ${cleanDescription}
-version: "${metadata.version}"
+library: "${metadata.library}"
+libraryName: "${metadata.libraryName}"
 category: "${metadata.category}"
 type: "${metadata.type}"
 sourceUrl: "${metadata.sourceUrl}"
@@ -189,8 +208,9 @@ keywords: [${cleanKeywords.map(k => `"${k}"`).join(', ')}]
 `;
 }
 
-async function convertHtmlToMarkdownOptimized(version, force = true) {
-  const dirs = getOutputDirs(version);
+async function convertHtmlToMarkdownOptimized(library, force = true) {
+  const dirs = getOutputDirs(library);
+  const config = LIBRARY_CONFIG[library];
   
   if (!fs.existsSync(dirs.html)) {
     throw new Error(`HTML directory not found: ${dirs.html}. Run scraper first.`);
@@ -223,7 +243,7 @@ async function convertHtmlToMarkdownOptimized(version, force = true) {
     
     try {
       const html = await fsp.readFile(htmlPath, 'utf8');
-      const { content, metadata } = convertAndEnhanceMarkdown(html, htmlFile, version);
+      const { content, metadata } = convertAndEnhanceMarkdown(html, htmlFile, library);
       
       // Generate frontmatter + content
       const frontmatterYaml = generateFrontmatter(metadata);
@@ -338,8 +358,8 @@ function parseTreeFromHtml(html) {
   return { root: null, items };
 }
 
-async function generateBundles(version, mdFiles, bundleBudget, force) {
-  const dirs = getOutputDirs(version);
+async function generateBundles(library, mdFiles, bundleBudget, force) {
+  const dirs = getOutputDirs(library);
   
   // Clean bundles directory if force
   if (force && fs.existsSync(dirs.bundles)) {
@@ -455,21 +475,22 @@ async function generateBundles(version, mdFiles, bundleBudget, force) {
 
 // === LINK FIXING ===
 
-function getAbapBaseUrl(version) {
-  if (version === 'latest') {
-    return 'https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US';
+function getAbapBaseUrl(library) {
+  const config = LIBRARY_CONFIG[library];
+  if (!config) {
+    throw new Error(`Unknown library: ${library}. Valid options: standard, cloud`);
   }
-  return `https://help.sap.com/doc/abapdocu_${version.replace('.', '')}_index_htm/${version}/en-US`;
+  return config.baseUrl;
 }
 
-function getAbapFileUrl(filename, version) {
+function getAbapFileUrl(filename, library) {
   const htmFile = filename.replace('.md', '.htm');
-  const baseUrl = getAbapBaseUrl(version);
+  const baseUrl = getAbapBaseUrl(library);
   return `${baseUrl}/${htmFile}`;
 }
 
-function fixJavaScriptLinks(content, version) {
-  const baseUrl = getAbapBaseUrl(version);
+function fixJavaScriptLinks(content, library) {
+  const baseUrl = getAbapBaseUrl(library);
   let fixed = content;
   
   // Fix all variations of javascript:call_link
@@ -494,7 +515,7 @@ function fixJavaScriptLinks(content, version) {
   return fixed;
 }
 
-async function fixLinksInFiles(version, dirs) {
+async function fixLinksInFiles(library, dirs) {
   console.log(`   🔗 Fixing JavaScript links...`);
   
   let fixedCount = 0;
@@ -514,7 +535,7 @@ async function fixLinksInFiles(version, dirs) {
       const content = await fsp.readFile(filePath, 'utf8');
       
       if (content.includes('javascript:call_link')) {
-        const fixedContent = fixJavaScriptLinks(content, version);
+        const fixedContent = fixJavaScriptLinks(content, library);
         await fsp.writeFile(filePath, fixedContent, 'utf8');
         fixedCount++;
       }
@@ -527,8 +548,9 @@ async function fixLinksInFiles(version, dirs) {
 
 // === STANDARD SYSTEM OPTIMIZATIONS ===
 
-async function optimizeIndividualFiles(version) {
-  const dirs = getOutputDirs(version);
+async function optimizeIndividualFiles(library) {
+  const dirs = getOutputDirs(library);
+  const config = LIBRARY_CONFIG[library];
   const mdFiles = await fsp.readdir(dirs.md);
   
   console.log(`   📄 Optimizing ${mdFiles.length} individual files for standard search...`);
@@ -542,10 +564,10 @@ async function optimizeIndividualFiles(version) {
     let content = await fsp.readFile(filePath, 'utf8');
     
     // 1. Fix all JavaScript links to proper URLs
-    content = fixJavaScriptLinks(content, version);
+    content = fixJavaScriptLinks(content, library);
     
     // 2. Add source attribution header
-    const sourceUrl = getAbapFileUrl(file, version);
+    const sourceUrl = getAbapFileUrl(file, library);
     const htmFile = file.replace('.md', '.htm');
     const header = `> **📖 Official SAP Documentation**: [${htmFile}](${sourceUrl})\n\n`;
     
@@ -555,7 +577,7 @@ async function optimizeIndividualFiles(version) {
     }
     
     // 3. Extract metadata for better search
-    const metadata = extractFileMetadata(content, file);
+    const metadata = extractFileMetadata(content, file, library);
     
     // 4. Optimize content structure for LLM consumption
     content = optimizeContentStructure(content);
@@ -577,22 +599,24 @@ async function optimizeIndividualFiles(version) {
   return optimizedFiles;
 }
 
-async function createSimpleIndex(version, optimizedFiles) {
-  const dirs = getOutputDirs(version);
+async function createSimpleIndex(library, optimizedFiles) {
+  const dirs = getOutputDirs(library);
+  const config = LIBRARY_CONFIG[library];
   
   // Simple index for standard search system integration
   const simpleIndex = {
-    version,
+    library,
+    libraryName: config.name,
     generatedAt: new Date().toISOString(),
     totalFiles: optimizedFiles.length,
-    baseUrl: getAbapBaseUrl(version),
+    baseUrl: getAbapBaseUrl(library),
     files: optimizedFiles.map(f => ({
       file: f.file,
       title: f.title,
       size: f.size,
       keywords: f.keywords,
       category: f.category,
-      url: getAbapFileUrl(f.file, version)
+      url: getAbapFileUrl(f.file, library)
     }))
   };
   
@@ -622,7 +646,9 @@ function optimizeContentStructure(content) {
   return content.trim();
 }
 
-function extractFileMetadata(content, filename) {
+function extractFileMetadata(content, filename, library) {
+  const config = LIBRARY_CONFIG[library];
+  
   // Extract title (first heading or from filename)
   const titleMatch = content.match(/^#\s+(.+)$/m);
   const title = titleMatch ? titleMatch[1].trim() : filename.replace('.md', '').replace('aben', '');
@@ -666,10 +692,6 @@ function extractAbapKeywords(content) {
   return abapKeywords;
 }
 
-
-
-
-
 // === ENHANCEMENT FEATURES ===
 
 function determineCategory(title) {
@@ -697,7 +719,7 @@ function determineDifficulty(title) {
   return 'intermediate';
 }
 
-function enhanceBundleIndex(bundles, version) {
+function enhanceBundleIndex(bundles, library) {
   const searchIndex = {
     keywords: new Set(),
     topics: new Set(),
@@ -744,7 +766,7 @@ function enhanceBundleIndex(bundles, version) {
 
   return {
     metadata: {
-      version,
+      library,
       bundleCount: bundles.length,
       generatedAt: new Date().toISOString(),
       keywords: Array.from(searchIndex.keywords).sort(),
@@ -755,8 +777,8 @@ function enhanceBundleIndex(bundles, version) {
   };
 }
 
-async function createMegaBundles(version, enhancedIndex) {
-  const dirs = getOutputDirs(version);
+async function createMegaBundles(library, enhancedIndex) {
+  const dirs = getOutputDirs(library);
   await ensureDir(dirs.megaBundles);
   
   console.log(`   🚀 Creating mega bundles...`);
@@ -770,15 +792,17 @@ async function createMegaBundles(version, enhancedIndex) {
   });
   
   const megaBundles = [];
+  const config = LIBRARY_CONFIG[library];
   
   for (const [category, bundles] of Object.entries(categories)) {
     if (bundles.length < 3) continue; // Skip categories with too few bundles
     
     const megaBundleContent = [];
-    megaBundleContent.push(`# ABAP ${category.toUpperCase()} - Complete Reference (${version})`);
+    megaBundleContent.push(`# ABAP ${category.toUpperCase()} - Complete Reference (${config.name})`);
     megaBundleContent.push(`\n**Generated**: ${new Date().toISOString()}`);
     megaBundleContent.push(`**Bundles Combined**: ${bundles.length}`);
     megaBundleContent.push(`**Category**: ${category}`);
+    megaBundleContent.push(`**Library**: ${library}`);
     megaBundleContent.push('\n---\n');
     
     let totalFiles = 0;
@@ -788,7 +812,7 @@ async function createMegaBundles(version, enhancedIndex) {
       
       try {
         const content = await fsp.readFile(bundlePath, 'utf8');
-        const fixedContent = fixJavaScriptLinks(content, version);
+        const fixedContent = fixJavaScriptLinks(content, library);
         
         megaBundleContent.push(`\n## ${bundle.title}\n`);
         megaBundleContent.push(`**Files**: ${bundle.count} | **Difficulty**: ${bundle.difficulty}\n`);
@@ -821,21 +845,22 @@ async function createMegaBundles(version, enhancedIndex) {
   return megaBundles;
 }
 
-async function createQuickReferences(version, enhancedIndex) {
-  const dirs = getOutputDirs(version);
+async function createQuickReferences(library, enhancedIndex) {
+  const dirs = getOutputDirs(library);
   await ensureDir(dirs.quickRef);
   
   console.log(`   📋 Creating quick references...`);
   
-  const baseUrl = getAbapBaseUrl(version);
+  const baseUrl = getAbapBaseUrl(library);
+  const config = LIBRARY_CONFIG[library];
   
   // ABAP Statements Quick Reference
   const statements = enhancedIndex.metadata.statements;
   const statementsRef = [
     '# ABAP Statements Quick Reference',
-    `\n**Version**: ${version}`,
+    `\n**Library**: ${config.name}`,
     `**Generated**: ${new Date().toISOString()}`,
-    `**📖 Source Documentation**: [ABAP Keyword Documentation ${version}](${baseUrl}/index.htm)`,
+    `**📖 Source Documentation**: [ABAP Keyword Documentation](${baseUrl}/index.htm)`,
     '\n## Core Statements\n',
     ...statements.map(stmt => `- **${stmt.toUpperCase()}** - [Search for details](abap_search?query=${stmt})`),
     '\n## Categories\n',
@@ -862,9 +887,9 @@ async function createQuickReferences(version, enhancedIndex) {
   // Topic Index
   const topicsRef = [
     '# ABAP Topics Index',
-    `\n**Version**: ${version}`,
+    `\n**Library**: ${config.name}`,
     `**Generated**: ${new Date().toISOString()}`,
-    `**📖 Source Documentation**: [ABAP Keyword Documentation ${version}](${baseUrl}/index.htm)`,
+    `**📖 Source Documentation**: [ABAP Keyword Documentation](${baseUrl}/index.htm)`,
     '\n## Major Topics\n',
     ...enhancedIndex.metadata.topics.map(topic => 
       `- **${topic.toUpperCase()}** - [Search bundles](abap_search?query=${topic})`
@@ -907,8 +932,8 @@ async function createQuickReferences(version, enhancedIndex) {
   return quickRefs;
 }
 
-async function createIndividualFileIndex(version) {
-  const dirs = getOutputDirs(version);
+async function createIndividualFileIndex(library) {
+  const dirs = getOutputDirs(library);
   
   if (!fs.existsSync(dirs.md)) {
     return [];
@@ -960,73 +985,80 @@ async function createIndividualFileIndex(version) {
 
 // === MAIN GENERATION FUNCTION ===
 
-async function generateVersionForStandardSystem(version, opts) {
+async function generateLibraryForStandardSystem(library, opts) {
   const { force = true } = opts;
-  const dirs = getOutputDirs(version);
+  const dirs = getOutputDirs(library);
+  const config = LIBRARY_CONFIG[library];
   
-  console.log(`🔄 Generating ABAP documentation for standard MCP system (version ${version})...`);
+  console.log(`🔄 Generating ${config.name} documentation for standard MCP system...`);
   
   if (!fs.existsSync(dirs.html)) {
     throw new Error(`HTML directory not found: ${dirs.html}. Run scraper first.`);
   }
 
   // Step 1: Convert HTML to optimized Markdown with frontmatter
-  const mdFiles = await convertHtmlToMarkdownOptimized(version, force);
+  const mdFiles = await convertHtmlToMarkdownOptimized(library, force);
   
   // Step 2: Optimize individual files for standard search
-  const optimizedFiles = await optimizeIndividualFiles(version);
+  const optimizedFiles = await optimizeIndividualFiles(library);
   
   // Step 3: Create simple index for integration
-  const simpleIndex = await createSimpleIndex(version, optimizedFiles);
+  const simpleIndex = await createSimpleIndex(library, optimizedFiles);
   
   console.log(`   ⏭️  Skipping complex bundling (not needed for standard MCP system)`);
   
   return {
-    version,
+    library,
+    libraryName: config.name,
     fileCount: optimizedFiles.length,
     avgFileSize: Math.round(optimizedFiles.reduce((sum, f) => sum + f.size, 0) / optimizedFiles.length),
-    baseUrl: getAbapBaseUrl(version),
+    baseUrl: getAbapBaseUrl(library),
     integration: 'standard-mcp-system'
   };
 }
 
-async function generateVersion(version, opts) {
+async function generateLibrary(library, opts) {
   const { force = true, standardSystem = true } = opts;
+  const config = LIBRARY_CONFIG[library];
+  
+  if (!config) {
+    throw new Error(`Unknown library: ${library}. Valid options: standard, cloud`);
+  }
   
   // Use standard system by default
   if (standardSystem) {
-    return await generateVersionForStandardSystem(version, opts);
+    return await generateLibraryForStandardSystem(library, opts);
   }
   
   // Original complex generation (preserved for compatibility)
-  const dirs2 = getOutputDirs(version);
+  const dirs2 = getOutputDirs(library);
   
-  console.log(`🔄 Generating documentation for version ${version}...`);
+  console.log(`🔄 Generating documentation for ${config.name}...`);
   
   if (!fs.existsSync(dirs2.html)) {
     throw new Error(`HTML directory not found: ${dirs2.html}. Run scraper first.`);
   }
 
   // Step 1: Convert HTML to Markdown
-  const mdFiles = await convertHtmlToMarkdownOptimized(version, force);
+  const mdFiles = await convertHtmlToMarkdownOptimized(library, force);
   
   // Step 2: Generate bundles from tree structure
-  const bundles = await generateBundles(version, mdFiles, opts.bundleBudget, force);
+  const bundles = await generateBundles(library, mdFiles, opts.bundleBudget, force);
   
   // Step 3: Fix JavaScript links in all files
-  await fixLinksInFiles(version, dirs2);
+  await fixLinksInFiles(library, dirs2);
   
   // Step 4: Create enhanced bundle index
-  const enhancedIndex = enhanceBundleIndex(bundles, version);
+  const enhancedIndex = enhanceBundleIndex(bundles, library);
   
   // Step 5: Create mega bundles
-  const megaBundles = await createMegaBundles(version, enhancedIndex);
+  const megaBundles = await createMegaBundles(library, enhancedIndex);
   
   // Step 6: Create quick references
-  const quickRefs = await createQuickReferences(version, enhancedIndex);
+  const quickRefs = await createQuickReferences(library, enhancedIndex);
   
   // Step 7: Create individual file index for optimal LLM consumption
-  const individualFiles = await createIndividualFileIndex(version);
+  const individualFiles = await createIndividualFileIndex(library);
   
   // Write all indexes
   await fsp.writeFile(
@@ -1047,7 +1079,8 @@ async function generateVersion(version, opts) {
   
   const optimizedIndex = {
     metadata: {
-      version,
+      library,
+      libraryName: config.name,
       generatedAt: new Date().toISOString(),
       individualFiles: individualFiles.length,
       bundles: bundles.length,
@@ -1102,13 +1135,14 @@ async function generateVersion(version, opts) {
   }
   
   return {
-    version,
+    library,
+    libraryName: config.name,
     mdCount: mdFiles.length,
     bundleCount: bundles.length,
     megaBundleCount: megaBundles.length,
     quickRefCount: quickRefs.length,
     individualFiles: individualFiles.length,
-    baseUrl: getAbapBaseUrl(version)
+    baseUrl: getAbapBaseUrl(library)
   };
 }
 
@@ -1116,58 +1150,28 @@ async function main() {
   const args = parseArgs(process.argv);
   
   if (args.all) {
-    console.log(`🚀 Generating all ABAP documentation versions...`);
+    console.log(`🚀 Generating all ABAP documentation libraries...`);
     
-    // Get available versions from docs directory
-    const docsDir = path.resolve(repoRoot, 'docs');
-    const availableVersions = [];
-    
-    if (fs.existsSync(docsDir)) {
-      const entries = await fsp.readdir(docsDir);
-      for (const entry of entries) {
-        const entryPath = path.resolve(docsDir, entry);
-        const stat = await fsp.stat(entryPath);
-        if (stat.isDirectory() && (entry.match(/^\d+\.\d+$/) || entry === 'latest')) {
-          availableVersions.push(entry);
-        }
-      }
-    }
-    
-    if (availableVersions.length === 0) {
-      console.log(`   ⚠️  No versions found in docs directory. Using roots.txt fallback.`);
-      
-      const rootsPath = path.resolve(repoRoot, 'roots.txt');
-      const content = await fsp.readFile(rootsPath, 'utf8');
-      const roots = content.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
-      
-      for (const rootUrl of roots) {
-        const versionMatch = rootUrl.match(/\/([0-9]+\.[0-9]+)\//);
-        if (versionMatch) availableVersions.push(versionMatch[1]);
-      }
-      availableVersions.push('latest');
-    }
-    
-    console.log(`   📋 Found versions: ${availableVersions.join(', ')}`);
-    
+    const libraries = ['standard', 'cloud'];
     const results = [];
     
-    for (const version of availableVersions.sort()) {
+    for (const library of libraries) {
       try {
-        const result = await generateVersion(version, args);
+        const result = await generateLibrary(library, args);
         results.push(result);
         
         if (result.integration === 'standard-mcp-system') {
-          console.log(`✅ ${version}: ${result.fileCount} optimized files (avg: ${result.avgFileSize}B)`);
+          console.log(`✅ ${result.libraryName}: ${result.fileCount} optimized files (avg: ${result.avgFileSize}B)`);
         } else {
-          console.log(`✅ ${version}: ${result.mdCount} MD files, ${result.bundleCount} bundles, ${result.megaBundleCount} mega-bundles`);
+          console.log(`✅ ${result.libraryName}: ${result.mdCount} MD files, ${result.bundleCount} bundles, ${result.megaBundleCount} mega-bundles`);
         }
       } catch (err) {
-        console.error(`❌ ${version}: ${err.message}`);
+        console.error(`❌ ${library}: ${err.message}`);
       }
     }
     
     console.log(`\n📊 Generation Summary:`);
-    console.log(`   Versions processed: ${results.length}`);
+    console.log(`   Libraries processed: ${results.length}`);
     
     const standardResults = results.filter(r => r.integration === 'standard-mcp-system');
     const complexResults = results.filter(r => r.integration !== 'standard-mcp-system');
@@ -1186,17 +1190,17 @@ async function main() {
     return results;
   }
   
-  // Single version
+  // Single library
   try {
-    const result = await generateVersion(args.version, args);
-    console.log(`\n✅ Generation completed for version ${result.version}:`);
+    const result = await generateLibrary(args.library, args);
+    console.log(`\n✅ Generation completed for ${result.libraryName}:`);
     
     if (result.integration === 'standard-mcp-system') {
       // Standard system output
       console.log(`   📄 ${result.fileCount} individual files optimized`);
       console.log(`   📊 Average file size: ${result.avgFileSize} bytes`);
       console.log(`   🌐 Base URL: ${result.baseUrl}`);
-      console.log(`   📂 Output: docs/${result.version}/md/ (ready for standard MCP)`);
+      console.log(`   📂 Output: docs/${result.library}/md/ (ready for standard MCP)`);
       console.log(`   ✨ Integration: ${result.integration}`);
     } else {
       // Complex bundling output
@@ -1206,7 +1210,7 @@ async function main() {
       console.log(`   📋 ${result.quickRefCount} quick references`);
       console.log(`   📋 ${result.individualFiles} individual files indexed`);
       console.log(`   🌐 Base URL: ${result.baseUrl}`);
-      console.log(`   📂 Output: docs/${result.version}/`);
+      console.log(`   📂 Output: docs/${result.library}/`);
     }
   } catch (err) {
     console.error(`❌ Generation failed: ${err.message}`);
