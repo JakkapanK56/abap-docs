@@ -1,0 +1,51 @@
+---
+title: "ABENSQL_CURR_UNIT_CONV_FUNC"
+description: |
+  ABENSQL_CURR_UNIT_CONV_FUNC - ABAP Cloud language reference documentation
+library: "cloud"
+libraryName: "ABAP Cloud"
+category: "database"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENSQL_CURR_UNIT_CONV_FUNC.htm"
+abapFile: "ABENSQL_CURR_UNIT_CONV_FUNC.html"
+keywords: ["select", "insert", "delete", "if", "class", "data", "types", "ABENSQL", "CURR", "UNIT", "CONV", "FUNC"]
+---
+
+`... UNIT_CONVERSION( p1 = a1, p2 = a2, ... )  |   CURRENCY_CONVERSION( p1 = a1, p2 = a2, ... ) ...`
+
+[1. `... UNIT_CONVERSION( p1 = a1, p2 = a2, ... )`](#ABAP_VARIANT_1@1@)
+
+[2. `... CURRENCY_CONVERSION( p1 = a1, p2 = a2, ... )`](#ABAP_VARIANT_2@1@)
+
+Functions for converting between units and between currencies in an ABAP SQL statement. The functions have [keyword parameters](ABENKEYWORD_PARAMETER_GLOSRY.html)\\ `p1`, `p2`, ... (some of which are optional), to which actual parameters `a1`, `a2`, ... must be assigned using `=` when a function is called.
+
+The function `UNIT_CONVERSION` performs a unit conversion for the value passed to the formal parameter `quantity`. The result has the same data type as the formal parameter passed to `quantity`.
+
+The table below shows the actual parameters `p1`, `p2`, ... and their meaning.
+
+Another optional parameter `client` must not be used in ABAP for Cloud Development.
+
+The `SELECT` statement calls a unit conversion in its `SELECT` list for the column `DEC3` of the DDIC database table `DEMO_EXPRESSIONS`. In the event of an error, for example when a unit is not available, the result is reset to the null value.
+
+The function `CURRENCY_CONVERSION` performs a currency conversion for the value passed to the formal parameter `amount`. The result has the same data type as the formal parameter passed to `amount`.
+
+The table below shows the actual parameters `p1`, `p2`, ... and their meaning.
+
+Another optional parameter `client` must not be used in ABAP for Cloud Development.
+
+**Handling the Decimal Places**
+
+The following is an excerpt of the class `CL_DEMO_ASQL_CURRENCY_CNVRSN`. The `SELECT` statement calls a currency conversion in its `SELECT` list for the column `AMOUNT` of the DDIC database table `DEMO_PRICES`. The target currency is passed as a host variable. In the event of an error, for example when a currency is not available, an exception is raised. As a comparison, the same conversion is also performed using the function module `CONVERT_TO_LOCAL_CURRENCY`. As a prerequisite for the example, the currencies and conversion rules must be available in the corresponding DDIC database tables.
+
+In the class `CL_DEMO_ASQL_FUNC_CURR_CONV`, the SQL function `CURRENCY_CONVERSION` is used in a subquery of a `MODIFY` statement.
+
+-   The value passed is rounded to two decimal places before it is converted.
+-   Before the conversion, the value is multiplied by 10 to the power of the number of decimal places of the source currency.
+-   If the value *X* is passed to the parameter `decimal_shift`, the value passed is multiplied by 10 to the power of two minus the number of decimal places of the source currency before it is converted.
+-   If the value *X* is passed to the parameter `decimal_shift_back`, the result is divided by 10 to the power of two minus the number of decimal places of the target currency before it is converted.
+-   After the conversion, the result is divided by 10 to the power of the number of decimal places of the target currency.
+
+-   The conversion is performed on the database, which means that part of the calculation takes place using different rounding rules from ABAP. No matter how the conversion is made, the same results cannot be expected as when using standard function modules for currency conversion, since these modules are generally less precise and round the intermediate results accordingly.
+-   The parameter `decimal_shift` is intended to set the source value to the number of decimal places of the source currency before the conversion. Because of that, its technical type, [`CURR`](ABENDDIC_CURRENCY_FIELD.html) must have two decimal places. The parameter `decimal_shift_back` is intended to perform the reverse operation.
+
+DELETE FROM demo\_expressions. \\n\\ \\nDATA wa TYPE demo\_expressions. \\nwa = VALUE #( dec3 = \`2.213\` ). \\n\\ \\nINSERT INTO demo\_expressions VALUES @wa. \\n\\ \\nSELECT FROM demo\_expressions \\n FIELDS dec3, \\n unit\_conversion( \\n quantity = dec3, \\n source\_unit = unit\`MI\`, \\n target\_unit = unit\`KM\`, \\n on\_error = @sql\_unit\_conversion=>c\_on\_error-set\_to\_null ) \\n AS actual\_target\_quantity \\n INTO TABLE @DATA(actual\_target\_unit). \\n\\ \\ncl\_demo\_output=>display( actual\_target\_unit ). DATA currency TYPE c LENGTH 5 VALUE 'USD'. \\n\\ \\n... \\n\\ \\nSELECT FROM demo\_prices \\n FIELDS id, \\n currency\_conversion( \\n amount = amount, \\n source\_currency = currency, \\n target\_currency = @currency, \\n exchange\_rate\_date = @( \\n cl\_demo\_date\_time=>get\_user\_date( ) ), \\n round = 'X', \\n on\_error = \\n @sql\_currency\_conversion=>c\_on\_error-fail ) \\n AS amount, \\n @currency AS currency \\n INTO TABLE @FINAL(converted\_prices\_asql). \\n\\ \\ncl\_demo\_output=>display( converted\_prices\_asql ). DATA currency TYPE c LENGTH 5 VALUE 'USD'. \\n\\ \\n... \\n\\ \\nMODIFY demo\_prices FROM \\n ( SELECT FROM demo\_prices \\n FIELDS id, \\n currency\_conversion( \\n amount = amount, \\n source\_currency = currency, \\n target\_currency = @currency, \\n exchange\_rate\_date = \\n @( cl\_demo\_date\_time=>get\_user\_date( ) ), \\n on\_error = \\n @sql\_currency\_conversion=>c\_on\_error-fail ) \\n AS amount, \\n @currency AS currency \\n ORDER BY id ). **Formal Parameter** **Optional** **Meaning** \\ **Data Type** **Actual Parameter**\\ `quantity` `-` Inbound value [`DEC`](ABENDDIC_BUILTIN_TYPES.html), [`CURR`](ABENDDIC_BUILTIN_TYPES.html), [`QUAN`](ABENDDIC_BUILTIN_TYPES.html); [`DECFLOAT34`](ABENDDIC_BUILTIN_TYPES.html) [SQL expression](ABAPSQL_EXPR.html)\\ `on_error` *X* Error handling. If `fail` (default value), an error raises an exception; if `set_to_null`, the result is reset to the [null value](ABENNULL_VALUE_GLOSRY.html); if `keep_unconverted`, the result is reset to the input value [Enumerated type](ABENENUMERATED_TYPE_GLOSRY.html)\\ `ON_ERROR` of class `SQL_UNIT_CONVERSION` Allowed [enumerated value](ABENENUMERATED_VALUE_GLOSRY.html) **Formal Parameter** **Optional** **Meaning** \\ **Data Type** **Actual Parameter**\\ `amount` `-` Inbound value [`DEC`](ABENDDIC_BUILTIN_TYPES.html), [`CURR`](ABENDDIC_BUILTIN_TYPES.html), [`QUAN`](ABENDDIC_BUILTIN_TYPES.html) with two decimal places; [`DECFLOAT34`](ABENDDIC_BUILTIN_TYPES.html) [SQL expression](ABAPSQL_EXPR.html)\\ `round` *X* Not possible for amount type `D34N`; if *X* (default value), the intermediate result of the conversion is rounded to the end result using commercial rounding; otherwise it is truncated ABAP type `c` of length 1 [Literal](ABENABAP_SQL_LITERALS.html) or [host constant](ABENABAP_SQL_HOST_VARIABLES.html)\\ `decimal_shift` *X* Not possible for amount type `D34N`; if *X* (default value), the decimal places of the source value are moved as specified by the decimal places of the source currency (see below). ABAP type `c` of length 1 [Literal](ABENABAP_SQL_LITERALS.html) or [host constant](ABENABAP_SQL_HOST_VARIABLES.html)\\ `decimal_shift_back` *X* Not possible for amount type `D34N`; if *X* (default value), the decimal places of the result are moved as specified by the decimal places of the target currency (see below). ABAP type `c` of length 1 [Literal](ABENABAP_SQL_LITERALS.html) or [host constant](ABENABAP_SQL_HOST_VARIABLES.html)\\ `on_error` *X* Error handling. If `fail` (default value), an error raises an exception; if `set_to_null`, the result is reset to the [null value](ABENNULL_VALUE_GLOSRY.html) [Enumerated type](ABENENUMERATED_TYPE_GLOSRY.html)\\ `ON_ERROR` of class `SQL_CURRENCY_CONVERSION` Allowed [enumerated value](ABENENUMERATED_VALUE_GLOSRY.html) abenabap.html abenabap\_reference.html abendb\_access.html abenabap\_sql.html abenabap\_sql\_operands.html abapsql\_expr.html abensql\_builtin\_func.html abenabap\_sql\_builtin\_functions.html abenabap\_sql\_special\_functions.html abenabap\_sql\_conversion\_functions.html

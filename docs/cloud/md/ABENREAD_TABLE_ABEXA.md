@@ -1,0 +1,44 @@
+---
+title: "Demo for ABAP Keyword Documentation"
+description: |
+  n'! n'! Disclaimer:  n'! This class represents a demonstration program of the ABAP Keyword n'! Documentation, primarily intended to provide a better explanation n'! and visualization of syntax. It is not intended for production use n'! and may use demo artifacts that are not rel
+library: "cloud"
+libraryName: "ABAP Cloud"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENREAD_TABLE_ABEXA.htm"
+abapFile: "ABENREAD_TABLE_ABEXA.html"
+keywords: ["do", "if", "method", "class", "data", "internal-table", "field-symbol", "ABENREAD", "TABLE", "ABEXA"]
+---
+
+This example demonstrates how and where the line content of internal tables is read to.
+
+Four alternatives for output behavior when reading internal tables are shown. First a sorted table is filled with a list of square numbers.
+
+In the first alternative, the work area `line` that is compatible with the line type is filled with the numbers 2 and 3. The `READ` statement finds the line of the table in which the key field `col1` has the same content as the work area and is copied to the work area. `sy-subrc` is two, since different numbers are found when the field `col2` is compared.
+
+In the second alternative, the `READ` statement reads the line of the table in which the key field `col1` has the value 3. Only the content of `col2` is copied to the work area `line`. `sy-subrc` is zero and `sy-tabix` is three, since `itab` is an index table.
+
+In the third alternative, the `READ` statement is used to search for the lines of the table in which the field `col2` has the value 16. The primary table key is not used. No fields are copied to the work area and no lines are assigned a field symbol. Only system fields are set. `sy-subrc` is zero, since a line was found and `sy-tabix` is four.
+
+In the `READ` statement of the final alternative, the lines of the table are read in which the key field `col1` has the value 2 and are assigned to the field symbol `<fs>`. The component `col2` of `<fs>` is assigned the value 100. This also changes the corresponding table field.
+
+\* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_read\_table\_result DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_read\_table\_result IMPLEMENTATION. \\n METHOD main. \\n\\ \\n DATA: BEGIN OF line, \\n col1 TYPE i, \\n col2 TYPE i, \\n END OF line. \\n\\ \\n DATA itab LIKE SORTED TABLE OF line WITH UNIQUE KEY col1. \\n\\ \\n DATA subrc TYPE sy-subrc. \\n DATA tabix TYPE sy-tabix. \\n\\ \\n FIELD-SYMBOLS LIKE LINE OF itab. \\n\\ \\n itab = VALUE #( FOR j = 1 UNTIL j > 4 \\n ( col1 = j col2 = j \*\* 2 ) ). \\n\\ \\n out->write\_data( itab )->line( ). \\n\\ \\n\* INTO line COMPARING \\n\\ \\n line-col1 = 2. \\n line-col2 = 3. \\n\\ \\n READ TABLE itab FROM line INTO line COMPARING col2. \\n subrc = sy-subrc. \\n\\ \\n out->write( |sy-subrc: \\{ subrc \\}| ). \\n out->write\_data( line )->line( ). \\n\\ \\n\* INTO line TRANSPORTING \\n\\ \\n CLEAR line. \\n\\ \\n READ TABLE itab WITH TABLE KEY col1 = 3 \\n INTO line TRANSPORTING col2. \\n subrc = sy-subrc. \\n tabix = sy-tabix. \\n\\ \\n out->write( |sy-subrc: \\{ subrc \\}| \\n )->write( |sy-tabix: \\{ tabix \\}| \\n )->write\_data( line \\n )->line( ). \\n\\ \\n\* TRANSPORTING NO FIELDS \\n\\ \\n READ TABLE itab WITH KEY col2 = 16 TRANSPORTING NO FIELDS. \\n subrc = sy-subrc. \\n tabix = sy-tabix. \\n out->write( |sy-subrc: \\{ subrc \\}| \\n )->write( |sy-tabix: \\{ tabix \\}| \\n )->line( ). \\n\\ \\n\* ASSIGNING \\n\\ \\n READ TABLE itab WITH TABLE KEY col1 = 2 ASSIGNING . \\n\\ \\n \-col2 = 100. \\n\\ \\n out->write\_data( itab ). \\n\\ \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_read\_table\_result DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_read\_table\_result IMPLEMENTATION. \\n METHOD main. \\n\\ \\n DATA: BEGIN OF line, \\n col1 TYPE i, \\n col2 TYPE i, \\n END OF line. \\n\\ \\n DATA itab LIKE SORTED TABLE OF line WITH UNIQUE KEY col1. \\n\\ \\n DATA subrc TYPE sy-subrc. \\n DATA tabix TYPE sy-tabix. \\n\\ \\n FIELD-SYMBOLS LIKE LINE OF itab. \\n\\ \\n itab = VALUE #( FOR j = 1 UNTIL j > 4 \\n ( col1 = j col2 = j \*\* 2 ) ). \\n\\ \\n out->write\_data( itab )->line( ). \\n\\ \\n\* INTO line COMPARING \\n\\ \\n line-col1 = 2. \\n line-col2 = 3. \\n\\ \\n READ TABLE itab FROM line INTO line COMPARING col2. \\n subrc = sy-subrc. \\n\\ \\n out->write( |sy-subrc: \\{ subrc \\}| ). \\n out->write\_data( line )->line( ). \\n\\ \\n\* INTO line TRANSPORTING \\n\\ \\n CLEAR line. \\n\\ \\n READ TABLE itab WITH TABLE KEY col1 = 3 \\n INTO line TRANSPORTING col2. \\n subrc = sy-subrc. \\n tabix = sy-tabix. \\n\\ \\n out->write( |sy-subrc: \\{ subrc \\}| \\n )->write( |sy-tabix: \\{ tabix \\}| \\n )->write\_data( line \\n )->line( ). \\n\\ \\n\* TRANSPORTING NO FIELDS \\n\\ \\n READ TABLE itab WITH KEY col2 = 16 TRANSPORTING NO FIELDS. \\n subrc = sy-subrc. \\n tabix = sy-tabix. \\n out->write( |sy-subrc: \\{ subrc \\}| \\n )->write( |sy-tabix: \\{ tabix \\}| \\n )->line( ). \\n\\ \\n\* ASSIGNING \\n\\ \\n READ TABLE itab WITH TABLE KEY col1 = 2 ASSIGNING . \\n\\ \\n \-col2 = 100. \\n\\ \\n out->write\_data( itab ). \\n\\ \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abenabap\_data\_working.html abenitab.html abentable\_processing\_statements.html abapread\_table.html abapread\_table\_outdesc.html

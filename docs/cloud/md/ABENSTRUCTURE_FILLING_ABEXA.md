@@ -1,0 +1,43 @@
+---
+title: "Demo for ABAP Keyword Documentation"
+description: |
+  n'! n'! Disclaimer:  n'! This class represents a demonstration program of the ABAP Keyword n'! Documentation, primarily intended to provide a better explanation n'! and visualization of syntax. It is not intended for production use n'! and may use demo artifacts that are not rel
+library: "cloud"
+libraryName: "ABAP Cloud"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENSTRUCTURE_FILLING_ABEXA.htm"
+abapFile: "ABENSTRUCTURE_FILLING_ABEXA.html"
+keywords: ["select", "do", "if", "method", "class", "data", "types", "ABENSTRUCTURE", "FILLING", "ABEXA"]
+---
+
+The example demonstrates the filling of a nested structure.
+
+In this example, the structure from the executable example [Declaring a Nested Structure](ABENNESTED_STRUCTURE_ABEXA.html) is defined with [`TYPES`](ABAPTYPES_STRUC.html) as the data type `address_type` and used for the data objects `addr` and `address`. A separate structure type is also defined for each of the substructures.
+
+If a structure is declared with the statement `DATA` by reference to a structure type as shown here, the addition [`VALUE`](ABAPDATA_OPTIONS.html) cannot be used. Instead, the structure must be filled by accessing the components. In particular, this also applies to the frequently occurring reference to structures of the ABAP Dictionary. There are mainly two ways for doing this:
+
+The content of both structures is the same. The value operator `VALUE` represents the modern way, where the need of expressing all the component names explicitly is replaced by the use of parentheses.
+
+-   In the first part of the method `main`, the structure `addr` is filled using the structure component selector. The component `name` is assigned a prefilled structure. In the components `street` and `city`, the components that are nested there are accessed.
+-   In the second part of the method `main`, the structure `address` is filled with the value operator [`VALUE`](ABENCONSTRUCTOR_EXPRESSION_VALUE.html), but the structure itself is created using an inline declaration. The parentheses after `VALUE` show different options for accessing the components of substructures. Either the structure component selector is used again in the same way as for the substructure `name`, or additional `VALUE` operators are nested, such as for `street` and `city`.
+
+\* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_structure\_filling DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\n TYPES: \\n BEGIN OF name\_type, \\n title TYPE string, \\n prename TYPE string, \\n surname TYPE string, \\n END OF name\_type, \\n BEGIN OF street\_type, \\n name TYPE string, \\n number TYPE string, \\n END OF street\_type, \\n BEGIN OF city\_type, \\n zipcode TYPE string, \\n name TYPE string, \\n END OF city\_type, \\n BEGIN OF address\_type, \\n name TYPE name\_type, \\n street TYPE street\_type, \\n city TYPE city\_type, \\n END OF address\_type. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_structure\_filling IMPLEMENTATION. \\n METHOD main. \\n DATA: name TYPE name\_type, \\n addr TYPE address\_type. \\n name-title = \`Mr.\`. \\n name-prename = \`Duncan\`. \\n name-surname = \`Pea\`. \\n addr-name = name. \\n addr-street-name = \`Vegetable Lane\`. \\n addr-street-number = \`11\`. \\n addr-city-zipcode = \`349875\`. \\n addr-city-name = \`Botanica\`. \\n\\ \\n FINAL(address) = \\n VALUE address\_type( \\n name-title = \`Mr.\` \\n name-prename = \`Duncan\` \\n name-surname = \`Pea\` \\n street = VALUE #( name = \`Vegetable Lane\` \\n number = \`11\` ) \\n city = VALUE #( zipcode = \`349875\` \\n name = \`Botanica\` ) ). \\n\\ \\n ASSERT address = addr. \\n\\ \\n out->write( address ). \\n\\ \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_structure\_filling DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\n TYPES: \\n BEGIN OF name\_type, \\n title TYPE string, \\n prename TYPE string, \\n surname TYPE string, \\n END OF name\_type, \\n BEGIN OF street\_type, \\n name TYPE string, \\n number TYPE string, \\n END OF street\_type, \\n BEGIN OF city\_type, \\n zipcode TYPE string, \\n name TYPE string, \\n END OF city\_type, \\n BEGIN OF address\_type, \\n name TYPE name\_type, \\n street TYPE street\_type, \\n city TYPE city\_type, \\n END OF address\_type. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_structure\_filling IMPLEMENTATION. \\n METHOD main. \\n DATA: name TYPE name\_type, \\n addr TYPE address\_type. \\n name-title = \`Mr.\`. \\n name-prename = \`Duncan\`. \\n name-surname = \`Pea\`. \\n addr-name = name. \\n addr-street-name = \`Vegetable Lane\`. \\n addr-street-number = \`11\`. \\n addr-city-zipcode = \`349875\`. \\n addr-city-name = \`Botanica\`. \\n\\ \\n FINAL(address) = \\n VALUE address\_type( \\n name-title = \`Mr.\` \\n name-prename = \`Duncan\` \\n name-surname = \`Pea\` \\n street = VALUE #( name = \`Vegetable Lane\` \\n number = \`11\` ) \\n city = VALUE #( zipcode = \`349875\` \\n name = \`Botanica\` ) ). \\n\\ \\n ASSERT address = addr. \\n\\ \\n out->write( address ). \\n\\ \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abentypes\_and\_objects.html abendata\_objects.html abendata\_objects\_structure.html abenstructure\_abexas.html

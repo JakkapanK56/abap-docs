@@ -1,0 +1,26 @@
+---
+title: "ABENCONVERSION_TYPE_T"
+description: |
+  ABENCONVERSION_TYPE_T - ABAP Cloud language reference documentation
+library: "cloud"
+libraryName: "ABAP Cloud"
+category: "types"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENCONVERSION_TYPE_T.htm"
+abapFile: "ABENCONVERSION_TYPE_T.html"
+keywords: ["insert", "do", "if", "catch", "data", "types", "ABENCONVERSION", "TYPE"]
+---
+
+The conversion rules are designed in such a way that, when data objects of time type [`t`](ABENBUILTIN_TYPES_DATE_TIME.html) are assigned to character-like data objects, they behave like character-like objects and numerically in assignments to numeric data objects. The latter is the basis for calculating time in arithmetic expressions. If the content of data objects of type `t` is time specifications in the format *hhmmss*, and the values only correspond to valid times of day (*hh* is between 00 and 23, *mm* and *ss* are between 00 and 59), the value assigned to a numeric data object corresponds to the number of seconds since midnight.
+
+Although the conversion rules actually allow the assignment of time fields that contain invalid data, this is not recommended.
+
+The result of the following conversion has the value *66656*. This is the number of seconds of the specified time since midnight.
+
+The string resulting from the conversion is *18*. Four characters *3056* are cut off on the right.
+
+The byte chain resulting from the conversion is *010460*. This is the integer 66655 or the number of seconds since midnight.
+
+The conversion of `t` to `d`, which is not known statically, is not supported and produces the runtime error `MOVE_NOT_SUPPORTED`.
+
+DATA tim TYPE t VALUE '183056'. \\n\\ \\nFINAL(result) = CONV i( tim ). DATA tim TYPE t VALUE '183056'. \\n\\ \\nTYPES n2 TYPE n LENGTH 2. \\nFINAL(result) = CONV n2( tim ). DATA tim TYPE t VALUE '183056'. \\n\\ \\nFINAL(result) = CONV xstring( tim ). DATA(time) = cl\_demo\_date\_time=>get\_user\_time( ). \\n\\ \\nFIELD-SYMBOLS TYPE data. \\n\\ \\nASSIGN time TO . \\nFINAL(result) = CONV d( ). **Target** **Conversion** **Target** **Conversion** **Target** **Conversion** **‎Target** **Conversion** `i`, `int8`, (`b`, `s`) If the source field contains only digits, the content is interpreted as a time specification in the format *hhmmss* from which the value *hh\*3600+mm\*60+ss* is calculated and then converted to the internal representation of the corresponding integer. If the source field does not only contain digits, the target field is given the value 0. If the [value range](ABENVALUE_RANGE_GLOSRY.html) of the internal data types `b` and `s` is not sufficient, the catchable exception `CX_SY_CONVERSION_OVERFLOW` is raised. `p` If the source field contains only digits, the content is interpreted as a time specification in the format *hhmmss* from which the value *hh\*3600+mm\*60+ss* is calculated and then converted to the internal representation of a packed number. If the value range of the target field is too small, the catchable exception `CX_SY_CONVERSION_OVERFLOW` is raised. If the source field does not contain only digits, the target field receives the value 0. `decfloat16`, `decfloat34` If the source field contains only digits, the content is interpreted as a time specification in the format *hhmmss* from which the value *hh\*3600+mm\*60+ss* is calculated and then converted to the internal representation of a decimal floating point number with [scaling](ABENSCALE_GLOSRY.html) of 0. If the source field does not contain only digits, the target field is given the value 0. `f` If the source field contains only digits, the content is interpreted as a time specification in the format *hhmmss* from which the value *hh\*3600+mm\*60+ss* is calculated and then converted to the internal representation of a binary floating point number. If the source field does not contain only digits, the target field is given the value 0. `c` The content is handled in the same way as a [source field of type `c`](ABENCONVERSION_TYPE_C.html) `n` The characters in the source field are inserted in the target field, left-aligned. Trailing blanks in the source field are transferred. If the target field is longer than the source field, it is padded on the right with the character *0*. If the target field is shorter, it is truncated on the right. `string` The content is handled in the same way as a [source field of type `c`](ABENCONVERSION_TYPE_C.html) `x` The content of the source field is first converted to data type `i` (see above) and then to type `x` (see [conversion table for source field type `i`, `int8`, (`b`, `s`)](ABENCONVERSION_TYPE_IBS.html)). `xstring` The content of the source field is first converted to data type `i` (see above) and then to type `xstring` (see [conversion table for source field type `i`, `int8`, (`b`, `s`)](ABENCONVERSION_TYPE_IBS.html)). `d` Not supported. Produces a syntax error or runtime error. `t` The content of the source field is transferred unconverted. `utclong` Not supported. Produces a syntax error or raises the exception `CX_SY_CONVERSION_NOT_SUPPORTED`. abenabap.html abenabap\_reference.html abenabap\_data\_working.html abenvalue\_assignments.html abenconversion\_rules.html abenconversion\_elementary.html abendate\_time\_source\_fields.html

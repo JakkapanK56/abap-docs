@@ -1,0 +1,18 @@
+---
+title: "ABENSORT_ITAB_EXP_ABEXA"
+description: |
+  ABENSORT_ITAB_EXP_ABEXA - Standard ABAP language reference documentation
+library: "standard"
+libraryName: "Standard ABAP"
+category: "data-structures"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSORT_ITAB_EXP_ABEXA.htm"
+abapFile: "ABENSORT_ITAB_EXP_ABEXA.html"
+keywords: ["do", "if", "case", "try", "catch", "method", "class", "data", "internal-table", "ABENSORT", "ITAB", "EXP", "ABEXA"]
+---
+
+This example demonstrates how internal tables are sorted dynamically using an expression.
+
+The method `sort_itab` sorts an internal table using the statement [`SORT itab`](ABAPSORT_ITAB.html), where the sort criteria are specified as a table of type `abap_sortorder_tab` constructed using the value operator [`VALUE`](ABENCONSTRUCTOR_EXPRESSION_VALUE.html). The component `descending` of this table is set using a [conditional expression](ABENCONDITIONAL_EXPRESSION_GLOSRY.html) with the case distinction [`SWITCH`](ABENCONDITIONAL_EXPRESSION_SWITCH.html), depending on the input parameter `direction`.
+
+\* CCDEF \\nCLASS cx\_illegal\_direction DEFINITION INHERITING FROM cx\_static\_check. \\nENDCLASS. \\n\\ \\n\* Public class definition \\nCLASS cl\_demo\_sort\_itab\_exp DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\n\\ \\n PRIVATE SECTION. \\n DATA itab TYPE TABLE OF string WITH EMPTY KEY. \\n METHODS sort\_itab \\n IMPORTING direction TYPE string \\n RETURNING VALUE(r) LIKE itab \\n RAISING cx\_illegal\_direction. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_sort\_itab\_exp IMPLEMENTATION. \\n METHOD main. \\n itab = VALUE #( ( \`b\` ) ( \`a\` ) ( \`c\` ) ). \\n TRY. \\n out->write( sort\_itab( 'DOWN' ) \\n )->write( sort\_itab( 'UP' ) ). \\n CATCH cx\_illegal\_direction. \\n RETURN. \\n ENDTRY. \\n ENDMETHOD. \\n METHOD sort\_itab. \\n SORT itab BY VALUE abap\_sortorder\_tab( \\n ( name = 'TABLE\_LINE' \\n descending = SWITCH #( direction \\n WHEN 'UP' THEN ' ' \\n WHEN 'DOWN' THEN 'X' \\n ELSE THROW cx\_illegal\_direction( ) ) \\n astext = 'X ' ) ). \\n r = itab. \\n ENDMETHOD. \\nENDCLASS. \* CCDEF \\nCLASS cx\_illegal\_direction DEFINITION INHERITING FROM cx\_static\_check. \\nENDCLASS. \\n\\ \\n\* Public class definition \\nCLASS cl\_demo\_sort\_itab\_exp DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\n\\ \\n PRIVATE SECTION. \\n DATA itab TYPE TABLE OF string WITH EMPTY KEY. \\n METHODS sort\_itab \\n IMPORTING direction TYPE string \\n RETURNING VALUE(r) LIKE itab \\n RAISING cx\_illegal\_direction. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_sort\_itab\_exp IMPLEMENTATION. \\n METHOD main. \\n itab = VALUE #( ( \`b\` ) ( \`a\` ) ( \`c\` ) ). \\n TRY. \\n out->write( sort\_itab( 'DOWN' ) \\n )->write( sort\_itab( 'UP' ) ). \\n CATCH cx\_illegal\_direction. \\n RETURN. \\n ENDTRY. \\n ENDMETHOD. \\n METHOD sort\_itab. \\n SORT itab BY VALUE abap\_sortorder\_tab( \\n ( name = 'TABLE\_LINE' \\n descending = SWITCH #( direction \\n WHEN 'UP' THEN ' ' \\n WHEN 'DOWN' THEN 'X' \\n ELSE THROW cx\_illegal\_direction( ) ) \\n astext = 'X ' ) ). \\n r = itab. \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abenabap\_data\_working.html abenitab.html abentable\_processing\_statements.html abapsort\_itab.html

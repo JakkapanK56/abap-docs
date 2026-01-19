@@ -1,0 +1,44 @@
+---
+title: "Demo for ABAP Keyword Documentation"
+description: |
+  n'! n'! Disclaimer:  n'! This class represents a demonstration program of the ABAP Keyword n'! Documentation, primarily intended to provide a better explanation n'! and visualization of syntax. It is not intended for production use n'! and may use demo artifacts that are not rel
+library: "cloud"
+libraryName: "ABAP Cloud"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENPATH_EXPR_IN_FROM_CLAUSE_ABEXA.htm"
+abapFile: "ABENPATH_EXPR_IN_FROM_CLAUSE_ABEXA.html"
+keywords: ["select", "do", "if", "method", "class", "data", "ABENPATH", "EXPR", "FROM", "CLAUSE", "ABEXA"]
+---
+
+This example demonstrates [path expressions](ABENABAP_SQL_PATH.html) in the [`FROM` clause](ABAPFROM_CLAUSE.html) in ABAP SQL.
+
+The first `SELECT` statement accesses the CDS view entity `demo_cds_assoc_sairport_tz`:
+
+This view entity exposes its [CDS association](ABENCDS_ASSOCIATION_GLOSRY.html)\\ `_spfli` in its `SELECT` list. The CDS association `_spfli` uses the view entity `demo_cds_assoc_spfli_scarr` as an [association target](ABENASSOCIATION_TARGET_GLOSRY.html):
+
+This view exposes its [CDS association](ABENCDS_ASSOCIATION_GLOSRY.html)\\ `_scarr` in its `SELECT` list, making it possible to specify it in path expressions after `_spfli`. This CDS association uses a DDIC database table as a data source and always closes a path expression.
+
+In the [`FROM` clause](ABAPFROM_CLAUSE.html), the first `SELECT` statement uses a path expression with the CDS associations `\\_spfli` and `\\_scarr` after the name of the CDS view. The names of all carriers are read that depart from airports in a specific time zone. The time zone is a [parameter](ABENCDS_F1_FUNC_PARAMETER_LIST.html) of CDS view `demo_cds_assoc_sairport_tz`, and a value is passed to it. Further restrictions apply to the local currency of the airline in a filter condition for the CDS association `_scarr` and on the flight time in a filter condition for the CDS association `_spfli`
+
+The second `SELECT` statement demonstrates which joins and conditions must be created in ABAP SQL to achieve the same result. This is guaranteed by an assertion.
+
+\* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_select\_from\_path DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_select\_from\_path IMPLEMENTATION. \\n METHOD main. \\n\\ \\n DATA: \\n tz TYPE s\_tzone VALUE 'UTC+1', \\n currc TYPE s\_currcode VALUE 'EUR', \\n fltime TYPE s\_fltime VALUE 0. \\n\\ \\n cl\_demo\_input=>new( \\n )->add\_field( CHANGING field = tz \\n )->add\_field( CHANGING field = currc \\n )->add\_field( CHANGING field = fltime )->request( ). \\n\\ \\n "Path expression in ABAP SQL \\n SELECT DISTINCT carrname \\n FROM demo\_cds\_assoc\_sairport\_tz( tz = @( to\_upper( tz ) ) ) \\n \\\\\_spfli\[ fltime > @fltime \] \\n \\\\\_scarr\[ currcode = @( CONV s\_currcode( \\n to\_upper( currc ) ) ) \] \\n AS scarr \\n ORDER BY carrname \\n INTO TABLE @FINAL(result\_path). \\n\\ \\n "Joins in ABAP SQL \\n SELECT DISTINCT scarr~carrname \\n FROM demo\_cds\_assoc\_sairport\_tz( tz = @( to\_upper( tz ) ) ) \\n AS airports \\n INNER JOIN demo\_cds\_assoc\_spfli\_scarr AS flights \\n ON flights~airpfrom = airports~id AND \\n flights~fltime > @fltime \\n INNER JOIN scarr \\n ON scarr~carrid = flights~carrid AND \\n scarr~currcode = @( to\_upper( currc ) ) \\n ORDER BY scarr~carrname \\n INTO TABLE @FINAL(result\_join). \\n\\ \\n ASSERT result\_path = result\_join. \\n out->write( result\_path ). \\n\\ \\n ENDMETHOD. \\nENDCLASS. @AccessControl.authorizationCheck: #NOT\_REQUIRED\\ndefine view entity demo\_cds\_assoc\_sairport\_tz\\n with parameters\\n tz : s\_tzone\\n as select from sairport\\n association of many to many demo\_cds\_assoc\_spfli\_scarr as \_spfli on\\n sairport.id = \_spfli.airpfrom\\n \\{\\n \_spfli,\\n key id\\n \\}\\n where\\n time\_zone = $parameters.tz\\n @AccessControl.authorizationCheck: #NOT\_REQUIRED\\ndefine view entity demo\_cds\_assoc\_spfli\_scarr\\n as select from\\n spfli\\n association to scarr as \_scarr on\\n spfli.carrid = \_scarr.carrid\\n \\{\\n \_scarr,\\n key carrid,\\n key airpfrom,\\n fltime\\n \\}\\n \* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_select\_from\_path DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_select\_from\_path IMPLEMENTATION. \\n METHOD main. \\n\\ \\n DATA: \\n tz TYPE s\_tzone VALUE 'UTC+1', \\n currc TYPE s\_currcode VALUE 'EUR', \\n fltime TYPE s\_fltime VALUE 0. \\n\\ \\n cl\_demo\_input=>new( \\n )->add\_field( CHANGING field = tz \\n )->add\_field( CHANGING field = currc \\n )->add\_field( CHANGING field = fltime )->request( ). \\n\\ \\n "Path expression in ABAP SQL \\n SELECT DISTINCT carrname \\n FROM demo\_cds\_assoc\_sairport\_tz( tz = @( to\_upper( tz ) ) ) \\n \\\\\_spfli\[ fltime > @fltime \] \\n \\\\\_scarr\[ currcode = @( CONV s\_currcode( \\n to\_upper( currc ) ) ) \] \\n AS scarr \\n ORDER BY carrname \\n INTO TABLE @FINAL(result\_path). \\n\\ \\n "Joins in ABAP SQL \\n SELECT DISTINCT scarr~carrname \\n FROM demo\_cds\_assoc\_sairport\_tz( tz = @( to\_upper( tz ) ) ) \\n AS airports \\n INNER JOIN demo\_cds\_assoc\_spfli\_scarr AS flights \\n ON flights~airpfrom = airports~id AND \\n flights~fltime > @fltime \\n INNER JOIN scarr \\n ON scarr~carrid = flights~carrid AND \\n scarr~currcode = @( to\_upper( currc ) ) \\n ORDER BY scarr~carrname \\n INTO TABLE @FINAL(result\_join). \\n\\ \\n ASSERT result\_path = result\_join. \\n out->write( result\_path ). \\n\\ \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abendb\_access.html abenabap\_sql.html abenabap\_sql\_operands.html abenabap\_sql\_path.html

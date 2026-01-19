@@ -1,0 +1,18 @@
+---
+title: "ABENSORT_ITAB_SEC_KEY_ABEXA"
+description: |
+  ABENSORT_ITAB_SEC_KEY_ABEXA - Standard ABAP language reference documentation
+library: "standard"
+libraryName: "Standard ABAP"
+category: "data-structures"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSORT_ITAB_SEC_KEY_ABEXA.htm"
+abapFile: "ABENSORT_ITAB_SEC_KEY_ABEXA.html"
+keywords: ["loop", "if", "method", "class", "data", "ABENSORT", "ITAB", "SEC", "KEY", "ABEXA"]
+---
+
+This example demonstrates how tables with secondary table keys are sorted.
+
+The table `itab` has a secondary hash key for the column `col2`. If the table is sorted in descending order using this column, the primary index is applied accordingly and a `LOOP` without a key produces the new order. If, however, [`USING KEY`](ABAPLOOP_AT_ITAB_COND.html) is used to specify the secondary hash key in the loop, the table is processed in the order in which it was filled.
+
+\* Public class definition \\nCLASS cl\_demo\_int\_tbls\_sort\_sec\_key DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_int\_tbls\_sort\_sec\_key IMPLEMENTATION. \\n METHOD main. \\n\\ \\n DATA: BEGIN OF struct, \\n col1 TYPE c LENGTH 1, \\n col2 TYPE c LENGTH 1, \\n END OF struct. \\n\\ \\n DATA itab LIKE STANDARD TABLE OF struct \\n WITH NON-UNIQUE KEY col1 \\n WITH UNIQUE HASHED KEY sec\_key COMPONENTS col2. \\n\\ \\n DATA jtab LIKE itab. \\n\\ \\n itab = VALUE #( ( col1 = 'A' col2 = '1' ) \\n ( col1 = 'A' col2 = '2' ) \\n ( col1 = 'B' col2 = '3' ) \\n ( col1 = 'B' col2 = '4' ) ). \\n\\ \\n LOOP AT itab INTO struct. \\n APPEND struct TO jtab. \\n ENDLOOP. \\n out->write\_data( jtab ). \\n\\ \\n CLEAR jtab. \\n SORT itab BY col2 DESCENDING. \\n\\ \\n LOOP AT itab INTO struct. \\n APPEND struct TO jtab. \\n ENDLOOP. \\n out->write\_data( jtab ). \\n\\ \\n CLEAR jtab. \\n LOOP AT itab INTO struct USING KEY sec\_key. \\n APPEND struct TO jtab. \\n ENDLOOP. \\n out->write\_data( jtab ). \\n\\ \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\nCLASS cl\_demo\_int\_tbls\_sort\_sec\_key DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_int\_tbls\_sort\_sec\_key IMPLEMENTATION. \\n METHOD main. \\n\\ \\n DATA: BEGIN OF struct, \\n col1 TYPE c LENGTH 1, \\n col2 TYPE c LENGTH 1, \\n END OF struct. \\n\\ \\n DATA itab LIKE STANDARD TABLE OF struct \\n WITH NON-UNIQUE KEY col1 \\n WITH UNIQUE HASHED KEY sec\_key COMPONENTS col2. \\n\\ \\n DATA jtab LIKE itab. \\n\\ \\n itab = VALUE #( ( col1 = 'A' col2 = '1' ) \\n ( col1 = 'A' col2 = '2' ) \\n ( col1 = 'B' col2 = '3' ) \\n ( col1 = 'B' col2 = '4' ) ). \\n\\ \\n LOOP AT itab INTO struct. \\n APPEND struct TO jtab. \\n ENDLOOP. \\n out->write\_data( jtab ). \\n\\ \\n CLEAR jtab. \\n SORT itab BY col2 DESCENDING. \\n\\ \\n LOOP AT itab INTO struct. \\n APPEND struct TO jtab. \\n ENDLOOP. \\n out->write\_data( jtab ). \\n\\ \\n CLEAR jtab. \\n LOOP AT itab INTO struct USING KEY sec\_key. \\n APPEND struct TO jtab. \\n ENDLOOP. \\n out->write\_data( jtab ). \\n\\ \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abenabap\_data\_working.html abenitab.html abentable\_processing\_statements.html abapsort\_itab.html

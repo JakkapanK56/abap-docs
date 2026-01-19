@@ -1,0 +1,58 @@
+---
+title: "Demo for ABAP Keyword Documentation"
+description: |
+  n'! n'! Disclaimer:  n'! This class represents a demonstration program of the ABAP Keyword n'! Documentation, primarily intended to provide a better explanation n'! and visualization of syntax. It is not intended for production use n'! and may use demo artifacts that are not rel
+library: "cloud"
+libraryName: "ABAP Cloud"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENEML_SET_NAMES_ABEXA.htm"
+abapFile: "ABENEML_SET_NAMES_ABEXA.html"
+keywords: ["select", "update", "delete", "do", "if", "method", "class", "data", "ABENEML", "SET", "NAMES", "ABEXA"]
+---
+
+This example demonstrates the variants of the `SET NAMES` statement.
+
+**Data model**
+
+The CDS data model consists of the root entity `DEMO_MANAGED_ROOT_MAP` and its child entity `DEMO_MANAGED_CHILD_MAP`.
+
+Root entity:
+
+Child entity:
+
+**Behavior definition**
+
+The [RAP behavior definition](ABENCDS_BEHAVIOR_DEFINITION_GLOSRY.html)\\ `DEMO_MANAGED_ROOT_MAP` is defined in [RAP BDL](ABENCDS_BDL_GLOSRY.html) as follows:
+
+**Behavior implementation**
+
+For the above RAP behavior definition, one ABP (`BP_DEMO_MANAGED_ROOT_MAP`) is created. It is not relevant for the example.
+
+**Access with ABAP using EML**
+
+The above source code uses [EML](ABENEML_GLOSRY.html) to access the RAP business object from an ABAP class.
+
+For all variants of the `SET NAMES` statement, variables are declared for the field list typed with `ABP_FIELD_NAME_TAB` and for the source that is typed with a [BDEF derived type](ABENRAP_DERIVED_TYPE_GLOSRY.html) which includes the `%control` structure. The components of the `%control` structure include a value that is initial and, thus, not contained in the field list.
+
+The field lists for all variants are displayed in an output window. The first variant comprises examples for both `%control` and `%element` for the source.
+
+@AccessControl.authorizationCheck: #NOT\_REQUIRED\\ndefine root view entity DEMO\_MANAGED\_ROOT\_MAP\\n as select from demo\_tab\_root\_3\\n composition \[1..\*\] of DEMO\_MANAGED\_CHILD\_MAP as \_child\\n \\{\\n key key\_field,\\n field1,\\n field2,\\n field3,\\n field4,\\n \_child\\n \\}\\n @AccessControl.authorizationCheck: #NOT\_REQUIRED\\ndefine view entity DEMO\_MANAGED\_CHILD\_MAP\\n as select from demo\_tab\_child\_3\\n association to parent DEMO\_MANAGED\_ROOT\_MAP \\n as \_parent on $projection.key\_field = \_parent.key\_field\\n \\{\\n \_parent,\\n key key\_field,\\n key key\_field\_child,\\n field1,\\n field2,\\n field3,\\n field4\\n \\}\\n managed implementation in class bp\_demo\_managed\_root\_map unique;\\nstrict(2);\\n\\ndefine behavior for DEMO\_MANAGED\_ROOT\_MAP\\npersistent table demo\_tab\_root\_3\\nlock master\\nauthorization master ( none )\\n\\n\\{\\n create;\\n update;\\n delete;\\n association \_child \\{ create; \\}\\n field(readonly:update) key\_field;\\n\\n mapping for demo\_struc corresponding\\n \\{\\n key\_field = b\_key\_field;\\n field1 = b\_field1;\\n field2 = b\_field2;\\n field3 = b\_field3;\\n field4 = b\_field4;\\n \\}\\n\\n mapping for demo\_struc2 control demo\_struc2\_ctrl corresponding\\n \\{\\n key\_field = a\_key\_field control a\_ctrl\_key\_field;\\n field1 = a\_field1 control a\_ctrl\_field1;\\n field2 = a\_field2 control a\_ctrl\_field2;\\n field3 = a\_field3 control a\_ctrl\_field3;\\n field4 = a\_field4 control a\_ctrl\_field4;\\n \\}\\n\\n mapping for demo\_struc3 control demo\_struc3\_ctrl corresponding\\n \\{\\n key\_field = z\_key\_field control z\_ctrl\_key\_field;\\n field1 = z\_field1 control z\_ctrl\_field1;\\n field2 = z\_field2 control z\_ctrl\_field2;\\n field3 = z\_field3 control z\_ctrl\_field3;\\n field4 = z\_field4 control z\_ctrl\_field4;\\n \\}\\n\\}\\n\\ndefine behavior for DEMO\_MANAGED\_CHILD\_MAP alias child\\npersistent table demo\_tab\_child\_3\\nlock dependent by \_parent\\nauthorization dependent by \_parent\\n\\{\\n update;\\n delete;\\n field ( readonly ) key\_field;\\n field(readonly:update) key\_field\_child;\\n association \_parent;\\n\\} \* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_rap\_eml\_set\_names DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\n METHODS constructor. \\n\\ \\n PRIVATE SECTION. \\n METHODS: \\n initialize\_dbtabs. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_rap\_eml\_set\_names IMPLEMENTATION. \\n METHOD main. \\n\\ \\n out->begin\_section( \`SET NAMES Variants\` ). \\n\\ \\n "Variant: SET NAMES fields FROM FLAGS src. \\n "Example with %control \\n out->write\_html( \\n '***Variant: SET NAMES fields FROM FLAGS src.***' \\n ). \\n\\ \\n DATA: fields TYPE abp\_field\_name\_tab, \\n src TYPE STRUCTURE FOR UPDATE demo\_managed\_root\_map. \\n\\ \\n src-%control = VALUE #( key\_field = if\_abap\_behv=>mk-on \\n field1 = if\_abap\_behv=>mk-off \\n field2 = if\_abap\_behv=>mk-on \\n field3 = if\_abap\_behv=>mk-on \\n field4 = if\_abap\_behv=>mk-on \\n ). \\n\\ \\n SET NAMES fields FROM FLAGS src. \\n\\ \\n "Example with %element \\n DATA: fields2 TYPE abp\_field\_name\_tab, \\n src2 TYPE STRUCTURE FOR REPORTED demo\_managed\_root\_map. \\n\\ \\n src2-%element = VALUE #( key\_field = if\_abap\_behv=>mk-on \\n field1 = if\_abap\_behv=>mk-on \\n field2 = if\_abap\_behv=>mk-off \\n field3 = if\_abap\_behv=>mk-on \\n field4 = if\_abap\_behv=>mk-on \\n %assoc-\_child = if\_abap\_behv=>mk-on \\n ). \\n\\ \\n SET NAMES fields2 FROM FLAGS src2. \\n\\ \\n out->write\_text( 'Example with %control' \\n )->write( fields \\n )->write\_text( 'Example with %element' \\n )->write( fields2 ). \\n\\ \\n "Variant: SET NAMES fields FROM FLAGS src MAPPING TYPE p\_type. \\n out->write\_html( '***Variant: SET NAMES fields*** ' && \\n '***FROM FLAGS src MAPPING TYPE p\_type.***' \\n ). \\n\\ \\n DATA: fields3 TYPE abp\_field\_name\_tab, \\n src3 TYPE STRUCTURE FOR UPDATE demo\_managed\_root\_map. \\n\\ \\n src3-%control = VALUE #( key\_field = if\_abap\_behv=>mk-on \\n field1 = if\_abap\_behv=>mk-on \\n field2 = if\_abap\_behv=>mk-on \\n field3 = if\_abap\_behv=>mk-off \\n field4 = if\_abap\_behv=>mk-on \\n ). \\n\\ \\n SET NAMES fields3 FROM FLAGS src3 \\n MAPPING TYPE demo\_struc. \\n\\ \\n out->write( fields3 ). \\n\\ \\n "SET NAMES fields FROM FLAGS src MAPPING LIKE var. \\n out->write\_html( '***Variant: SET NAMES fields*** ' && \\n '***FROM FLAGS src MAPPING LIKE var.***' \\n ). \\n\\ \\n DATA: fields4 TYPE abp\_field\_name\_tab, \\n src4 TYPE STRUCTURE FOR UPDATE demo\_managed\_root\_map, \\n var TYPE demo\_struc. \\n\\ \\n src4-%control = VALUE #( key\_field = if\_abap\_behv=>mk-on \\n field1 = if\_abap\_behv=>mk-on \\n field2 = if\_abap\_behv=>mk-on \\n field3 = if\_abap\_behv=>mk-on \\n field4 = if\_abap\_behv=>mk-off \\n ). \\n\\ \\n SET NAMES fields4 FROM FLAGS src4 MAPPING LIKE var. \\n\\ \\n out->write( fields4 ). \\n\\ \\n ENDMETHOD. \\n METHOD initialize\_dbtabs. \\n DELETE FROM demo\_tab\_root\_3. \\n ENDMETHOD. \\n METHOD constructor. \\n super->constructor( ). \\n initialize\_dbtabs( ). \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_rap\_eml\_set\_names DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\n METHODS constructor. \\n\\ \\n PRIVATE SECTION. \\n METHODS: \\n initialize\_dbtabs. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_rap\_eml\_set\_names IMPLEMENTATION. \\n METHOD main. \\n\\ \\n out->begin\_section( \`SET NAMES Variants\` ). \\n\\ \\n "Variant: SET NAMES fields FROM FLAGS src. \\n "Example with %control \\n out->write\_html( \\n '***Variant: SET NAMES fields FROM FLAGS src.***' \\n ). \\n\\ \\n DATA: fields TYPE abp\_field\_name\_tab, \\n src TYPE STRUCTURE FOR UPDATE demo\_managed\_root\_map. \\n\\ \\n src-%control = VALUE #( key\_field = if\_abap\_behv=>mk-on \\n field1 = if\_abap\_behv=>mk-off \\n field2 = if\_abap\_behv=>mk-on \\n field3 = if\_abap\_behv=>mk-on \\n field4 = if\_abap\_behv=>mk-on \\n ). \\n\\ \\n SET NAMES fields FROM FLAGS src. \\n\\ \\n "Example with %element \\n DATA: fields2 TYPE abp\_field\_name\_tab, \\n src2 TYPE STRUCTURE FOR REPORTED demo\_managed\_root\_map. \\n\\ \\n src2-%element = VALUE #( key\_field = if\_abap\_behv=>mk-on \\n field1 = if\_abap\_behv=>mk-on \\n field2 = if\_abap\_behv=>mk-off \\n field3 = if\_abap\_behv=>mk-on \\n field4 = if\_abap\_behv=>mk-on \\n %assoc-\_child = if\_abap\_behv=>mk-on \\n ). \\n\\ \\n SET NAMES fields2 FROM FLAGS src2. \\n\\ \\n out->write\_text( 'Example with %control' \\n )->write( fields \\n )->write\_text( 'Example with %element' \\n )->write( fields2 ). \\n\\ \\n "Variant: SET NAMES fields FROM FLAGS src MAPPING TYPE p\_type. \\n out->write\_html( '***Variant: SET NAMES fields*** ' && \\n '***FROM FLAGS src MAPPING TYPE p\_type.***' \\n ). \\n\\ \\n DATA: fields3 TYPE abp\_field\_name\_tab, \\n src3 TYPE STRUCTURE FOR UPDATE demo\_managed\_root\_map. \\n\\ \\n src3-%control = VALUE #( key\_field = if\_abap\_behv=>mk-on \\n field1 = if\_abap\_behv=>mk-on \\n field2 = if\_abap\_behv=>mk-on \\n field3 = if\_abap\_behv=>mk-off \\n field4 = if\_abap\_behv=>mk-on \\n ). \\n\\ \\n SET NAMES fields3 FROM FLAGS src3 \\n MAPPING TYPE demo\_struc. \\n\\ \\n out->write( fields3 ). \\n\\ \\n "SET NAMES fields FROM FLAGS src MAPPING LIKE var. \\n out->write\_html( '***Variant: SET NAMES fields*** ' && \\n '***FROM FLAGS src MAPPING LIKE var.***' \\n ). \\n\\ \\n DATA: fields4 TYPE abp\_field\_name\_tab, \\n src4 TYPE STRUCTURE FOR UPDATE demo\_managed\_root\_map, \\n var TYPE demo\_struc. \\n\\ \\n src4-%control = VALUE #( key\_field = if\_abap\_behv=>mk-on \\n field1 = if\_abap\_behv=>mk-on \\n field2 = if\_abap\_behv=>mk-on \\n field3 = if\_abap\_behv=>mk-on \\n field4 = if\_abap\_behv=>mk-off \\n ). \\n\\ \\n SET NAMES fields4 FROM FLAGS src4 MAPPING LIKE var. \\n\\ \\n out->write( fields4 ). \\n\\ \\n ENDMETHOD. \\n METHOD initialize\_dbtabs. \\n DELETE FROM demo\_tab\_root\_3. \\n ENDMETHOD. \\n METHOD constructor. \\n super->constructor( ). \\n initialize\_dbtabs( ). \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_rap.html abenabap\_for\_rap\_bos.html abenabap\_rap\_other.html abapeml\_type\_mapping.html abapset\_names.html

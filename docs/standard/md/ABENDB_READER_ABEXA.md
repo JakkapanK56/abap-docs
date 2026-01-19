@@ -1,0 +1,22 @@
+---
+title: "ABENDB_READER_ABEXA"
+description: |
+  ABENDB_READER_ABEXA - Standard ABAP language reference documentation
+library: "standard"
+libraryName: "Standard ABAP"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDB_READER_ABEXA.htm"
+abapFile: "ABENDB_READER_ABEXA.html"
+keywords: ["select", "do", "while", "if", "method", "class", "data", "types", "internal-table", "ABENDB", "READER", "ABEXA"]
+---
+
+This example demonstrates how data can be read from a DDIC database table using a [reader stream](ABENREADER_STREAM_GLOSRY.html).
+
+In the method `main`, a reference variable `reader` is declared for a reader stream. This reader stream is then [created](ABENSELECT_INTO_LOB_HANDLES.html) in a `SELECT` statement.
+
+The internal table `pict` is then filled iteratively with binary data from the row found. If data previously written in the executable [writer stream example](ABENDB_WRITER_ABEXA.html) is read, this is the data of a figure in the GIF format.
+
+The auxiliary method `show_picture` displays the figure in an HTML browser.
+
+\* Public class definition \\nCLASS cl\_demo\_db\_reader DEFINITION \\n PUBLIC \\n INHERITING FROM cl\_demo\_classrun \\n CREATE PUBLIC . \\n PUBLIC SECTION. \\n METHODS main \\n REDEFINITION . \\n\\ \\n PRIVATE SECTION. \\n TYPES: \\n pict\_line TYPE x LENGTH 1022, \\n pict\_tab TYPE STANDARD TABLE OF pict\_line WITH EMPTY KEY. \\n DATA: \\n name TYPE c LENGTH 255 \\n VALUE '/SAP/PUBLIC/BC/ABAP/mime\_demo/ABAP\_Docu\_Logo.gif', \\n pict TYPE pict\_tab. \\n METHODS show\_picture. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_db\_reader IMPLEMENTATION. \\n METHOD main. \\n\\ \\n DATA reader TYPE REF TO cl\_abap\_db\_x\_reader. \\n\\ \\n cl\_demo\_input=>new( )->request( \\n CHANGING field = me->name ). \\n\\ \\n SELECT SINGLE picture \\n FROM demo\_blob\_table \\n WHERE name = @name \\n INTO @reader. \\n\\ \\n IF sy-subrc <> 0. \\n out->write( 'Nothing found, run DEMO\_DB\_WRITER first!' ). \\n RETURN. \\n ENDIF. \\n\\ \\n pict = VALUE #( FOR j = 1 WHILE reader->data\_available( ) \\n ( reader->read( 1022 ) ) ). \\n\\ \\n reader->close( ). \\n\\ \\n show\_picture( ). \\n\\ \\n ENDMETHOD. \\n METHOD show\_picture. \\n DATA ext\_data TYPE cl\_abap\_browser=>load\_tab. \\n FINAL(html\_str) = \`![](PICT.GIF)\`. \\n ext\_data = VALUE #( \\n ( name = 'PICT.GIF' type = 'image' dref = REF #( pict ) ) ). \\n cl\_abap\_browser=>show\_html( \\n EXPORTING \\n html\_string = html\_str \\n format = cl\_abap\_browser=>landscape \\n size = cl\_abap\_browser=>small \\n data\_table = ext\_data \\n check\_html = ' ' ). \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\nCLASS cl\_demo\_db\_reader DEFINITION \\n PUBLIC \\n INHERITING FROM cl\_demo\_classrun \\n CREATE PUBLIC . \\n PUBLIC SECTION. \\n METHODS main \\n REDEFINITION . \\n\\ \\n PRIVATE SECTION. \\n TYPES: \\n pict\_line TYPE x LENGTH 1022, \\n pict\_tab TYPE STANDARD TABLE OF pict\_line WITH EMPTY KEY. \\n DATA: \\n name TYPE c LENGTH 255 \\n VALUE '/SAP/PUBLIC/BC/ABAP/mime\_demo/ABAP\_Docu\_Logo.gif', \\n pict TYPE pict\_tab. \\n METHODS show\_picture. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_db\_reader IMPLEMENTATION. \\n METHOD main. \\n\\ \\n DATA reader TYPE REF TO cl\_abap\_db\_x\_reader. \\n\\ \\n cl\_demo\_input=>new( )->request( \\n CHANGING field = me->name ). \\n\\ \\n SELECT SINGLE picture \\n FROM demo\_blob\_table \\n WHERE name = @name \\n INTO @reader. \\n\\ \\n IF sy-subrc <> 0. \\n out->write( 'Nothing found, run DEMO\_DB\_WRITER first!' ). \\n RETURN. \\n ENDIF. \\n\\ \\n pict = VALUE #( FOR j = 1 WHILE reader->data\_available( ) \\n ( reader->read( 1022 ) ) ). \\n\\ \\n reader->close( ). \\n\\ \\n show\_picture( ). \\n\\ \\n ENDMETHOD. \\n METHOD show\_picture. \\n DATA ext\_data TYPE cl\_abap\_browser=>load\_tab. \\n FINAL(html\_str) = \`![](PICT.GIF)\`. \\n ext\_data = VALUE #( \\n ( name = 'PICT.GIF' type = 'image' dref = REF #( pict ) ) ). \\n cl\_abap\_browser=>show\_html( \\n EXPORTING \\n html\_string = html\_str \\n format = cl\_abap\_browser=>landscape \\n size = cl\_abap\_browser=>small \\n data\_table = ext\_data \\n check\_html = ' ' ). \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abendb\_access.html abenabap\_sql.html abenstreams\_locators.html abenlobs\_abexas.html

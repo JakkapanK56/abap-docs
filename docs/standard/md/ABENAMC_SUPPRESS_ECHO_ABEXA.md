@@ -1,0 +1,20 @@
+---
+title: "ABENAMC_SUPPRESS_ECHO_ABEXA"
+description: |
+  ABENAMC_SUPPRESS_ECHO_ABEXA - Standard ABAP language reference documentation
+library: "standard"
+libraryName: "Standard ABAP"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENAMC_SUPPRESS_ECHO_ABEXA.htm"
+abapFile: "ABENAMC_SUPPRESS_ECHO_ABEXA.html"
+keywords: ["select", "if", "try", "catch", "method", "class", "data", "ABENAMC", "SUPPRESS", "ECHO", "ABEXA"]
+---
+
+This example demonstrates the suppression of [AMC](ABENAMC_GLOSRY.html) messages to the current ABAP session.
+
+Like in the executable example for [Receiving Messages](ABENAMC_RECEIVE_ABEXA.html), a receiver object for the messaging channel `/demo_text` of the application `DEMO_AMC` from the package `SABAPDEMOS` is registered. In the example shown here, the text message can be sent by calling the class `CL_DEMO_SEND_AMC` from the example [Sending Messages](ABENAMC_SEND_ABEXA.html) within the same ABAP session.
+
+The message is only received if the initial value is transferred during sending to the parameter `I_SUPPRESS_ECHO` of the method `CREATE_MESSAGE_PRODUCER`. If the `Suppress echo` checkbox is selected, on the other hand, the message is suppressed.
+
+\* Public class definition \\nCLASS cl\_demo\_amc\_suppress\_echo DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* CCIMP \\nCLASS message\_receiver DEFINITION. \\n PUBLIC SECTION. \\n INTERFACES: \\n if\_amc\_message\_receiver\_text. \\n DATA text\_message TYPE string. \\nENDCLASS. \\n\\ \\nCLASS message\_receiver IMPLEMENTATION. \\n METHOD if\_amc\_message\_receiver\_text~receive. \\n text\_message = i\_message. \\n ENDMETHOD. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_amc\_suppress\_echo IMPLEMENTATION. \\n METHOD main. \\n FINAL(receiver) = NEW message\_receiver( ). \\n TRY. \\n cl\_amc\_channel\_manager=>create\_message\_consumer( \\n i\_application\_id = 'DEMO\_AMC' \\n i\_channel\_id = '/demo\_text' \\n )->start\_message\_delivery( i\_receiver = receiver ). \\n CATCH cx\_amc\_error INTO FINAL(text\_exc). \\n out->write( text\_exc->get\_text( ) ). \\n ENDTRY. \\n\\ \\n "Check 'Send text message' and toggle 'Suppress echo' \\n NEW cl\_demo\_send\_amc( )->main( ). \\n\\ \\n WAIT FOR MESSAGING CHANNELS \\n UNTIL receiver->text\_message IS NOT INITIAL \\n UP TO 1 SECONDS. \\n\\ \\n IF receiver->text\_message IS NOT INITIAL. \\n out->write( receiver->text\_message ). \\n ENDIF. \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\nCLASS cl\_demo\_amc\_suppress\_echo DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* CCIMP \\nCLASS message\_receiver DEFINITION. \\n PUBLIC SECTION. \\n INTERFACES: \\n if\_amc\_message\_receiver\_text. \\n DATA text\_message TYPE string. \\nENDCLASS. \\n\\ \\nCLASS message\_receiver IMPLEMENTATION. \\n METHOD if\_amc\_message\_receiver\_text~receive. \\n text\_message = i\_message. \\n ENDMETHOD. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_amc\_suppress\_echo IMPLEMENTATION. \\n METHOD main. \\n FINAL(receiver) = NEW message\_receiver( ). \\n TRY. \\n cl\_amc\_channel\_manager=>create\_message\_consumer( \\n i\_application\_id = 'DEMO\_AMC' \\n i\_channel\_id = '/demo\_text' \\n )->start\_message\_delivery( i\_receiver = receiver ). \\n CATCH cx\_amc\_error INTO FINAL(text\_exc). \\n out->write( text\_exc->get\_text( ) ). \\n ENDTRY. \\n\\ \\n "Check 'Send text message' and toggle 'Suppress echo' \\n NEW cl\_demo\_send\_amc( )->main( ). \\n\\ \\n WAIT FOR MESSAGING CHANNELS \\n UNTIL receiver->text\_message IS NOT INITIAL \\n UP TO 1 SECONDS. \\n\\ \\n IF receiver->text\_message IS NOT INITIAL. \\n out->write( receiver->text\_message ). \\n ENDIF. \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abenabap\_channel\_daemon.html abenabap\_channels.html abenamc.html abenamc\_abexas.html

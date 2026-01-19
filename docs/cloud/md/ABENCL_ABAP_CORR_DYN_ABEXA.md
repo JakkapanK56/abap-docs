@@ -1,0 +1,36 @@
+---
+title: "Demo for ABAP Keyword Documentation"
+description: |
+  n'! n'! Disclaimer:  n'! This class represents a demonstration program of the ABAP Keyword n'! Documentation, primarily intended to provide a better explanation n'! and visualization of syntax. It is not intended for production use n'! and may use demo artifacts that are not rel
+library: "cloud"
+libraryName: "ABAP Cloud"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENCL_ABAP_CORR_DYN_ABEXA.htm"
+abapFile: "ABENCL_ABAP_CORR_DYN_ABEXA.html"
+keywords: ["do", "if", "try", "catch", "method", "class", "data", "types", "ABENCL", "ABAP", "CORR", "DYN", "ABEXA"]
+---
+
+This example demonstrates the system class [`CL_ABAP_CORRESPONDING`](ABENCL_ABAP_CORRESPONDING.html) for simple structures.
+
+The components of the structure `struct1` are assigned to the structure `struct2` using the system class [`CL_ABAP_CORRESPONDING`](ABENCL_ABAP_CORRESPONDING.html). User input can control which components are mapped to each other.
+
+\* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_crrspndng\_class\_dyn DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_crrspndng\_class\_dyn IMPLEMENTATION. \\n METHOD main. \\n TYPES: \\n BEGIN OF names, \\n n1 TYPE c LENGTH 2, \\n n2 TYPE c LENGTH 2, \\n n3 TYPE c LENGTH 2, \\n END OF names. \\n\\ \\n DATA: \\n BEGIN OF struct1, \\n a1 TYPE string VALUE 'a1', \\n a2 TYPE string VALUE 'a2', \\n a3 TYPE string VALUE 'a3', \\n END OF struct1, \\n BEGIN OF struct2, \\n b1 TYPE string VALUE 'b1', \\n b2 TYPE string VALUE 'b2', \\n b3 TYPE string VALUE 'b3', \\n END OF struct2. \\n\\ \\n DATA(src) = VALUE names( n1 = 'a1' n2 = 'a2' n3 = 'a3' ). \\n DATA(dst) = VALUE names( n1 = 'b3' n2 = 'b2' n3 = 'b1' ). \\n\\ \\n cl\_demo\_input=>new( \\n )->add\_field( CHANGING field = src-n1 \\n )->add\_field( CHANGING field = dst-n1 \\n )->add\_line( \\n )->add\_field( CHANGING field = src-n2 \\n )->add\_field( CHANGING field = dst-n2 \\n )->add\_line( \\n )->add\_field( CHANGING field = src-n3 \\n )->add\_field( CHANGING field = dst-n3 \\n )->request( ). \\n\\ \\n TRY. \\n FINAL(mapper) = \\n cl\_abap\_corresponding=>create( \\n source = struct1 \\n destination = struct2 \\n mapping = VALUE cl\_abap\_corresponding=>mapping\_table( \\n ( level = 0 kind = 1 srcname = src-n1 dstname = dst-n1 ) \\n ( level = 0 kind = 1 srcname = src-n2 dstname = dst-n2 ) \\n ( level = 0 kind = 1 srcname = src-n3 dstname = dst-n3 ) \\n ) ). \\n\\ \\n mapper->execute( EXPORTING source = struct1 \\n CHANGING destination = struct2 ). \\n CATCH cx\_corr\_dyn\_error INTO FINAL(exc). \\n out->write( exc->get\_text( ) ). \\n ENDTRY. \\n\\ \\n out->write( struct2 ). \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_crrspndng\_class\_dyn DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_crrspndng\_class\_dyn IMPLEMENTATION. \\n METHOD main. \\n TYPES: \\n BEGIN OF names, \\n n1 TYPE c LENGTH 2, \\n n2 TYPE c LENGTH 2, \\n n3 TYPE c LENGTH 2, \\n END OF names. \\n\\ \\n DATA: \\n BEGIN OF struct1, \\n a1 TYPE string VALUE 'a1', \\n a2 TYPE string VALUE 'a2', \\n a3 TYPE string VALUE 'a3', \\n END OF struct1, \\n BEGIN OF struct2, \\n b1 TYPE string VALUE 'b1', \\n b2 TYPE string VALUE 'b2', \\n b3 TYPE string VALUE 'b3', \\n END OF struct2. \\n\\ \\n DATA(src) = VALUE names( n1 = 'a1' n2 = 'a2' n3 = 'a3' ). \\n DATA(dst) = VALUE names( n1 = 'b3' n2 = 'b2' n3 = 'b1' ). \\n\\ \\n cl\_demo\_input=>new( \\n )->add\_field( CHANGING field = src-n1 \\n )->add\_field( CHANGING field = dst-n1 \\n )->add\_line( \\n )->add\_field( CHANGING field = src-n2 \\n )->add\_field( CHANGING field = dst-n2 \\n )->add\_line( \\n )->add\_field( CHANGING field = src-n3 \\n )->add\_field( CHANGING field = dst-n3 \\n )->request( ). \\n\\ \\n TRY. \\n FINAL(mapper) = \\n cl\_abap\_corresponding=>create( \\n source = struct1 \\n destination = struct2 \\n mapping = VALUE cl\_abap\_corresponding=>mapping\_table( \\n ( level = 0 kind = 1 srcname = src-n1 dstname = dst-n1 ) \\n ( level = 0 kind = 1 srcname = src-n2 dstname = dst-n2 ) \\n ( level = 0 kind = 1 srcname = src-n3 dstname = dst-n3 ) \\n ) ). \\n\\ \\n mapper->execute( EXPORTING source = struct1 \\n CHANGING destination = struct2 ). \\n CATCH cx\_corr\_dyn\_error INTO FINAL(exc). \\n out->write( exc->get\_text( ) ). \\n ENDTRY. \\n\\ \\n out->write( struct2 ). \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abenabap\_data\_working.html abenvalue\_assignments.html abencorresponding.html abencorresponding\_abexas.html

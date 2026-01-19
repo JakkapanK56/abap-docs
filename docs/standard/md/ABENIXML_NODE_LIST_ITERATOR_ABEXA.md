@@ -1,0 +1,18 @@
+---
+title: "ABENIXML_NODE_LIST_ITERATOR_ABEXA"
+description: |
+  ABENIXML_NODE_LIST_ITERATOR_ABEXA - Standard ABAP language reference documentation
+library: "standard"
+libraryName: "Standard ABAP"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENIXML_NODE_LIST_ITERATOR_ABEXA.htm"
+abapFile: "ABENIXML_NODE_LIST_ITERATOR_ABEXA.html"
+keywords: ["do", "if", "method", "class", "data", "ABENIXML", "NODE", "LIST", "ITERATOR", "ABEXA"]
+---
+
+Accesses the nodes in a node list in DOM using an iterator.
+
+XML data is first transformed to an input stream object and the object is then imported into a `DOM` object using a parser object. If parsed successfully, an iterator is created for the subnodes of the root node and used for iterations.
+
+\* Public class definition \\nCLASS cl\_demo\_ixml\_node\_list\_itrtr DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_ixml\_node\_list\_itrtr IMPLEMENTATION. \\n METHOD main. \\n FINAL(ixml) = cl\_ixml=>create( ). \\n FINAL(stream\_factory) = ixml->create\_stream\_factory( ). \\n\\ \\n FINAL(istream) = stream\_factory->create\_istream\_string( \\n \`\` && \\n \` aaa\` && \\n \` bbb\` && \\n \`\` ). \\n\\ \\n FINAL(document) = ixml->create\_document( ). \\n FINAL(parser) = ixml->create\_parser( \\n stream\_factory = stream\_factory \\n istream = istream \\n document = document ). \\n\\ \\n FINAL(rc) = parser->parse( ). \\n\\ \\n IF rc <> ixml\_mr\_parser\_ok. \\n ... "Error handling \\n RETURN. \\n ENDIF. \\n\\ \\n FINAL(nodes) = document->get\_root\_element( )->get\_children( ). \\n FINAL(iterator) = nodes->create\_iterator( ). \\n\\ \\n DO. \\n FINAL(node) = iterator->get\_next( ). \\n IF node IS INITIAL. \\n EXIT. \\n ENDIF. \\n out->write\_text( |\\{ node->get\_name( ) \\} | && \\n |\\{ node->get\_value( ) \\}| ). \\n ENDDO. \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\nCLASS cl\_demo\_ixml\_node\_list\_itrtr DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_ixml\_node\_list\_itrtr IMPLEMENTATION. \\n METHOD main. \\n FINAL(ixml) = cl\_ixml=>create( ). \\n FINAL(stream\_factory) = ixml->create\_stream\_factory( ). \\n\\ \\n FINAL(istream) = stream\_factory->create\_istream\_string( \\n \`\` && \\n \` aaa\` && \\n \` bbb\` && \\n \`\` ). \\n\\ \\n FINAL(document) = ixml->create\_document( ). \\n FINAL(parser) = ixml->create\_parser( \\n stream\_factory = stream\_factory \\n istream = istream \\n document = document ). \\n\\ \\n FINAL(rc) = parser->parse( ). \\n\\ \\n IF rc <> ixml\_mr\_parser\_ok. \\n ... "Error handling \\n RETURN. \\n ENDIF. \\n\\ \\n FINAL(nodes) = document->get\_root\_element( )->get\_children( ). \\n FINAL(iterator) = nodes->create\_iterator( ). \\n\\ \\n DO. \\n FINAL(node) = iterator->get\_next( ). \\n IF node IS INITIAL. \\n EXIT. \\n ENDIF. \\n out->write\_text( |\\{ node->get\_name( ) \\} | && \\n |\\{ node->get\_value( ) \\}| ). \\n ENDDO. \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abendata\_interchange.html abenabap\_xml.html abenabap\_xml\_libs.html abenabap\_ixml\_lib.html abenabap\_ixml\_lib\_abexas.html

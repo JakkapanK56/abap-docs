@@ -1,0 +1,36 @@
+---
+title: "Demo for ABAP Keyword Documentation"
+description: |
+  n'! n'! Disclaimer:  n'! This class represents a demonstration program of the ABAP Keyword n'! Documentation, primarily intended to provide a better explanation n'! and visualization of syntax. It is not intended for production use n'! and may use demo artifacts that are not rel
+library: "cloud"
+libraryName: "ABAP Cloud"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENSXML_RENDERING_ABEXA.htm"
+abapFile: "ABENSXML_RENDERING_ABEXA.html"
+keywords: ["do", "if", "try", "catch", "method", "class", "data", "ABENSXML", "RENDERING", "ABEXA"]
+---
+
+[Token-based](ABENABAP_SXML_LIB_RENDER_TOKEN.html) writing of simple XML data.
+
+This example shows how XML data can be created using the methods `OPEN_ELEMENT`, `WRITE_ATTRIBUTE`, `WRITE_VALUE`, `CLOSE_ELEMENT`, of the interface `IF_SXML_WRITER`.
+
+\* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_sxml\_token\_writer DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_sxml\_token\_writer IMPLEMENTATION. \\n METHOD main. \\n FINAL(writer) = \\n CAST if\_sxml\_writer( cl\_sxml\_string\_writer=>create( ) ). \\n TRY. \\n writer->open\_element( name = 'texts' \\n nsuri = 'http://www.sap.com/abapdemos' \\n prefix = 'demo' ). \\n writer->open\_element( name = 'text' \\n nsuri = 'http://www.sap.com/abapdemos' ). \\n writer->write\_attribute( name = 'format' value = 'bold' ). \\n writer->write\_attribute( name = 'level' value = '1' ). \\n writer->write\_value( 'aaaa' ). \\n writer->close\_element( ). \\n writer->open\_element( name = 'text' \\n nsuri = 'http://www.sap.com/abapdemos' ). \\n writer->write\_attribute( name = 'format' value = 'italic' ). \\n writer->write\_attribute( name = 'level' value = '2' ). \\n writer->write\_value( 'bbbb' ). \\n writer->close\_element( ). \\n writer->close\_element( ). \\n CATCH cx\_sxml\_state\_error INTO FINAL(error). \\n out->write\_text( error->get\_text( ) ). \\n RETURN. \\n ENDTRY. \\n FINAL(xml) = \\n CAST cl\_sxml\_string\_writer( writer )->get\_output( ). \\n out->write\_xml( xml ). \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_sxml\_token\_writer DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_sxml\_token\_writer IMPLEMENTATION. \\n METHOD main. \\n FINAL(writer) = \\n CAST if\_sxml\_writer( cl\_sxml\_string\_writer=>create( ) ). \\n TRY. \\n writer->open\_element( name = 'texts' \\n nsuri = 'http://www.sap.com/abapdemos' \\n prefix = 'demo' ). \\n writer->open\_element( name = 'text' \\n nsuri = 'http://www.sap.com/abapdemos' ). \\n writer->write\_attribute( name = 'format' value = 'bold' ). \\n writer->write\_attribute( name = 'level' value = '1' ). \\n writer->write\_value( 'aaaa' ). \\n writer->close\_element( ). \\n writer->open\_element( name = 'text' \\n nsuri = 'http://www.sap.com/abapdemos' ). \\n writer->write\_attribute( name = 'format' value = 'italic' ). \\n writer->write\_attribute( name = 'level' value = '2' ). \\n writer->write\_value( 'bbbb' ). \\n writer->close\_element( ). \\n writer->close\_element( ). \\n CATCH cx\_sxml\_state\_error INTO FINAL(error). \\n out->write\_text( error->get\_text( ) ). \\n RETURN. \\n ENDTRY. \\n FINAL(xml) = \\n CAST cl\_sxml\_string\_writer( writer )->get\_output( ). \\n out->write\_xml( xml ). \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abendata\_interchange.html abenabap\_xml.html abenabap\_xml\_libs.html abenabap\_sxml\_lib.html abenabap\_sxml\_lib\_abexas.html

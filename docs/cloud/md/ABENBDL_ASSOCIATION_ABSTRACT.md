@@ -1,0 +1,38 @@
+---
+title: "ABENBDL_ASSOCIATION_ABSTRACT"
+description: |
+  ABENBDL_ASSOCIATION_ABSTRACT - ABAP Cloud language reference documentation
+library: "cloud"
+libraryName: "ABAP Cloud"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENBDL_ASSOCIATION_ABSTRACT.htm"
+abapFile: "ABENBDL_ASSOCIATION_ABSTRACT.html"
+keywords: ["update", "delete", "do", "while", "if", "class", "data", "types", "ABENBDL", "ASSOCIATION", "ABSTRACT"]
+---
+
+`... association [(mandatory:execute)] _Assoc [with hierarchy];`
+
+Includes a [CDS association](ABENCDS_ASSOCIATION_GLOSRY.html) in the hierarchical [BDEF derived type](ABENRAP_DERIVED_TYPE_GLOSRY.html). The keyword `association` is used for associations and for [CDS compositions](ABENCDS_COMPOSITION_GLOSRY.html). An entity whose child entity is included in the same [abstract BDEF](ABENCDS_ABSTRACT_BDEF_GLOSRY.html)\\ **must** specify the respective composition using the keyword `association`. If no behavior is defined for a subnode, then the respective composition **must not** be specified.
+
+The optional addition `mandatory:execute` declares an association of an abstract BDEF as mandatory. It can be used for [CDS compositions](ABENCDS_COMPOSITION_GLOSRY.html) and for [cross-BO associations](ABENCDS_CROSS_BO_ASSOC_GLOSRY.html), but not for to-parent associations. Whenever the abstract BDEF is used as an [input parameter](ABENBDL_ACTION_INPUT_PARAM.html) for a [RAP action](ABENRAP_ACTION_GLOSRY.html) or a [RAP function](ABENRAP_FUNCTION_GLOSRY.html), a value must be supplied, that is, the [`%control`](ABAPDERIVED_TYPES_CONTROL.html) flag must be set. Otherwise, a [runtime error](ABENRUNTIME_ERROR_GLOSRY.html) occurs. As a prerequisite, the addition [`with hierarchy`](ABENBDL_BDEF_ABSTRACT_HEADER.html) must be used in the [behavior definition header](ABENCDS_BDEF_HEADER_GLOSRY.html) and [`with control`](ABENBDL_DEFINE_BEH_ABSTRACT.html) must be specified for the [entity behavior definition](ABENCDS_ENTITY_BDEF_GLOSRY.html) in question. In addition, the [BDEF strict mode](ABENRAP_STRICT_MODE_GLOSRY.html) must be enabled. When using [`IN LOCAL MODE`](ABAPIN_LOCAL_MODE.html), `mandatory:execute` has no effect.
+
+The optional addition `with hierarchy` can be used for [cross-BO associations](ABENCDS_CROSS_BO_ASSOC_GLOSRY.html) that specify [`with hierarchy`](ABENBDL_BDEF_ABSTRACT_HEADER.html) in the BDEF header. An association with this addition is handled like a composition: the target type is integrated (as structure or table, depending on the cardinality) into the source type. As a result, the association in question is included several times in the type structure. The definable structure thus generalizes from type tree to DAG (directed acyclic graph). Note that the addition `with hierarchy` must not be used for to-child associations or to-parent associations to avoid cyclical graphs.
+
+The [association target](ABENASSOCIATION_TARGET_GLOSRY.html) of an association with the addition `with hierarchy` must be covered by an abstract BDEF `with hierarchy`. Typically, to-parent associations `with hierarchy` are used for local sub-structures, while cross-BO associations serve reuse.
+
+[Type mappings](ABENBDL_TYPE_MAPPING_ABSTRACT.html) to other DDIC types continue to be defined in the BDEF containing the respective entity. Thus, if a hierarchical type is defined with cross-BO associations, its mapping to a hierarchical DDIC type spreads out across multiple abstract BDEFs.
+
+The following abstract BDEF defines behavior for four nodes, including intra- and cross-BO associations.
+
+The following example demonstrates the effect of the attribute `mandatory:execute`.
+
+The abstract BDEF `DEMO_CDS_ABSTRACT_ROOT_ME` defines the association `_child` as `mandatory:execute`.
+
+The managed BDEF `DEMO_RAP_MANDATORY_EXEC_ASSOC` defines an action `Action1`. This action specifies the abstract BDEF`DEMO_CDS_ABSTRACT_ROOT_ME` as deep output parameter.
+
+The ABAP class `CL_DEMO_MANDATORY_EXECUTE_ASSO` executes the action `ACTION1`. It sets the [`%control`](ABAPDERIVED_TYPES_COMP.html) structure for the association `_child` to `if_abap_behv=>mk-on`. This is mandatory, since this association is marked as `mandatory:execute` in the abstract BDEF that is used as input parameter. If the `%control` structure were set to `if_abap_behv=>mk-off` or not provided at all, a runtime error would occur.
+
+Code Snippet:
+
+abstract;\\nstrict(2);\\nwith hierarchy;\\n\\ndefine behavior for DEMO\_CDS\_SCALAR\_ROOT alias Root\\nwith control\\n\\{\\n association \_sibling;\\n\\n association \_item1;\\n\\n // key field, unwanted in dTypes\\n field ( suppress ) key\_field;\\n\\n deep mapping for demo\_cds\_scalar\_1 corresponding\\n \\{\\n field1 = r\_fd1;\\n field2 = r\_fd2;\\n field3 = r\_sib;\\n\\n sub \_Item1 = sub\_1;\\n \\}\\n\\}\\n\\ndefine behavior for DEMO\_CDS\_SCALAR\_CHILD alias Child\\nwith control\\n\\{\\n // foreign key field for parent, unwanted in dTypes\\n field ( suppress ) key\_field, i1pfk;\\n\\n // hierarchy-enabled \[\*\]-assoc to foreign entity\\n association \_i1\_r2 with hierarchy;\\n\\n association \_sub1;\\n association \_sub3;\\n deep mapping for DEMO\_CDS\_SCALAR\_3 corresponding\\n \\{\\n i1fd1 = i1\_fd1;\\n i1fd2 = i1\_fd2;\\n sub \_sub1 = sub\_1;\\n sub \_sub3 = sub\_3; // scalar (table)\\n sub \_i1\_r2 = root2; // cross-BO assoc \[\*\] "with hierarchy"\\n\\n \\}\\n\\}\\n\\ndefine behavior for DEMO\_CDS\_SCALAR\_GRANDCHILD\_1 alias Grandchild1\\nwith control\\n\\{\\n field ( suppress ) s1key, s1pfk, s1rfk;\\n\\n mapping for DEMO\_CDS\_SCALAR\_5 corresponding\\n \\{\\n s1fd1 = s1\_fd1;\\n s1fd2 = s1\_fd2;\\n \\}\\n\\}\\n\\nscalar entity DEMO\_CDS\_SCALAR\_GRANDCHILD\_2 field s3val; abstract;\\nstrict ( 2 );\\nwith hierarchy;\\n\\ndefine behavior for DEMO\_CDS\_ABSTRACT\_ROOT\_ME alias Root\\nwith control\\n\\{\\n field ( mandatory : execute ) id, comp1;\\n association ( mandatory : execute ) \_child;\\n\\}\\n\\ndefine behavior for DEMO\_CDS\_ABSTRACT\_CHILD\_ME alias Child\\nwith control\\n\\{\\n field ( mandatory : execute ) iid, comp2;\\n association \_root;\\n\\} managed implementation in class bp\_demo\_rap\_mandatory\_exec\_ass unique;\\nstrict ( 2 );\\n\\ndefine behavior for DEMO\_RAP\_MANDATORY\_EXEC\_ASSOC\\npersistent table demo\_ddic\_types\\nlock master\\nauthorization master ( instance, global )\\n\\{\\n create;\\n update;\\n delete;\\n\\n field(readonly:update) id;\\n\\n action (authorization:none) Action1 deep parameter\\n DEMO\_CDS\_ABSTRACT\_ROOT\_ME;\\n\\} FINAL(out) = cl\_demo\_output=>new( ). \\n\\ \\nDATA: \\n "Derived type for abstract entity; \\n par1 TYPE TABLE FOR ACTION IMPORT \\n demo\_rap\_mandatory\_exec\_assoc~action1. \\n\\ \\npar1 = VALUE #( ( \\n id = 'A' \\n %param = VALUE #( \\n %control = VALUE #( \\n id = if\_abap\_behv=>mk-on \\n comp1 = if\_abap\_behv=>mk-on \\n \_child = if\_abap\_behv=>mk-on \\n ) \\n \_child = VALUE #( ( \\n %control = VALUE #( \\n iid = if\_abap\_behv=>mk-on \\n comp2 = if\_abap\_behv=>mk-on ) ) ) ) \\n ) ). \\n\\ \\n"Executing Action1 \\nMODIFY ENTITY demo\_rap\_mandatory\_exec\_assoc \\n EXECUTE action1 \\n FROM par1 \\n MAPPED FINAL(ls\_mapped2) \\n REPORTED FINAL(ls\_reported2) \\n FAILED FINAL(ls\_failed2). \\n\\ \\nout->write( \`Action1 successfully called\` ). \\n\\ \\nout->display( ). abenabap.html abenabap\_rap.html abencds\_bdef.html abenbdl.html abenbdl\_abstract.html abenbdl\_define\_beh\_abstract.html abenbdl\_body\_abstract.html

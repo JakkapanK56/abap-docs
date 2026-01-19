@@ -1,0 +1,36 @@
+---
+title: "Demo for ABAP Keyword Documentation"
+description: |
+  n'! n'! Disclaimer:  n'! This class represents a demonstration program of the ABAP Keyword n'! Documentation, primarily intended to provide a better explanation n'! and visualization of syntax. It is not intended for production use n'! and may use demo artifacts that are not rel
+library: "cloud"
+libraryName: "ABAP Cloud"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENFOR_GROUP_BY_LVLS_NST_ABEXA.htm"
+abapFile: "ABENFOR_GROUP_BY_LVLS_NST_ABEXA.html"
+keywords: ["select", "loop", "do", "if", "case", "method", "class", "data", "types", "ABENFOR", "GROUP", "LVLS", "NST", "ABEXA"]
+---
+
+This example demonstrates nested group level processing using [`GROUP BY`](ABENFOR_GROUPS_OF.html) in a `FOR` expression.
+
+This example works in the same way as the corresponding [executable example](ABENLOOP_GROUP_BY_LVLS_NST_ABEXA.html) for [`LOOP AT ... GROUP BY`](ABAPLOOP_AT_ITAB_GROUP_BY.html), but uses the expression [`FOR GROUPS ... OF`](ABENFOR_GROUPS_OF.html) for [table reductions](ABENTABLE_REDUCTION_GLOSRY.html) with [`REDUCE`](ABENCONSTRUCTOR_EXPRESSION_REDUCE.html) instead of the [group loops](ABENGROUP_LOOP_GLOSRY.html). In both cases, the group keys after `GROUP BY` are constructed in exactly the same way. Instead of the [member loops](ABENMEMBER_LOOP_GLOSRY.html), further table reductions and a [table comprehension](ABENTABLE_COMPREHENSION_GLOSRY.html) are used here.
+
+\* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_for\_grps\_by\_lvls\_nest DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_for\_grps\_by\_lvls\_nest IMPLEMENTATION. \\n METHOD main. \\n TYPES: BEGIN OF group, \\n fldate TYPE sflight-fldate, \\n seatsocc TYPE sflight-seatsocc, \\n END OF group, \\n group\_tab TYPE STANDARD TABLE OF group WITH EMPTY KEY. \\n\\ \\n DATA: sflight\_tab TYPE SORTED TABLE OF sflight \\n WITH UNIQUE KEY carrid connid fldate. \\n\\ \\n DATA(display\_members) = abap\_false. \\n cl\_demo\_input=>new( \\n )->request( EXPORTING text = \`Display Group Members?\` \\n CHANGING field = display\_members ). \\n\\ \\n SELECT \* \\n FROM sflight \\n INTO TABLE @sflight\_tab UP TO 1000 ROWS. \\n\\ \\n FINAL(total\_sum) = \\n REDUCE i( \\n LET wg = xsdbool( to\_upper( display\_members ) = abap\_true ) IN \\n INIT t = 0 \\n o1 = out \\n FOR GROUPS OF carrid\_group IN sflight\_tab \\n GROUP BY carrid\_group-carrid \\n LET carrid\_sum = \\n REDUCE i( \\n INIT s1 = 0 \\n o2 = out \\n FOR GROUPS OF connid\_group IN GROUP carrid\_group \\n GROUP BY connid\_group-connid \\n LET connid\_sum = \\n REDUCE i( \\n INIT s2 = 0 \\n FOR m IN GROUP connid\_group \\n NEXT s2 += m-seatsocc ) \\n o3 = out->next\_section( \\n |\\{ connid\_group-carrid \\} \\{ connid\_group-connid \\}| ) \\n o4 = COND #( WHEN wg = abap\_true \\n THEN LET group = VALUE group\_tab( \\n FOR m IN GROUP connid\_group \\n ( CORRESPONDING #( m ) ) ) IN \\n out->write( group ) ) IN \\n NEXT s1 += connid\_sum \\n o2 = o2->write( |Sum: \\{ connid\_sum \\}| ) ) IN \\n NEXT t += carrid\_sum \\n o1 = o1->line( \\n )->write( |Carrier Sum: \\{ carrid\_sum \\}| \\n )->line( ) ). \\n\\ \\n out->write( |Overall Sum: | && \\n |\\{ total\_sum \\}| ). \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_for\_grps\_by\_lvls\_nest DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_for\_grps\_by\_lvls\_nest IMPLEMENTATION. \\n METHOD main. \\n TYPES: BEGIN OF group, \\n fldate TYPE sflight-fldate, \\n seatsocc TYPE sflight-seatsocc, \\n END OF group, \\n group\_tab TYPE STANDARD TABLE OF group WITH EMPTY KEY. \\n\\ \\n DATA: sflight\_tab TYPE SORTED TABLE OF sflight \\n WITH UNIQUE KEY carrid connid fldate. \\n\\ \\n DATA(display\_members) = abap\_false. \\n cl\_demo\_input=>new( \\n )->request( EXPORTING text = \`Display Group Members?\` \\n CHANGING field = display\_members ). \\n\\ \\n SELECT \* \\n FROM sflight \\n INTO TABLE @sflight\_tab UP TO 1000 ROWS. \\n\\ \\n FINAL(total\_sum) = \\n REDUCE i( \\n LET wg = xsdbool( to\_upper( display\_members ) = abap\_true ) IN \\n INIT t = 0 \\n o1 = out \\n FOR GROUPS OF carrid\_group IN sflight\_tab \\n GROUP BY carrid\_group-carrid \\n LET carrid\_sum = \\n REDUCE i( \\n INIT s1 = 0 \\n o2 = out \\n FOR GROUPS OF connid\_group IN GROUP carrid\_group \\n GROUP BY connid\_group-connid \\n LET connid\_sum = \\n REDUCE i( \\n INIT s2 = 0 \\n FOR m IN GROUP connid\_group \\n NEXT s2 += m-seatsocc ) \\n o3 = out->next\_section( \\n |\\{ connid\_group-carrid \\} \\{ connid\_group-connid \\}| ) \\n o4 = COND #( WHEN wg = abap\_true \\n THEN LET group = VALUE group\_tab( \\n FOR m IN GROUP connid\_group \\n ( CORRESPONDING #( m ) ) ) IN \\n out->write( group ) ) IN \\n NEXT s1 += connid\_sum \\n o2 = o2->write( |Sum: \\{ connid\_sum \\}| ) ) IN \\n NEXT t += carrid\_sum \\n o1 = o1->line( \\n )->write( |Carrier Sum: \\{ carrid\_sum \\}| \\n )->line( ) ). \\n\\ \\n out->write( |Overall Sum: | && \\n |\\{ total\_sum \\}| ). \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abenabap\_data\_working.html abenitab.html abentable\_processing\_expr\_func.html abenfor\_itab.html abenfor\_grouping\_abexas.html

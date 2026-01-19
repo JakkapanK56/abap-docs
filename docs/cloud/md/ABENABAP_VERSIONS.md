@@ -1,0 +1,21 @@
+---
+title: "ABENABAP_VERSIONS"
+description: |
+  ABENABAP_VERSIONS - ABAP Cloud language reference documentation
+library: "cloud"
+libraryName: "ABAP Cloud"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENABAP_VERSIONS.htm"
+abapFile: "ABENABAP_VERSIONS.html"
+keywords: ["do", "if", "method", "class", "ABENABAP", "VERSIONS"]
+---
+
+Each ABAP program has the [program property](ABENPROGRAM_PROPERTY_GLOSRY.html)\\ [ABAP language version](ABENABAP_VERSION_GLOSRY.html), which is defined internally by a version ID. The version of a program determines which language elements and which [repository objects](ABENREPOSITORY_OBJECT_GLOSRY.html) can be used in the program and which syntax rules apply. The following versions are currently available:
+
+-   If a program has a version ID that is not listed in the table above, it is handled in the same way as a version that does not support any language elements.
+-   The topic [Released APIs](ABENRELEASED_APIS.html) provides an overview of APIs that are released for the [restricted ABAP language versions](ABENRESTRICTED_VERSION_GLOSRY.html) in the current system.
+-   Besides ABAP programs, other repository objects can also have a property named ABAP language version.
+-   For an overview, see also [ABAP APIs](ABENABAP_VERSIONS_AND_APIS.html).
+
+**Language Version** **Meaning** **Version ID**\\ [Standard ABAP](ABENSTANDARD_ABAP_GLOSRY.html) This version of ABAP is an [unrestricted ABAP language version](ABENUNRESTRICTED_VERSION_GLOSRY.html) for [classic ABAP](ABENCLASSIC_ABAP_GLOSRY.html). It covers the entire language scope of ABAP that can be used in [Unicode systems](ABENUNICODE_SYSTEM_GLOSRY.html) and apart from the static [package concept](ABENPACKAGE_CONCEPT_GLOSRY.html), access to all other repository objects is allowed. The [syntax check](ABENSYNTAX_CHECK_GLOSRY.html) for Standard ABAP is performed as [Unicode check](ABENUNICODE_CHECK_GLOSRY.html), which is the minimum requirement for a [Unicode system](ABENUNICODE_SYSTEM_GLOSRY.html). The documentation of this version describes all ABAP language elements. `X`\\ [ABAP for Cloud Development](ABENABAP_FOR_CLOUD_DEV_GLOSRY.html) This version of ABAP is a [restricted ABAP language version](ABENRESTRICTED_VERSION_GLOSRY.html) for [ABAP Cloud](ABENABAP_CLOUD_GLOSRY.html). The general rules for [Standard ABAP](ABENSTANDARD_ABAP_GLOSRY.html) apply but only a very restricted set of language elements is supported and access to [repository objects](ABENREPOSITORY_OBJECT_GLOSRY.html) is restricted as [described here](ABENABAP_VERSIONS_AND_APIS.html). Furthermore, most developments can be implemented in methods only, where the stricter syntax rules of classes automatically apply. Almost no [obsolete language elements](ABENABAP_OBSOLETE.html) are allowed. For [ABAP SQL](ABENABAP_SQL_GLOSRY.html), the most strict syntax check mode currently available is applied. [Client isolation](ABENCLIENT_ISOLATION_GLOSRY.html) is enforced. The documentation for ABAP for Cloud Development is a restricted version of the full documentation. `5`\\ [ABAP for Key Users](ABENABAP_FOR_KEY_USERS_GLOSRY.html) This version of ABAP is intended for the secure implementation of enhancements by key users within the scope of enhancement options provided by SAP. ABAP for Key Users is a [restricted ABAP language version](ABENRESTRICTED_VERSION_GLOSRY.html) where the general rules for [Standard ABAP](ABENSTANDARD_ABAP_GLOSRY.html) apply but only a very restricted set of language elements is supported and access to [repository objects](ABENREPOSITORY_OBJECT_GLOSRY.html) is restricted as [described here](ABENABAP_VERSIONS_AND_APIS.html). Furthermore, enhancements can be implemented in methods only, where the stricter syntax rules for classes automatically apply and no [obsolete language elements](ABENABAP_OBSOLETE.html) are allowed. ABAP for Key Users is not supported by the ABAP keyword documentation. Only ABAP syntax diagrams with a short explanation are shown. For more information, see [Key User Extensibility](https://help.sap.com/docs/ABAP_PLATFORM_NEW/0f69f8fb28ac4bf48d2b57b9637e81fa/3ccb50e724b045508fea8b2cf1774b2b). `2` abenabap.html abenabap\_reference.html abenabap\_oview.html

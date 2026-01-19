@@ -1,0 +1,78 @@
+---
+title: "Annotation OData"
+description: |
+  @Scope:#ELEMENT etag : Boolean default true; @Scope:#ENTITY entitySet  name : String(30); ; entityType  name : String(128); ; action: array of  name : String(128); localName : String(30); ; property  name : String(128); ; @Scope:#SERVICE schema  name : Stri
+library: "standard"
+libraryName: "Standard ABAP"
+category: "cds"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCDS_448647776_ANNO.htm"
+abapFile: "ABENCDS_448647776_ANNO.html"
+keywords: ["do", "if", "data", "ABENCDS", "448647776", "ANNO"]
+---
+
+The following table shows the [properties](ABENCDS_SAP_ANNO_PROPS.html) of the annotation:
+
+The [annotation definition](ABENCDS_ANNO_DEFINITION_GLOSRY.html) documentation ([KTD](ABENKTD_GLOSRY.html)) is shown below.
+
+More documentation for that [framework-specific](ABENFRMWRK_ANNOTATION_GLOSRY.html) annotation can be found under [`OData Annotations`](https://help.sap.com/docs/ABAP_Cloud/f055b8bf582d4f34b91da667bc1fcce6/41629b24a5744795ba0e7884391f6b39?version=sap_cross_product_abap).
+
+Capture OData-related aspects to expose data gained from a CDS entity in an OData service.
+
+Annotation OData
+
+\\{
+
+@Scope:\[#ELEMENT\]
+
+etag : Boolean default true;
+
+@Scope:\[#ENTITY\]
+
+entitySet
+
+\\{
+
+name : String(30);
+
+\\};
+
+entityType
+
+\\{
+
+name : String(128);
+
+\\};
+
+action: array of \\{
+
+name : String(128);
+
+localName : String(30);
+
+\\};
+
+property
+
+\\{
+
+name : String(128);
+
+\\};
+
+@Scope:\[#SERVICE\]
+
+schema
+
+\\{
+
+name : String(128);
+
+\\};
+
+No KTD found
+
+No KTD found
+
+**Kind** [Framework-specific annotation](ABENFRMWRK_ANNOTATION_GLOSRY.html)\\ **Syntax** `OData.containment.accessByNavigationOnly`\\ **Scope** `#ENTITY`\\ **Type** `Boolean`\\ **Enums** `-`\\ **Default** `true`\\ **Text** `-`\\ **MDE** `-`\\ **API** `-` abenabap.html abencds.html abencds\_annotations.html abencds\_annotations\_sap.html abencds\_annotations\_ktd\_docu.html abencds\_frmwrk\_annos.html abencds\_odata\_f.html

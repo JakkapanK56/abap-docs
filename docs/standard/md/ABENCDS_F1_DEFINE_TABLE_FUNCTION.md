@@ -1,0 +1,36 @@
+---
+title: "ABENCDS_F1_DEFINE_TABLE_FUNCTION"
+description: |
+  ABENCDS_F1_DEFINE_TABLE_FUNCTION - Standard ABAP language reference documentation
+library: "standard"
+libraryName: "Standard ABAP"
+category: "data-structures"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCDS_F1_DEFINE_TABLE_FUNCTION.htm"
+abapFile: "ABENCDS_F1_DEFINE_TABLE_FUNCTION.html"
+keywords: ["select", "do", "if", "method", "class", "data", "types", "ABENCDS", "DEFINE", "TABLE", "FUNCTION"]
+---
+
+``[[`@entity_annot1`](ABENCDS_F1_ENTITY_ANNOTATIONS.html)]\  [[`@entity_annot2`](ABENCDS_F1_ENTITY_ANNOTATIONS.html)]\  ...  [[`@function_annot1`](ABENCDS_F1_FUNCTION_ANNOTATIONS.html)]\  [[`@function_annot2`](ABENCDS_F1_FUNCTION_ANNOTATIONS.html)]\  ...  [DEFINE] TABLE FUNCTION table_function           [[`parameter_list`](ABENCDS_F1_FUNC_PARAMETER_LIST.html)]\            [`element_list`](ABENCDS_F1_RETURN_LIST.html)\            IMPLEMENTED BY METHOD amdp_function [;]``
+
+Defines a [CDS entity](ABENCDS_ENTITY_GLOSRY.html)\\ `table_function` as a [CDS table function](ABENCDS_TABLE_FUNCTION_GLOSRY.html) in the [CDS DDL](ABENCDS_DDL_GLOSRY.html). In platform-dependent SQL, the CDS table function is implemented in an [AMDP method](ABENAMDP_METHOD_GLOSRY.html)\\ `amdp_function`, which is created using the [AMDP framework](ABENAMDP_GLOSRY.html) in the database system as an [AMDP table function](ABENAMDP_TABLE_FUNCTION_GLOSRY.html). The name `table_function` must comply with the naming conventions for [dictionary types](ABENDDIC_DATA_TYPES.html) and can have a maximum of 30 characters.
+
+A CDS table function returns a tabular result set. Like any [CDS entity](ABENCDS_ENTITY_GLOSRY.html), it can be used as a data source in other CDS entities or ABAP SQL read [statements](ABENABAP_SQL_GLOSRY.html). The prerequisite for use is that the specified AMDP function implementation exists and is active.
+
+The name of a CDS table function is located in the namespace of all [global types](ABENGLOBAL_TYPE_GLOSRY.html) of an AS ABAP.
+
+The following DDL source code shows a [client-dependent](ABENCDS_FUNC_CLIENT_HANDLING.html) CDS table function that is not [client-safe](ABENCLIENT_SAFE_GLOSRY.html). It contains an input parameter with the annotation `[Environment.systemField](ABENCDS_1937921420_ANNO.html)` and the predefined value [`#CLIENT`](ABENCDS_F1_PARAMETER_ANNOTATIONS.html) for the client, which is implicitly supplied with the ID of the [current client](ABENCURRENT_CLIENT_GLOSRY.html) when used as a [data source](ABAPSELECT_DATA_SOURCE.html) of the ABAP SQL statement [`SELECT`](ABAPSELECT.html). For more information about how to use this function, see the executable example for [AMDP Functions (not client-safe)](ABENAMDP_FUNCTIONS_ABEXA.html).
+
+The following DDL source code shows a [client-dependent](ABENCDS_FUNC_CLIENT_HANDLING.html) CDS table function that is [client-safe](ABENCLIENT_SAFE_GLOSRY.html). Client safety is enforced by the annotation `[ClientHandling.clientSafe](ABENCDS_1549616294_ANNO.html)` and the annotation `[ClientHandling.algorithm](ABENCDS_1114072352_ANNO.html)` must be used with the value `#SESSION_VARIABLE`. For more information about how to use this function, see the executable example for [AMDP Functions (client-safe)](ABENAMDP_FUNCTIONS_CS_ABEXA.html).
+
+-   [`@entity_annot`](ABENCDS_F1_ENTITY_ANNOTATIONS.html) and [`@function_annot`](ABENCDS_F1_FUNCTION_ANNOTATIONS.html) are used to specify optional [annotations](ABENCDS_ANNOTATION_GLOSRY.html) for the CDS table function.
+-   [`parameter_list`](ABENCDS_F1_FUNC_PARAMETER_LIST.html) is used to declare a list of optional input parameters for the CDS table function. These also define the input parameters of the AMDP table function.
+-   [`element_list`](ABENCDS_F1_RETURN_LIST.html) is used to declare the elements of the CDS table function. These also define the columns of the tabular return value of the AMDP table function.
+-   When `amdp_function` is used, an [AMDP function implementation](ABENAMDP_FUNCTION_METHOD_GLOSRY.html) must be specified for an [AMDP table function](ABENAMDP_TABLE_FUNCTION_GLOSRY.html) in the form `amdp_class=>amdp_method`. Here `amdp_class` is an [AMDP class](ABENAMDP_CLASS_GLOSRY.html) and `amdp_method` is an [AMDP function implementation](ABENAMDP_FUNCTION_METHODS.html) contained in this class. When this function implementation is declared, the current CDS table function is specified after the addition [`FOR TABLE FUNCTION`](ABAPCLASS-METHODS_FOR_TABFUNC.html). The AMDP function implementation must not exist when the CDS table function is created and activated. The name of an AMDP function implementation `amdp_function` can be specified in a single CDS table function only.
+
+-   If a [CDS role](ABENCDS_ROLE_GLOSRY.html) is defined for a CDS entity using the CDS-DCL statement [`DEFINE ROLE`](ABENCDS_F1_DEFINE_ROLE.html), implicit [access control](ABENCDS_ACCESS_CONTROL_GLOSRY.html) applies by default when the CDS entity is accessed using ABAP SQL. CDS access control can be switched off using the value `#NOT_ALLOWED` for the annotation [`@AccessControl.authorizationCheck`](ABENCDS_F1_FUNCTION_ANNOTATIONS.html) and using the addition [`WITH PRIVILEGED ACCESS`](ABAPSELECT_DATA_SOURCE.html) in the [`FROM`](ABAPFROM_CLAUSE.html) clause of an ABAP SQL query.
+-   The [DDL source code](ABENDDL_SOURCE_CODE_GLOSRY.html) of a CDS table function does not need to have the same name as the CDS table function, but it is advisable to use the name of the CDS table function.
+-   After DDL source code is transported, the combination of its name and the name of the CDS table function view is defined and can no longer be modified by being renamed.
+-   No ABAP Dictionary [DDIC structure](ABENDDIC_STRUCTURES.html) visible in the [tools](ABENDDIC_TOOLS.html) for structures is created for a CDS table function.
+
+@AccessControl.authorizationCheck: #NOT\_REQUIRED\\n@ClientHandling.type: #CLIENT\_DEPENDENT\\ndefine table function DEMO\_CDS\_GET\_SCARR\_SPFLI\_INPCL\\n with parameters\\n @Environment.systemField: #CLIENT\\n clnt :abap.clnt,\\n carrid :s\_carr\_id\\n returns\\n \\{\\n client :s\_mandt;\\n carrname :s\_carrname;\\n connid :s\_conn\_id;\\n cityfrom :s\_from\_cit;\\n cityto :s\_to\_city;\\n \\}\\n implemented by method\\n CL\_DEMO\_AMDP\_FUNCTIONS\_INPCL=>GET\_SCARR\_SPFLI\_FOR\_CDS; @AccessControl.authorizationCheck: #NOT\_ALLOWED\\n@ClientHandling.type: #CLIENT\_DEPENDENT\\n@ClientHandling.algorithm: #SESSION\_VARIABLE\\n@ClientHandling.clientSafe: true\\ndefine table function DEMO\_CDS\_GET\_SCARR\_SPFLI\_CS\\n with parameters\\n carrid :s\_carr\_id\\nreturns\\n\\{\\n client :s\_mandt;\\n carrname :s\_carrname;\\n connid :s\_conn\_id;\\n cityfrom :s\_from\_cit;\\n cityto :s\_to\_city;\\n\\}\\nimplemented by method\\n CL\_DEMO\_AMDP\_FUNCTIONS\_CS=>GET\_SCARR\_SPFLI\_FOR\_CDS; abenabap.html abencds.html abencds\_entities.html abencds\_f1\_ddl\_syntax.html abencds\_view\_entity.html abencds\_table\_functions.html

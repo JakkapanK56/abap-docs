@@ -1,0 +1,58 @@
+---
+title: "Demo for ABAP Keyword Documentation"
+description: |
+  n'! n'! Disclaimer:  n'! This class represents a demonstration program of the ABAP Keyword n'! Documentation, primarily intended to provide a better explanation n'! and visualization of syntax. It is not intended for production use n'! and may use demo artifacts that are not rel
+library: "cloud"
+libraryName: "ABAP Cloud"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENEML_SET_FLAGS_ABEXA.htm"
+abapFile: "ABENEML_SET_FLAGS_ABEXA.html"
+keywords: ["select", "update", "delete", "do", "if", "method", "class", "data", "ABENEML", "SET", "FLAGS", "ABEXA"]
+---
+
+This example demonstrates the variants of the `SET FLAGS` statement.
+
+**Data model**
+
+The CDS data model consists of the root entity `DEMO_MANAGED_ROOT_MAP` and its child entity `DEMO_MANAGED_CHILD_MAP`.
+
+Root entity:
+
+Child entity:
+
+**Behavior definition**
+
+The [RAP behavior definition](ABENCDS_BEHAVIOR_DEFINITION_GLOSRY.html)\\ `DEMO_MANAGED_ROOT_MAP` is defined in [RAP BDL](ABENCDS_BDL_GLOSRY.html) as follows:
+
+**Behavior implementation**
+
+For the above RAP behavior definition, one ABP (`BP_DEMO_MANAGED_ROOT_MAP`) is created. It is not relevant for the example.
+
+**Access with ABAP using EML**
+
+The above source code uses [EML](ABENEML_GLOSRY.html) to access the RAP business object from an ABAP class.
+
+For all variants of the `SET FLAGS` statement, variables are declared for the field list typed with `ABP_FIELD_NAME_TAB` and for the flags typed with a [BDEF derived type](ABENRAP_DERIVED_TYPE_GLOSRY.html) that includes the `%control` structure. The field list gets filled, purposely excluding certain field names. Thus, for all fields contained in the field list, the value for the respective component in the `%control` structure is `01`. The value for the ones that are not contained in the field list is `00`.
+
+As a result of all the `SET NAMES` statement variants, the `%control` structures are displayed in an output window. The first variant comprises examples for both `%control` and `%element`.
+
+@AccessControl.authorizationCheck: #NOT\_REQUIRED\\ndefine root view entity DEMO\_MANAGED\_ROOT\_MAP\\n as select from demo\_tab\_root\_3\\n composition \[1..\*\] of DEMO\_MANAGED\_CHILD\_MAP as \_child\\n \\{\\n key key\_field,\\n field1,\\n field2,\\n field3,\\n field4,\\n \_child\\n \\}\\n @AccessControl.authorizationCheck: #NOT\_REQUIRED\\ndefine view entity DEMO\_MANAGED\_CHILD\_MAP\\n as select from demo\_tab\_child\_3\\n association to parent DEMO\_MANAGED\_ROOT\_MAP \\n as \_parent on $projection.key\_field = \_parent.key\_field\\n \\{\\n \_parent,\\n key key\_field,\\n key key\_field\_child,\\n field1,\\n field2,\\n field3,\\n field4\\n \\}\\n managed implementation in class bp\_demo\_managed\_root\_map unique;\\nstrict(2);\\n\\ndefine behavior for DEMO\_MANAGED\_ROOT\_MAP\\npersistent table demo\_tab\_root\_3\\nlock master\\nauthorization master ( none )\\n\\n\\{\\n create;\\n update;\\n delete;\\n association \_child \\{ create; \\}\\n field(readonly:update) key\_field;\\n\\n mapping for demo\_struc corresponding\\n \\{\\n key\_field = b\_key\_field;\\n field1 = b\_field1;\\n field2 = b\_field2;\\n field3 = b\_field3;\\n field4 = b\_field4;\\n \\}\\n\\n mapping for demo\_struc2 control demo\_struc2\_ctrl corresponding\\n \\{\\n key\_field = a\_key\_field control a\_ctrl\_key\_field;\\n field1 = a\_field1 control a\_ctrl\_field1;\\n field2 = a\_field2 control a\_ctrl\_field2;\\n field3 = a\_field3 control a\_ctrl\_field3;\\n field4 = a\_field4 control a\_ctrl\_field4;\\n \\}\\n\\n mapping for demo\_struc3 control demo\_struc3\_ctrl corresponding\\n \\{\\n key\_field = z\_key\_field control z\_ctrl\_key\_field;\\n field1 = z\_field1 control z\_ctrl\_field1;\\n field2 = z\_field2 control z\_ctrl\_field2;\\n field3 = z\_field3 control z\_ctrl\_field3;\\n field4 = z\_field4 control z\_ctrl\_field4;\\n \\}\\n\\}\\n\\ndefine behavior for DEMO\_MANAGED\_CHILD\_MAP alias child\\npersistent table demo\_tab\_child\_3\\nlock dependent by \_parent\\nauthorization dependent by \_parent\\n\\{\\n update;\\n delete;\\n field ( readonly ) key\_field;\\n field(readonly:update) key\_field\_child;\\n association \_parent;\\n\\} \* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_rap\_eml\_set\_flags DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\n METHODS constructor. \\n\\ \\n PRIVATE SECTION. \\n METHODS: \\n initialize\_dbtabs. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_rap\_eml\_set\_flags IMPLEMENTATION. \\n METHOD main. \\n\\ \\n out->begin\_section( \`SET FLAGS Variants\` ). \\n\\ \\n "Variant: SET FLAGS flags FROM NAMES fields. \\n "Example with %control \\n out->write\_html( \\n '***Variant: SET FLAGS flags FROM NAMES fields.***' \\n ). \\n\\ \\n DATA: fields TYPE abp\_field\_name\_tab, \\n src TYPE STRUCTURE FOR CREATE demo\_managed\_root\_map. \\n\\ \\n fields = VALUE #( ( CONV #( 'KEY\_FIELD' ) ) \\n "( CONV #( 'FIELD1' ) ) \\n ( CONV #( 'FIELD2' ) ) \\n ( CONV #( 'FIELD3' ) ) \\n ( CONV #( 'FIELD4' ) ) \\n ). \\n\\ \\n SET FLAGS src FROM NAMES fields. \\n\\ \\n "Example with %element \\n DATA: fields2 TYPE abp\_field\_name\_tab, \\n src2 TYPE STRUCTURE FOR REPORTED demo\_managed\_root\_map. \\n\\ \\n fields2 = VALUE #( ( CONV #( 'KEY\_FIELD' ) ) \\n ( CONV #( 'FIELD1' ) ) \\n "( CONV #( 'FIELD2' ) ) \\n ( CONV #( 'FIELD3' ) ) \\n ( CONV #( 'FIELD4' ) ) \\n ( CONV #( '\_CHILD' ) ) \\n ). \\n\\ \\n SET FLAGS src2 FROM NAMES fields2. \\n\\ \\n out->write\_text( 'Example with %control' \\n )->write( src-%control \\n )->write\_text( 'Example with %element' \\n )->write( src2-%element ). \\n\\ \\n\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\* \\n\\ \\n "Variant: SET FLAGS flags FROM NAMES fields MAPPING TYPE p\_type. \\n out->write\_html( '***Variant: SET FLAGS flags*** ' && \\n '***FROM NAMES fields MAPPING TYPE p\_type.***' \\n ). \\n\\ \\n DATA: fields3 TYPE abp\_field\_name\_tab, \\n src3 TYPE STRUCTURE FOR CREATE demo\_managed\_root\_map. \\n\\ \\n fields3 = VALUE #( ( CONV #( 'B\_KEY\_FIELD' ) ) \\n ( CONV #( 'B\_FIELD1' ) ) \\n ( CONV #( 'B\_FIELD2' ) ) \\n "( CONV #( 'B\_FIELD3' ) ) \\n ( CONV #( 'B\_FIELD4' ) ) \\n ). \\n\\ \\n SET FLAGS src3 FROM NAMES fields3 MAPPING TYPE demo\_struc. \\n\\ \\n out->write( src3-%control ). \\n\\ \\n\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\* \\n\\ \\n "Variant: SET FLAGS flag FROM NAMES fields MAPPING LIKE var. \\n out->write\_html( '***Variant: SET FLAGS flags*** ' && \\n '***FROM NAMES fields MAPPING LIKE var.***' \\n ). \\n\\ \\n DATA: fields4 TYPE abp\_field\_name\_tab, \\n src4 TYPE STRUCTURE FOR CREATE demo\_managed\_root\_map, \\n var TYPE demo\_struc. \\n\\ \\n fields4 = VALUE #( ( CONV #( 'B\_KEY\_FIELD' ) ) \\n ( CONV #( 'B\_FIELD1' ) ) \\n ( CONV #( 'B\_FIELD2' ) ) \\n ( CONV #( 'B\_FIELD3' ) ) \\n "( CONV #( 'B\_FIELD4' ) ) \\n ). \\n\\ \\n SET FLAGS src4 FROM NAMES fields4 MAPPING LIKE var. \\n\\ \\n out->write( src4-%control ). \\n\\ \\n ENDMETHOD. \\n METHOD initialize\_dbtabs. \\n DELETE FROM demo\_tab\_root\_3. \\n ENDMETHOD. \\n METHOD constructor. \\n super->constructor( ). \\n initialize\_dbtabs( ). \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_rap\_eml\_set\_flags DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\n METHODS constructor. \\n\\ \\n PRIVATE SECTION. \\n METHODS: \\n initialize\_dbtabs. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_rap\_eml\_set\_flags IMPLEMENTATION. \\n METHOD main. \\n\\ \\n out->begin\_section( \`SET FLAGS Variants\` ). \\n\\ \\n "Variant: SET FLAGS flags FROM NAMES fields. \\n "Example with %control \\n out->write\_html( \\n '***Variant: SET FLAGS flags FROM NAMES fields.***' \\n ). \\n\\ \\n DATA: fields TYPE abp\_field\_name\_tab, \\n src TYPE STRUCTURE FOR CREATE demo\_managed\_root\_map. \\n\\ \\n fields = VALUE #( ( CONV #( 'KEY\_FIELD' ) ) \\n "( CONV #( 'FIELD1' ) ) \\n ( CONV #( 'FIELD2' ) ) \\n ( CONV #( 'FIELD3' ) ) \\n ( CONV #( 'FIELD4' ) ) \\n ). \\n\\ \\n SET FLAGS src FROM NAMES fields. \\n\\ \\n "Example with %element \\n DATA: fields2 TYPE abp\_field\_name\_tab, \\n src2 TYPE STRUCTURE FOR REPORTED demo\_managed\_root\_map. \\n\\ \\n fields2 = VALUE #( ( CONV #( 'KEY\_FIELD' ) ) \\n ( CONV #( 'FIELD1' ) ) \\n "( CONV #( 'FIELD2' ) ) \\n ( CONV #( 'FIELD3' ) ) \\n ( CONV #( 'FIELD4' ) ) \\n ( CONV #( '\_CHILD' ) ) \\n ). \\n\\ \\n SET FLAGS src2 FROM NAMES fields2. \\n\\ \\n out->write\_text( 'Example with %control' \\n )->write( src-%control \\n )->write\_text( 'Example with %element' \\n )->write( src2-%element ). \\n\\ \\n\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\* \\n\\ \\n "Variant: SET FLAGS flags FROM NAMES fields MAPPING TYPE p\_type. \\n out->write\_html( '***Variant: SET FLAGS flags*** ' && \\n '***FROM NAMES fields MAPPING TYPE p\_type.***' \\n ). \\n\\ \\n DATA: fields3 TYPE abp\_field\_name\_tab, \\n src3 TYPE STRUCTURE FOR CREATE demo\_managed\_root\_map. \\n\\ \\n fields3 = VALUE #( ( CONV #( 'B\_KEY\_FIELD' ) ) \\n ( CONV #( 'B\_FIELD1' ) ) \\n ( CONV #( 'B\_FIELD2' ) ) \\n "( CONV #( 'B\_FIELD3' ) ) \\n ( CONV #( 'B\_FIELD4' ) ) \\n ). \\n\\ \\n SET FLAGS src3 FROM NAMES fields3 MAPPING TYPE demo\_struc. \\n\\ \\n out->write( src3-%control ). \\n\\ \\n\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\* \\n\\ \\n "Variant: SET FLAGS flag FROM NAMES fields MAPPING LIKE var. \\n out->write\_html( '***Variant: SET FLAGS flags*** ' && \\n '***FROM NAMES fields MAPPING LIKE var.***' \\n ). \\n\\ \\n DATA: fields4 TYPE abp\_field\_name\_tab, \\n src4 TYPE STRUCTURE FOR CREATE demo\_managed\_root\_map, \\n var TYPE demo\_struc. \\n\\ \\n fields4 = VALUE #( ( CONV #( 'B\_KEY\_FIELD' ) ) \\n ( CONV #( 'B\_FIELD1' ) ) \\n ( CONV #( 'B\_FIELD2' ) ) \\n ( CONV #( 'B\_FIELD3' ) ) \\n "( CONV #( 'B\_FIELD4' ) ) \\n ). \\n\\ \\n SET FLAGS src4 FROM NAMES fields4 MAPPING LIKE var. \\n\\ \\n out->write( src4-%control ). \\n\\ \\n ENDMETHOD. \\n METHOD initialize\_dbtabs. \\n DELETE FROM demo\_tab\_root\_3. \\n ENDMETHOD. \\n METHOD constructor. \\n super->constructor( ). \\n initialize\_dbtabs( ). \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_rap.html abenabap\_for\_rap\_bos.html abenabap\_rap\_other.html abapeml\_type\_mapping.html abapset\_flags.html

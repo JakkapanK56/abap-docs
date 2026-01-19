@@ -1,0 +1,26 @@
+---
+title: "ABENDYNAMIC_SELECT_ABEXA"
+description: |
+  ABENDYNAMIC_SELECT_ABEXA - Standard ABAP language reference documentation
+library: "standard"
+libraryName: "Standard ABAP"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDYNAMIC_SELECT_ABEXA.htm"
+abapFile: "ABENDYNAMIC_SELECT_ABEXA.html"
+keywords: ["select", "do", "if", "try", "catch", "method", "class", "data", "ABENDYNAMIC", "SELECT", "ABEXA"]
+---
+
+This example demonstrates how [`SELECT`](ABAPSELECT.html) statements can be specified fully dynamically in a string.
+
+A [`SELECT`](ABAPSELECT.html) statement and all clauses in front of the [`INTO`](ABAPINTO_CLAUSE.html) clause can be specified dynamically as the content of a string. For security reasons, only a part of the string can be passed from the outside and is checked by a method of `CL_ABAP_DYN_PRG`.
+
+In ABAP SQL, a dynamic `SELECT` statement can be used in the dynamic form of the statement [`WITH`](ABAPWITH.html) and in the dynamic form of the statement [`OPEN CURSOR`](ABAPOPEN_CURSOR.html).
+
+For comparison, it is also shown how the same statement can be passed to method `EXECUTE_QUERY` of the ADBC class `CL_SQL_STATEMENT`.
+
+All queries yield the same result.
+
+If used incorrectly, dynamic programming techniques can present a serious security risk. Any dynamic content that is passed to a program from the outside must be checked thoroughly or escaped before it is used in dynamic statements. This can be done using the system class `CL_ABAP_DYN_PRG` or the built-in function [`escape`](ABENESCAPE_FUNCTIONS.html).
+
+\* Public class definition \\nCLASS cl\_demo\_dynamic\_select DEFINITION \\n PUBLIC \\n INHERITING FROM cl\_demo\_classrun \\n CREATE PUBLIC . \\n PUBLIC SECTION. \\n METHODS main \\n REDEFINITION . \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_dynamic\_select IMPLEMENTATION. \\n METHOD main. \\n\\ \\n DATA(key) = \`UA\`. \\n FINAL(in) = cl\_demo\_input=>new( ). \\n in->request( CHANGING field = key ). \\n\\ \\n DATA(dynamic\_select) = \\n \`SELECT \* FROM spfli WHERE carrid = \` && \\n cl\_abap\_dyn\_prg=>quote( to\_upper( CONV spfli-carrid( key ) ) ). \\n\\ \\n DATA: \\n result1 TYPE TABLE OF spfli WITH EMPTY KEY, \\n result2 TYPE TABLE OF spfli WITH EMPTY KEY, \\n result3 TYPE TABLE OF spfli WITH EMPTY KEY. \\n\\ \\n TRY. \\n\\ \\n WITH \\n (dynamic\_select) \\n INTO TABLE @result1. \\n\\ \\n OPEN CURSOR @DATA(dbcur) FOR \\n (dynamic\_select). \\n\\ \\n FETCH NEXT CURSOR @dbcur \\n INTO TABLE @result2. \\n\\ \\n CLOSE CURSOR @dbcur. \\n\\ \\n ASSERT result1 = result2. \\n\\ \\n\\ \\n CATCH cx\_sy\_dynamic\_osql\_semantics INTO FINAL(exc1). \\n out->write( exc1->get\_text( ) ). \\n RETURN. \\n ENDTRY. \\n\\ \\n\\ \\n TRY. \\n\\ \\n FINAL(query) = NEW cl\_sql\_statement( )->execute\_query( \\n dynamic\_select && \` AND mandt = '\` && sy-mandt && \`'\` ). \\n query->set\_param\_table( itab\_ref = REF #( result3 ) ). \\n query->next\_package( ). \\n query->close( ). \\n\\ \\n ASSERT result1 = result3. \\n\\ \\n CATCH cx\_sql\_exception INTO FINAL(exc2). \\n out->write( exc2->get\_text( ) ). \\n RETURN. \\n ENDTRY. \\n\\ \\n out->write( result1 ). \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\nCLASS cl\_demo\_dynamic\_select DEFINITION \\n PUBLIC \\n INHERITING FROM cl\_demo\_classrun \\n CREATE PUBLIC . \\n PUBLIC SECTION. \\n METHODS main \\n REDEFINITION . \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_dynamic\_select IMPLEMENTATION. \\n METHOD main. \\n\\ \\n DATA(key) = \`UA\`. \\n FINAL(in) = cl\_demo\_input=>new( ). \\n in->request( CHANGING field = key ). \\n\\ \\n DATA(dynamic\_select) = \\n \`SELECT \* FROM spfli WHERE carrid = \` && \\n cl\_abap\_dyn\_prg=>quote( to\_upper( CONV spfli-carrid( key ) ) ). \\n\\ \\n DATA: \\n result1 TYPE TABLE OF spfli WITH EMPTY KEY, \\n result2 TYPE TABLE OF spfli WITH EMPTY KEY, \\n result3 TYPE TABLE OF spfli WITH EMPTY KEY. \\n\\ \\n TRY. \\n\\ \\n WITH \\n (dynamic\_select) \\n INTO TABLE @result1. \\n\\ \\n OPEN CURSOR @DATA(dbcur) FOR \\n (dynamic\_select). \\n\\ \\n FETCH NEXT CURSOR @dbcur \\n INTO TABLE @result2. \\n\\ \\n CLOSE CURSOR @dbcur. \\n\\ \\n ASSERT result1 = result2. \\n\\ \\n\\ \\n CATCH cx\_sy\_dynamic\_osql\_semantics INTO FINAL(exc1). \\n out->write( exc1->get\_text( ) ). \\n RETURN. \\n ENDTRY. \\n\\ \\n\\ \\n TRY. \\n\\ \\n FINAL(query) = NEW cl\_sql\_statement( )->execute\_query( \\n dynamic\_select && \` AND mandt = '\` && sy-mandt && \`'\` ). \\n query->set\_param\_table( itab\_ref = REF #( result3 ) ). \\n query->next\_package( ). \\n query->close( ). \\n\\ \\n ASSERT result1 = result3. \\n\\ \\n CATCH cx\_sql\_exception INTO FINAL(exc2). \\n out->write( exc2->get\_text( ) ). \\n RETURN. \\n ENDTRY. \\n\\ \\n out->write( result1 ). \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abendb\_access.html abenabap\_sql.html abenabap\_sql\_reading.html abenselect\_clauses.html

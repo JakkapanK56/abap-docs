@@ -1,0 +1,20 @@
+---
+title: "ABENCREATE_SHARED_DATA_OBJCT_ABEXA"
+description: |
+  ABENCREATE_SHARED_DATA_OBJCT_ABEXA - Standard ABAP language reference documentation
+library: "standard"
+libraryName: "Standard ABAP"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCREATE_SHARED_DATA_OBJCT_ABEXA.htm"
+abapFile: "ABENCREATE_SHARED_DATA_OBJCT_ABEXA.html"
+keywords: ["try", "catch", "method", "class", "data", "ABENCREATE", "SHARED", "DATA", "OBJCT", "ABEXA"]
+---
+
+This example demonstrates how a data object is created in an [area instance version](ABENAREA_INSTANCE_VERSION_GLOSRY.html).
+
+The addition `AREA HANDLE` is used to create an anonymous data object of type `string` as a [shared object](ABENSHARED_OBJECT_GLOSRY.html) in an [area instance version](ABENAREA_INSTANCE_VERSION_GLOSRY.html) of the area `CL_DEMO_AREA`. The generically typed attribute `dref` of the [area root class](ABENROOT_DATA_CLASS_GLOSRY.html)\\ `CL_DEMO_ROOT` is used to refer to a variable.
+
+After write access has been completed using `DETACH_COMMIT`, a read is performed to demonstrate how the objects in the shared memory are accessed. Such accesses can also be made in another program, as long as the area instance version exists in the shared memory.
+
+\* Public class definition \\nCLASS cl\_demo\_create\_shared\_data\_obj DEFINITION \\n PUBLIC \\n INHERITING FROM cl\_demo\_classrun \\n CREATE PUBLIC . \\n PUBLIC SECTION. \\n METHODS main \\n REDEFINITION . \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_create\_shared\_data\_obj IMPLEMENTATION. \\n METHOD main. \\n\\ \\n DATA: handle TYPE REF TO cl\_demo\_area, \\n root TYPE REF TO cl\_demo\_root, \\n exc TYPE REF TO cx\_shm\_attach\_error. \\n\\ \\n TRY. \\n handle = cl\_demo\_area=>attach\_for\_write( ). \\n CREATE OBJECT root AREA HANDLE handle. \\n handle->set\_root( root ). \\n CREATE DATA root->dref AREA HANDLE handle TYPE string. \\n root->dref->\* = \`String in shared memory\`. \\n handle->detach\_commit( ). \\n CATCH cx\_shm\_attach\_error INTO exc. \\n out->write( exc->get\_text( ) ). \\n LEAVE PROGRAM. \\n CATCH cx\_shm\_external\_type. \\n out->write( 'Type cannot be used' ). \\n LEAVE PROGRAM. \\n ENDTRY. \\n\\ \\n TRY. \\n handle = cl\_demo\_area=>attach\_for\_read( ). \\n out->write( handle->root->dref->\* ). \\n handle->detach( ). \\n CATCH cx\_shm\_attach\_error INTO exc. \\n out->write( exc->get\_text( ) ). \\n LEAVE PROGRAM. \\n ENDTRY. \\n\\ \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\nCLASS cl\_demo\_create\_shared\_data\_obj DEFINITION \\n PUBLIC \\n INHERITING FROM cl\_demo\_classrun \\n CREATE PUBLIC . \\n PUBLIC SECTION. \\n METHODS main \\n REDEFINITION . \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_create\_shared\_data\_obj IMPLEMENTATION. \\n METHOD main. \\n\\ \\n DATA: handle TYPE REF TO cl\_demo\_area, \\n root TYPE REF TO cl\_demo\_root, \\n exc TYPE REF TO cx\_shm\_attach\_error. \\n\\ \\n TRY. \\n handle = cl\_demo\_area=>attach\_for\_write( ). \\n CREATE OBJECT root AREA HANDLE handle. \\n handle->set\_root( root ). \\n CREATE DATA root->dref AREA HANDLE handle TYPE string. \\n root->dref->\* = \`String in shared memory\`. \\n handle->detach\_commit( ). \\n CATCH cx\_shm\_attach\_error INTO exc. \\n out->write( exc->get\_text( ) ). \\n LEAVE PROGRAM. \\n CATCH cx\_shm\_external\_type. \\n out->write( 'Type cannot be used' ). \\n LEAVE PROGRAM. \\n ENDTRY. \\n\\ \\n TRY. \\n handle = cl\_demo\_area=>attach\_for\_read( ). \\n out->write( handle->root->dref->\* ). \\n handle->detach( ). \\n CATCH cx\_shm\_attach\_error INTO exc. \\n out->write( exc->get\_text( ) ). \\n LEAVE PROGRAM. \\n ENDTRY. \\n\\ \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abencreate\_objects.html abapcreate\_data.html abapcreate\_data\_area\_handle.html

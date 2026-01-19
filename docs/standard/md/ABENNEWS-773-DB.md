@@ -1,0 +1,16 @@
+---
+title: "ABENNEWS-773-DB"
+description: |
+  ABENNEWS-773-DB - Standard ABAP language reference documentation
+library: "standard"
+libraryName: "Standard ABAP"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNEWS-773-DB.htm"
+abapFile: "ABENNEWS-773-DB.html"
+keywords: ["data", "ABENNEWS", "773"]
+---
+
+As of this release, only an [SAP HANA database](ABENHANA_DATABASE_GLOSRY.html) is supported as the [standard database](ABENSTANDARD_DB_GLOSRY.html) of an [AS ABAP](ABENAS_ABAP_GLOSRY.html). For this reason, Open SQL was renamed to ABAP SQL (see [ABAP SQL in ABAP Release 7.73](ABENNEWS-773-ABAP_SQL.html)).
+
+**Note** Using a [secondary connection](ABENSECONDARY_DB_CONNECTION_GLOSRY.html) in [ABAP SQL](ABENABAP_SQL_GLOSRY.html), it is still possible to connect to other databases. abenabap.html abennews.html abennews-77.html abennews-773.html

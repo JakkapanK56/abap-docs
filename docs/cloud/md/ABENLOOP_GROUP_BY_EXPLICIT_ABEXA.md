@@ -1,0 +1,41 @@
+---
+title: "Demo for ABAP Keyword Documentation"
+description: |
+  n'! n'! Disclaimer:  n'! This class represents a demonstration program of the ABAP Keyword n'! Documentation, primarily intended to provide a better explanation n'! and visualization of syntax. It is not intended for production use n'! and may use demo artifacts that are not rel
+library: "cloud"
+libraryName: "ABAP Cloud"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENLOOP_GROUP_BY_EXPLICIT_ABEXA.htm"
+abapFile: "ABENLOOP_GROUP_BY_EXPLICIT_ABEXA.html"
+keywords: ["insert", "loop", "do", "if", "method", "class", "data", "types", "ABENLOOP", "GROUP", "EXPLICIT", "ABEXA"]
+---
+
+This example demonstrates a self-programmed group loop and how it is replaced by [`GROUP BY`](ABAPLOOP_AT_ITAB_GROUP_BY.html).
+
+The task of splitting the lines in a single one-column table into three groups by comparison criteria is solved in two different ways:
+
+Both methods perform three types of loops, the grouping loop, the group loop, and the optional member loops. Using `GROUP BY` is easier since the grouping loop does not need to be programmed explicitly and the second method becomes significantly shorter.
+
+-   The method `group_explicit` works without `GROUP BY`. Instead, the grouping takes place explicitly in the ABAP class, which requires an explicit helper table `helper_tab`. After the grouping, the lines of the nested table `refs` in `helper_tab` point to the associated lines of the original table `numbers` for each group defined using the column `key`. This grouping loop is followed by the group loop across the helper table, where every loop pass accesses the group members by evaluating the nested tables `refs`.
+-   The method `group_by` works with `GROUP BY`. The result matches the result of `group_explicit`. A comparison of the methods shows that the grouping loop of the first method in the second method is done implicitly by [`GROUP BY`](ABAPLOOP_AT_ITAB_GROUP_BY.html) and no explicit helper table is required. Only the group loop can be seen.
+
+\* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_loop\_at\_group\_by\_expl DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\n METHODS constructor. \\n\\ \\n PRIVATE SECTION. \\n DATA: \\n numbers TYPE TABLE OF i WITH EMPTY KEY, \\n limit1 TYPE i VALUE 3, \\n limit2 TYPE i VALUE 6. \\n METHODS: \\n group\_explicit, \\n group\_by. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_loop\_at\_group\_by\_expl IMPLEMENTATION. \\n METHOD main. \\n\\ \\n group\_explicit( ). \\n group\_by( ). \\n\\ \\n ENDMETHOD. \\n METHOD group\_by. \\n out->next\_section( 'Group By' ). \\n\\ \\n DATA members LIKE numbers. \\n LOOP AT numbers INTO FINAL(number) \\n GROUP BY COND string( \\n WHEN number < limit1 THEN \`below\` \\n WHEN number <= limit2 THEN \`between\` \\n ELSE \`above\` ) \\n INTO FINAL(group). \\n out->begin\_section( group ). \\n members = VALUE #( FOR m IN GROUP group ( m ) ). \\n out->write( members )->end\_section( ). \\n ENDLOOP. \\n ENDMETHOD. \\n METHOD group\_explicit. \\n TYPES: \\n BEGIN OF helper\_struc, \\n key TYPE string, \\n refs TYPE STANDARD TABLE OF REF TO i WITH EMPTY KEY, \\n END OF helper\_struc, \\n helper\_tab TYPE STANDARD TABLE OF helper\_struc WITH EMPTY KEY. \\n\\ \\n DATA(helper\_tab) = VALUE helper\_tab( \\n ( key = \`below\` ) \\n ( key = \`between\` ) \\n ( key = \`above\` ) ). \\n\\ \\n out->next\_section( 'Group Explicit' ). \\n\\ \\n "Grouping \\n LOOP AT numbers REFERENCE INTO FINAL(dref). \\n IF dref->\* < limit1. \\n ASSIGN helper\_tab\[ key = |below| \]-refs TO FIELD-SYMBOL(). \\n INSERT dref INTO TABLE . \\n ELSEIF dref->\* <= limit2. \\n ASSIGN helper\_tab\[ key = |between| \]-refs TO . \\n INSERT dref INTO TABLE . \\n ELSE. \\n ASSIGN helper\_tab\[ key = |above| \]-refs TO . \\n INSERT dref INTO TABLE . \\n ENDIF. \\n ENDLOOP. \\n\\ \\n "Group loop \\n DATA members LIKE numbers. \\n LOOP AT helper\_tab INTO FINAL(helper\_struc). \\n out->begin\_section( helper\_struc-key ). \\n members = VALUE #( FOR m IN helper\_struc-refs ( m->\* ) ). \\n out->write( members )->end\_section( ). \\n ENDLOOP. \\n\\ \\n ENDMETHOD. \\n METHOD constructor. \\n super->constructor( ). \\n numbers = VALUE #( FOR j = 1 UNTIL j > 10 ( j ) ). \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_loop\_at\_group\_by\_expl DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\n METHODS constructor. \\n\\ \\n PRIVATE SECTION. \\n DATA: \\n numbers TYPE TABLE OF i WITH EMPTY KEY, \\n limit1 TYPE i VALUE 3, \\n limit2 TYPE i VALUE 6. \\n METHODS: \\n group\_explicit, \\n group\_by. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_loop\_at\_group\_by\_expl IMPLEMENTATION. \\n METHOD main. \\n\\ \\n group\_explicit( ). \\n group\_by( ). \\n\\ \\n ENDMETHOD. \\n METHOD group\_by. \\n out->next\_section( 'Group By' ). \\n\\ \\n DATA members LIKE numbers. \\n LOOP AT numbers INTO FINAL(number) \\n GROUP BY COND string( \\n WHEN number < limit1 THEN \`below\` \\n WHEN number <= limit2 THEN \`between\` \\n ELSE \`above\` ) \\n INTO FINAL(group). \\n out->begin\_section( group ). \\n members = VALUE #( FOR m IN GROUP group ( m ) ). \\n out->write( members )->end\_section( ). \\n ENDLOOP. \\n ENDMETHOD. \\n METHOD group\_explicit. \\n TYPES: \\n BEGIN OF helper\_struc, \\n key TYPE string, \\n refs TYPE STANDARD TABLE OF REF TO i WITH EMPTY KEY, \\n END OF helper\_struc, \\n helper\_tab TYPE STANDARD TABLE OF helper\_struc WITH EMPTY KEY. \\n\\ \\n DATA(helper\_tab) = VALUE helper\_tab( \\n ( key = \`below\` ) \\n ( key = \`between\` ) \\n ( key = \`above\` ) ). \\n\\ \\n out->next\_section( 'Group Explicit' ). \\n\\ \\n "Grouping \\n LOOP AT numbers REFERENCE INTO FINAL(dref). \\n IF dref->\* < limit1. \\n ASSIGN helper\_tab\[ key = |below| \]-refs TO FIELD-SYMBOL(). \\n INSERT dref INTO TABLE . \\n ELSEIF dref->\* <= limit2. \\n ASSIGN helper\_tab\[ key = |between| \]-refs TO . \\n INSERT dref INTO TABLE . \\n ELSE. \\n ASSIGN helper\_tab\[ key = |above| \]-refs TO . \\n INSERT dref INTO TABLE . \\n ENDIF. \\n ENDLOOP. \\n\\ \\n "Group loop \\n DATA members LIKE numbers. \\n LOOP AT helper\_tab INTO FINAL(helper\_struc). \\n out->begin\_section( helper\_struc-key ). \\n members = VALUE #( FOR m IN helper\_struc-refs ( m->\* ) ). \\n out->write( members )->end\_section( ). \\n ENDLOOP. \\n\\ \\n ENDMETHOD. \\n METHOD constructor. \\n super->constructor( ). \\n numbers = VALUE #( FOR j = 1 UNTIL j > 10 ( j ) ). \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abenabap\_data\_working.html abenitab.html abentable\_processing\_statements.html abaploop\_at\_itab\_variants.html abaploop\_at\_itab\_group\_by.html abenloop\_group\_by\_abexas.html

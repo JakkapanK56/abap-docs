@@ -1,0 +1,38 @@
+---
+title: "Demo for ABAP Keyword Documentation"
+description: |
+  n'! n'! Disclaimer:  n'! This class represents a demonstration program of the ABAP Keyword n'! Documentation, primarily intended to provide a better explanation n'! and visualization of syntax. It is not intended for production use n'! and may use demo artifacts that are not rel
+library: "cloud"
+libraryName: "ABAP Cloud"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENABAP_JSON_ASJSON_TABLE_ABEXA.htm"
+abapFile: "ABENABAP_JSON_ASJSON_TABLE_ABEXA.html"
+keywords: ["do", "if", "method", "class", "data", "types", "internal-table", "ABENABAP", "JSON", "ASJSON", "TABLE", "ABEXA"]
+---
+
+This example demonstrates [asJSON](ABENABAP_ASJSON_ABAP_TYPES_TABLE.html) for internal tables.
+
+The [identity transformation](ABENID_TRAFO_GLOSRY.html)\\ `ID`, for which a [JSON writer](ABENJSON_WRITER_GLOSRY.html) is specified as the XML target, is called to create the [asJSON](ABENASJSON_GLOSRY.html) representation of an internal table.
+
+For comparison, the [JSON-XML](ABENJSON_XML_GLOSRY.html) representation of the JSON data and the [asXML](ABENASXML_GLOSRY.html) representation of the ABAP data is also shown.
+
+\* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_asjson\_tables DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC . \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_asjson\_tables IMPLEMENTATION. \\n METHOD main. \\n TYPES: BEGIN OF struct, \\n day TYPE string, \\n date TYPE d, \\n END OF struct. \\n DATA itab TYPE STANDARD TABLE OF struct. \\n itab = VALUE #( \\n ( day = 'Yesterday' \\n date = cl\_demo\_date\_time=>get\_user\_date( ) - 1 ) \\n ( day = 'Today' \\n date = cl\_demo\_date\_time=>get\_user\_date( ) ) \\n ( day = 'Tomorrow' \\n date = cl\_demo\_date\_time=>get\_user\_date( ) + 1 ) ). \\n\\ \\n "Transformation to JSON \\n out->begin\_section( 'asJSON' ). \\n FINAL(writer) = cl\_sxml\_string\_writer=>create( \\n type = if\_sxml=>co\_xt\_json ). \\n CALL TRANSFORMATION id SOURCE itab = itab \\n RESULT XML writer. \\n FINAL(json) = writer->get\_output( ). \\n out->write\_json( json ). \\n\\ \\n "JSON-XML \\n out->next\_section( 'asJSON-XML' ). \\n FINAL(reader) = cl\_sxml\_string\_reader=>create( json ). \\n FINAL(xml\_writer) = cl\_sxml\_string\_writer=>create( ). \\n reader->next\_node( ). \\n reader->skip\_node( xml\_writer ). \\n DATA(xml) = xml\_writer->get\_output( ). \\n out->write\_xml( xml ). \\n\\ \\n "asXML \\n out->next\_section( 'asXML' ). \\n CALL TRANSFORMATION id SOURCE itab = itab \\n RESULT XML xml. \\n out->write\_xml( xml ). \\n\\ \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_asjson\_tables DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC . \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_asjson\_tables IMPLEMENTATION. \\n METHOD main. \\n TYPES: BEGIN OF struct, \\n day TYPE string, \\n date TYPE d, \\n END OF struct. \\n DATA itab TYPE STANDARD TABLE OF struct. \\n itab = VALUE #( \\n ( day = 'Yesterday' \\n date = cl\_demo\_date\_time=>get\_user\_date( ) - 1 ) \\n ( day = 'Today' \\n date = cl\_demo\_date\_time=>get\_user\_date( ) ) \\n ( day = 'Tomorrow' \\n date = cl\_demo\_date\_time=>get\_user\_date( ) + 1 ) ). \\n\\ \\n "Transformation to JSON \\n out->begin\_section( 'asJSON' ). \\n FINAL(writer) = cl\_sxml\_string\_writer=>create( \\n type = if\_sxml=>co\_xt\_json ). \\n CALL TRANSFORMATION id SOURCE itab = itab \\n RESULT XML writer. \\n FINAL(json) = writer->get\_output( ). \\n out->write\_json( json ). \\n\\ \\n "JSON-XML \\n out->next\_section( 'asJSON-XML' ). \\n FINAL(reader) = cl\_sxml\_string\_reader=>create( json ). \\n FINAL(xml\_writer) = cl\_sxml\_string\_writer=>create( ). \\n reader->next\_node( ). \\n reader->skip\_node( xml\_writer ). \\n DATA(xml) = xml\_writer->get\_output( ). \\n out->write\_xml( xml ). \\n\\ \\n "asXML \\n out->next\_section( 'asXML' ). \\n CALL TRANSFORMATION id SOURCE itab = itab \\n RESULT XML xml. \\n out->write\_xml( xml ). \\n\\ \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abendata\_interchange.html abenabap\_json.html abenabap\_json\_abexas.html

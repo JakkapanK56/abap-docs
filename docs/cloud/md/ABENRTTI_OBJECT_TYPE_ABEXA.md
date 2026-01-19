@@ -1,0 +1,36 @@
+---
+title: "Demo for ABAP Keyword Documentation"
+description: |
+  n'! n'! Disclaimer:  n'! This class represents a demonstration program of the ABAP Keyword n'! Documentation, primarily intended to provide a better explanation n'! and visualization of syntax. It is not intended for production use n'! and may use demo artifacts that are not rel
+library: "cloud"
+libraryName: "ABAP Cloud"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENRTTI_OBJECT_TYPE_ABEXA.htm"
+abapFile: "ABENRTTI_OBJECT_TYPE_ABEXA.html"
+keywords: ["do", "if", "try", "catch", "method", "class", "data", "types", "ABENRTTI", "OBJECT", "TYPE", "ABEXA"]
+---
+
+This example demonstrates how the dynamic types of objects can be determined at runtime.
+
+This example is the equivalent of the [executable example](ABENRTTI_DATA_TYPE_ABEXA.html) for data types for object types. Here, the dynamic type of reference variables is determined, namely the [absolute type name](ABENABSOLUTE_TYPENAME_GLOSRY.html) of the class of the referenced object.
+
+\* CCDEF \\nCLASS conv\_exc DEFINITION INHERITING FROM cx\_static\_check. \\nENDCLASS. \\n\\ \\nCLASS c1 DEFINITION. \\nENDCLASS. \\n\\ \\nCLASS c2 DEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_rtti\_object\_types DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_rtti\_object\_types IMPLEMENTATION. \\n METHOD main. \\n\\ \\n DATA: otype1 TYPE c LENGTH 30 VALUE 'C1', \\n otype2 TYPE c LENGTH 30 VALUE 'C2'. \\n\\ \\n DATA: oref1 TYPE REF TO object, \\n oref2 TYPE REF TO object. \\n\\ \\n DATA: descr\_ref1 TYPE REF TO cl\_abap\_typedescr, \\n descr\_ref2 TYPE REF TO cl\_abap\_typedescr. \\n\\ \\n cl\_demo\_input=>new( \\n )->add\_field( CHANGING field = otype1 \\n )->request( CHANGING field = otype2 ). \\n\\ \\n TRY. \\n otype1 = cl\_abap\_dyn\_prg=>check\_whitelist\_str( \\n EXPORTING \\n val = otype1 \\n whitelist = \`C1,C2\` ). \\n otype2 = cl\_abap\_dyn\_prg=>check\_whitelist\_str( \\n EXPORTING \\n val = otype2 \\n whitelist = \`C1,C2\` ). \\n CATCH cx\_abap\_not\_in\_whitelist. \\n out->write( 'Input not allowed' ). \\n RETURN. \\n ENDTRY. \\n\\ \\n TRY. \\n CREATE OBJECT: oref1 TYPE (otype1), \\n oref2 TYPE (otype2). \\n\\ \\n CATCH cx\_sy\_create\_object\_error. \\n out->write( 'Create object error!' ). \\n RETURN. \\n\\ \\n CATCH cx\_root. \\n out->write( 'Other error!' ). \\n RETURN. \\n ENDTRY. \\n\\ \\n descr\_ref1 = cl\_abap\_typedescr=>describe\_by\_object\_ref( oref1 ). \\n descr\_ref2 = cl\_abap\_typedescr=>describe\_by\_object\_ref( oref2 ). \\n\\ \\n TRY. \\n IF descr\_ref1 <> descr\_ref2. \\n RAISE EXCEPTION TYPE conv\_exc. \\n ELSE. \\n oref1 = oref2. \\n ENDIF. \\n\\ \\n CATCH conv\_exc. \\n out->write( \\n \`Assignment from type \` && |\\\\n| && \\n descr\_ref2->absolute\_name && |\\\\n| && \\n \`to \` && |\\\\n| && \\n descr\_ref1->absolute\_name && |\\\\n| && \\n \`not allowed!\` ). \\n ENDTRY. \\n\\ \\n ENDMETHOD. \\nENDCLASS. \* CCDEF \\nCLASS conv\_exc DEFINITION INHERITING FROM cx\_static\_check. \\nENDCLASS. \\n\\ \\nCLASS c1 DEFINITION. \\nENDCLASS. \\n\\ \\nCLASS c2 DEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_rtti\_object\_types DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_rtti\_object\_types IMPLEMENTATION. \\n METHOD main. \\n\\ \\n DATA: otype1 TYPE c LENGTH 30 VALUE 'C1', \\n otype2 TYPE c LENGTH 30 VALUE 'C2'. \\n\\ \\n DATA: oref1 TYPE REF TO object, \\n oref2 TYPE REF TO object. \\n\\ \\n DATA: descr\_ref1 TYPE REF TO cl\_abap\_typedescr, \\n descr\_ref2 TYPE REF TO cl\_abap\_typedescr. \\n\\ \\n cl\_demo\_input=>new( \\n )->add\_field( CHANGING field = otype1 \\n )->request( CHANGING field = otype2 ). \\n\\ \\n TRY. \\n otype1 = cl\_abap\_dyn\_prg=>check\_whitelist\_str( \\n EXPORTING \\n val = otype1 \\n whitelist = \`C1,C2\` ). \\n otype2 = cl\_abap\_dyn\_prg=>check\_whitelist\_str( \\n EXPORTING \\n val = otype2 \\n whitelist = \`C1,C2\` ). \\n CATCH cx\_abap\_not\_in\_whitelist. \\n out->write( 'Input not allowed' ). \\n RETURN. \\n ENDTRY. \\n\\ \\n TRY. \\n CREATE OBJECT: oref1 TYPE (otype1), \\n oref2 TYPE (otype2). \\n\\ \\n CATCH cx\_sy\_create\_object\_error. \\n out->write( 'Create object error!' ). \\n RETURN. \\n\\ \\n CATCH cx\_root. \\n out->write( 'Other error!' ). \\n RETURN. \\n ENDTRY. \\n\\ \\n descr\_ref1 = cl\_abap\_typedescr=>describe\_by\_object\_ref( oref1 ). \\n descr\_ref2 = cl\_abap\_typedescr=>describe\_by\_object\_ref( oref2 ). \\n\\ \\n TRY. \\n IF descr\_ref1 <> descr\_ref2. \\n RAISE EXCEPTION TYPE conv\_exc. \\n ELSE. \\n oref1 = oref2. \\n ENDIF. \\n\\ \\n CATCH conv\_exc. \\n out->write( \\n \`Assignment from type \` && |\\\\n| && \\n descr\_ref2->absolute\_name && |\\\\n| && \\n \`to \` && |\\\\n| && \\n descr\_ref1->absolute\_name && |\\\\n| && \\n \`not allowed!\` ). \\n ENDTRY. \\n\\ \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abenabap\_data\_working.html abendescribe\_field.html abenrtti.html

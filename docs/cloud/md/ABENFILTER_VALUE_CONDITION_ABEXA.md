@@ -1,0 +1,38 @@
+---
+title: "Demo for ABAP Keyword Documentation"
+description: |
+  n'! n'! Disclaimer:  n'! This class represents a demonstration program of the ABAP Keyword n'! Documentation, primarily intended to provide a better explanation n'! and visualization of syntax. It is not intended for production use n'! and may use demo artifacts that are not rel
+library: "cloud"
+libraryName: "ABAP Cloud"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENFILTER_VALUE_CONDITION_ABEXA.htm"
+abapFile: "ABENFILTER_VALUE_CONDITION_ABEXA.html"
+keywords: ["select", "do", "if", "method", "class", "data", "internal-table", "ABENFILTER", "VALUE", "CONDITION", "ABEXA"]
+---
+
+This example demonstrates [table filtering](ABENCONSTRUCTOR_EXPRESSION_FILTER.html) using single values.
+
+Those lines are filtered from an internal table `spfli_tab` filled with flight data that have a specific value in the columns `carrid` and `cityfrom` and the result is assigned to an internal table `extract`. A suitable secondary key `carr_city` is defined for the internal table here.
+
+A further internal table, `rest`, is given the same table filtering, but the addition `EXCEPT` is specified. The assertion `ASSERT` demonstrates that `rest` contains all lines from `spfli_tab` that are not in `extract`.
+
+\* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_filter\_value\_condition DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_filter\_value\_condition IMPLEMENTATION. \\n METHOD main. \\n DATA carrid TYPE spfli-carrid VALUE 'LH'. \\n DATA cityfrom TYPE spfli-cityfrom VALUE 'Frankfurt'. \\n cl\_demo\_input=>new( \\n )->add\_field( CHANGING field = carrid \\n )->request( CHANGING field = cityfrom ). \\n\\ \\n DATA spfli\_tab TYPE STANDARD TABLE OF spfli \\n WITH EMPTY KEY \\n WITH NON-UNIQUE SORTED KEY carr\_city \\n COMPONENTS carrid cityfrom. \\n\\ \\n SELECT \* \\n FROM spfli \\n INTO TABLE @spfli\_tab. \\n\\ \\n FINAL(extract) = \\n FILTER #( spfli\_tab USING KEY carr\_city \\n WHERE carrid = CONV #( to\_upper( carrid ) ) AND \\n cityfrom = CONV #( to\_upper( cityfrom ) ) ). \\n\\ \\n out->write( extract ). \\n\\ \\n FINAL(rest) = \\n FILTER #( spfli\_tab EXCEPT USING KEY carr\_city \\n WHERE carrid = CONV #( to\_upper( carrid ) ) AND \\n cityfrom = CONV #( to\_upper( cityfrom ) ) ). \\n\\ \\n ASSERT lines( extract ) + lines( rest ) = lines( spfli\_tab ). \\n\\ \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_filter\_value\_condition DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_filter\_value\_condition IMPLEMENTATION. \\n METHOD main. \\n DATA carrid TYPE spfli-carrid VALUE 'LH'. \\n DATA cityfrom TYPE spfli-cityfrom VALUE 'Frankfurt'. \\n cl\_demo\_input=>new( \\n )->add\_field( CHANGING field = carrid \\n )->request( CHANGING field = cityfrom ). \\n\\ \\n DATA spfli\_tab TYPE STANDARD TABLE OF spfli \\n WITH EMPTY KEY \\n WITH NON-UNIQUE SORTED KEY carr\_city \\n COMPONENTS carrid cityfrom. \\n\\ \\n SELECT \* \\n FROM spfli \\n INTO TABLE @spfli\_tab. \\n\\ \\n FINAL(extract) = \\n FILTER #( spfli\_tab USING KEY carr\_city \\n WHERE carrid = CONV #( to\_upper( carrid ) ) AND \\n cityfrom = CONV #( to\_upper( cityfrom ) ) ). \\n\\ \\n out->write( extract ). \\n\\ \\n FINAL(rest) = \\n FILTER #( spfli\_tab EXCEPT USING KEY carr\_city \\n WHERE carrid = CONV #( to\_upper( carrid ) ) AND \\n cityfrom = CONV #( to\_upper( cityfrom ) ) ). \\n\\ \\n ASSERT lines( extract ) + lines( rest ) = lines( spfli\_tab ). \\n\\ \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abenabap\_data\_working.html abenitab.html abentable\_processing\_expr\_func.html abenconstructor\_expression\_filter.html abentable\_filtering\_abexas.html

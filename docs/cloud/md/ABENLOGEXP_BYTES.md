@@ -1,0 +1,18 @@
+---
+title: "ABENLOGEXP_BYTES"
+description: |
+  ABENLOGEXP_BYTES - ABAP Cloud language reference documentation
+library: "cloud"
+libraryName: "ABAP Cloud"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENLOGEXP_BYTES.htm"
+abapFile: "ABENLOGEXP_BYTES.html"
+keywords: ["do", "if", "case", "data", "ABENLOGEXP", "BYTES"]
+---
+
+The following table shows the comparison operators for comparisons between byte-like operands (single data objects or return values or [bit expressions](ABENBIT_EXPRESSION_GLOSRY.html)) in [comparison expressions](ABENCOMPARISON_EXPRESSION_GLOSRY.html).
+
+The logical expression in the `IF` statement is true, if the second half-byte is not filled for any of the bytes in `hex1`.
+
+DATA: hex1 TYPE xstring, \\n hex2 TYPE xstring. \\n\\ \\nhex1 = ... \\nhex2 = '000102030405060708090A0B0C0D0E0F'. \\n\\ \\nIF hex1 BYTE-CO hex2. \\n ... \\nENDIF. **operator** **Meaning** `BYTE-CO` Contains Only: True, if `operand1` only contains bytes from `operand2`. If `operand2` is of type `xstring` and initial, the comparison expression is false, unless `operand1` is also of type `xstring` and initial, in which case the comparison expression is always true. If the comparison is false, `sy-fdpos` contains the offset of the first byte in `operand1`, which is not contained in `operand2`. If the comparison is true, `sy-fdpos` contains the length of `operand1`. `BYTE-CN` Contains Not Only: True, if a comparison expression with `BYTE-CO` is false, provided that `operand1` does not only contain bytes from `operand2`. If the comparison is true, `sy-fdpos` contains the offset of the first byte in `operand1` that is not contained in `operand2`. If the comparison is false, `sy-fdpos` contains the length of `operand1`. `BYTE-CA` Contains Any: True, if `operand1` contains at least one byte from `operand2`. If `operand1` or `operand2` are of the type `xstring` and initial, the comparison expression is always false. If the comparison is true, `sy-fdpos` contains the offset of the first byte in `operand1` that is also contained in `operand2`. If the comparison is false, `sy-fdpos` contains the length of `operand1`. `BYTE-NA` Contains Not Any: True, if a comparison expression with `BYTE-CA` is false, provided that `operand1` does not contain a byte from `operand2`. If the comparison is false, `sy-fdpos` contains the offset of the first byte in `operand1` that is also contained in `operand2`. If the comparison is true, `sy-fdpos` contains the length of `operand1`. `BYTE-CS` Contains String: True, if the content of `operand2` is contained in `operand1`. If `operand1` is of type `xs` and initial, the comparison expression is false, unless `operand2` is also of type `xstring` and initial, in which case the comparison expression is always true. If the comparison is true, `sy-fdpos` contains the offset of `operand2` in `operand1`. If the comparison is false, `sy-fdpos` contains the length of `operand1`. `BYTE-NS` Contains No String: True, if a comparison expression with `BYTE-CS` is false, provided that `operand1` does not contain the content of `operand2`. If the comparison is false, `sy-fdpos` contains the offset of `operand2` in `operand1`. If the comparison is true, `sy-fdpos` contains the length of `operand1`. abenabap.html abenabap\_reference.html abenabap\_flow\_logic.html abenlogical\_expr\_func.html abenlogexp.html abenlogexp\_comp.html abenlogexp\_op.html

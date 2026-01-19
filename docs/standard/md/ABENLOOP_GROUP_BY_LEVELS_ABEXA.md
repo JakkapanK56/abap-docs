@@ -1,0 +1,26 @@
+---
+title: "ABENLOOP_GROUP_BY_LEVELS_ABEXA"
+description: |
+  ABENLOOP_GROUP_BY_LEVELS_ABEXA - Standard ABAP language reference documentation
+library: "standard"
+libraryName: "Standard ABAP"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLOOP_GROUP_BY_LEVELS_ABEXA.htm"
+abapFile: "ABENLOOP_GROUP_BY_LEVELS_ABEXA.html"
+keywords: ["loop", "do", "method", "class", "data", "types", "ABENLOOP", "GROUP", "LEVELS", "ABEXA"]
+---
+
+This example demonstrates simple group level processing using [`GROUP BY`](ABAPLOOP_AT_ITAB_GROUP_BY.html).
+
+This example works in the same way as the executable example for [group level processing](ABENINT_TABLE_AT_ABEXA.html). Here, the [group key](ABENGROUP_KEY_GLOSRY.html) is constructed explicitly using the value of the column `col1` and, unlike in group level processing, does not depend on the structure of the table and its sorting.
+
+The statement [`SUM`](ABAPSUM.html) is replaced by a functional method that replaces the implicit behavior of the statement with an explicit and self-definable function.
+
+`group` and `sum` could also be filled by the evaluation of a table comprehension or table reduction using [`FOR ... IN GROUP`](ABENFOR_IN_GROUP.html), instead of in a [member loop](ABENMEMBER_LOOP_GLOSRY.html)\\ [`LOOP AT GROUP`](ABAPLOOP_AT_GROUP.html):
+
+sum = REDUCE #( INIT s = VALUE line( ) \\n                FOR line IN GROUP <line>\\ \\n                NEXT s = sum( EXPORTING line = line \\n                                        base = s ) ). \\ngroup = #( FOR <wa> IN GROUP <line> ( <wa> ) ).
+
+The executable example for [grouping with `FOR`](ABENFOR_GROUP_BY_LEVELS_ABEXA.html) demonstrates how the entire group loop can be implemented using expressions.
+
+\* Public class definition \\nCLASS cl\_demo\_loop\_grp\_by\_levels DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\n\\ \\n PRIVATE SECTION. \\n TYPES: BEGIN OF line, \\n col1 TYPE c LENGTH 1, \\n col2 TYPE i, \\n col3 TYPE i, \\n END OF line. \\n METHODS sum IMPORTING line TYPE line \\n base TYPE line \\n RETURNING VALUE(sum) TYPE line. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_loop\_grp\_by\_levels IMPLEMENTATION. \\n METHOD main. \\n\\ \\n DATA itab TYPE HASHED TABLE OF line \\n WITH UNIQUE KEY col1 col2. \\n\\ \\n itab = VALUE #( \\n FOR j = 1 UNTIL j > 3 \\n ( col1 = 'A' \\n col2 = j \\n col3 = j \*\* 2 ) \\n ( col1 = 'B' \\n col2 = 2 \* j \\n col3 = ( 2 \* j ) \*\* 2 ) ). \\n\\ \\n out->write( itab )->line( ). \\n\\ \\n DATA sum TYPE line. \\n DATA total TYPE line. \\n DATA group LIKE itab. \\n LOOP AT itab ASSIGNING FIELD-SYMBOL() \\n GROUP BY \-col1 ASCENDING. \\n CLEAR sum. \\n CLEAR group. \\n LOOP AT GROUP INTO FINAL(line). \\n group = VALUE #( BASE group ( line ) ). \\n sum = sum( EXPORTING line = line \\n base = sum ). \\n ENDLOOP. \\n out->write( group )->line( )->write( sum )->line( ). \\n total = sum( EXPORTING line = sum \\n base = total ). \\n ENDLOOP. \\n total-col1 = '\*'. \\n out->line( )->write( total ). \\n ENDMETHOD. \\n METHOD sum. \\n sum = VALUE #( BASE base \\n col1 = line-col1 \\n col2 = sum-col2 + line-col2 \\n col3 = sum-col3 + line-col3 ). \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\nCLASS cl\_demo\_loop\_grp\_by\_levels DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\n\\ \\n PRIVATE SECTION. \\n TYPES: BEGIN OF line, \\n col1 TYPE c LENGTH 1, \\n col2 TYPE i, \\n col3 TYPE i, \\n END OF line. \\n METHODS sum IMPORTING line TYPE line \\n base TYPE line \\n RETURNING VALUE(sum) TYPE line. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_loop\_grp\_by\_levels IMPLEMENTATION. \\n METHOD main. \\n\\ \\n DATA itab TYPE HASHED TABLE OF line \\n WITH UNIQUE KEY col1 col2. \\n\\ \\n itab = VALUE #( \\n FOR j = 1 UNTIL j > 3 \\n ( col1 = 'A' \\n col2 = j \\n col3 = j \*\* 2 ) \\n ( col1 = 'B' \\n col2 = 2 \* j \\n col3 = ( 2 \* j ) \*\* 2 ) ). \\n\\ \\n out->write( itab )->line( ). \\n\\ \\n DATA sum TYPE line. \\n DATA total TYPE line. \\n DATA group LIKE itab. \\n LOOP AT itab ASSIGNING FIELD-SYMBOL() \\n GROUP BY \-col1 ASCENDING. \\n CLEAR sum. \\n CLEAR group. \\n LOOP AT GROUP INTO FINAL(line). \\n group = VALUE #( BASE group ( line ) ). \\n sum = sum( EXPORTING line = line \\n base = sum ). \\n ENDLOOP. \\n out->write( group )->line( )->write( sum )->line( ). \\n total = sum( EXPORTING line = sum \\n base = total ). \\n ENDLOOP. \\n total-col1 = '\*'. \\n out->line( )->write( total ). \\n ENDMETHOD. \\n METHOD sum. \\n sum = VALUE #( BASE base \\n col1 = line-col1 \\n col2 = sum-col2 + line-col2 \\n col3 = sum-col3 + line-col3 ). \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abenabap\_data\_working.html abenitab.html abentable\_processing\_statements.html abaploop\_at\_itab\_variants.html abaploop\_at\_itab\_group\_by.html abenloop\_group\_by\_abexas.html

@@ -1,0 +1,40 @@
+---
+title: "This example demonstrates how a regular class is linked with a message"
+description: |
+  Objects in the example class `msg` shown here can represent any messages from the table `T100` and can be used in the statement `MESSAGE`(ABAPMESSAGE.html). There are four attributes `ATTR1` to `ATTR4` for the content of four placeholders. The constructor provides input parameters for all necessar
+library: "cloud"
+libraryName: "ABAP Cloud"
+category: "oop"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENIF_T100_MESSAGE_ABEXA.htm"
+abapFile: "ABENIF_T100_MESSAGE_ABEXA.html"
+keywords: ["do", "if", "method", "class", "data", "ABENIF", "T100", "MESSAGE", "ABEXA"]
+---
+
+This example demonstrates how a regular class is linked with a message
+
+Objects in the example class `msg` shown here can represent any messages from the table `T100` and can be used in the statement [`MESSAGE`](ABAPMESSAGE.html). There are four attributes `ATTR1` to `ATTR4` for the content of four placeholders. The constructor provides input parameters for all necessary values. In the constructor, the message class and the message number are written directly to the associated components of the interface structure `T100KEY`. The identically named attributes are assigned to the components `ATTR1` to `ATTR4` and filled with the passed values.
+
+After the class is instantiated, the message text is obtained using the interface method `GET_TEXT`, which is implemented appropriately in the class and for which an alias name is declared. The object of the class can be used directly as an operand of the statement [`MESSAGE`](ABAPMESSAGE.html) in ABAP language versions where that syntax is allowed. The message type is not stored as an attribute of the class but must be specified in the calling method.
+
+See also the executable example [System Interface `IF_T100_DYN_MSG` in Regular Class](ABENIF_T100_DYN_MSG_ABEXA.html).
+
+\* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_if\_t100\_message DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* CCIMP \\nCLASS msg DEFINITION. \\n PUBLIC SECTION. \\n INTERFACES if\_t100\_message. \\n ALIASES: get\_text FOR if\_message~get\_text, \\n get\_longtext FOR if\_message~get\_longtext. \\n METHODS constructor IMPORTING id TYPE symsgid \\n no TYPE symsgno \\n v1 TYPE string OPTIONAL \\n v2 TYPE string OPTIONAL \\n v3 TYPE string OPTIONAL \\n v4 TYPE string OPTIONAL. \\n DATA: attr1 TYPE c LENGTH 50, \\n attr2 TYPE c LENGTH 50, \\n attr3 TYPE c LENGTH 50, \\n attr4 TYPE c LENGTH 50. \\nENDCLASS. \\n\\ \\nCLASS msg IMPLEMENTATION. \\n METHOD constructor. \\n if\_t100\_message~t100key-msgid = id. \\n if\_t100\_message~t100key-msgno = no. \\n if\_t100\_message~t100key-attr1 = 'ATTR1'. \\n if\_t100\_message~t100key-attr2 = 'ATTR2'. \\n if\_t100\_message~t100key-attr3 = 'ATTR3'. \\n if\_t100\_message~t100key-attr4 = 'ATTR4'. \\n attr1 = v1. \\n attr2 = v2. \\n attr3 = v3. \\n attr4 = v4. \\n ENDMETHOD. \\n METHOD if\_message~get\_text. \\n result = cl\_message\_helper=>get\_text\_for\_message( me ). \\n ENDMETHOD. \\n METHOD if\_message~get\_longtext. \\n result = cl\_message\_helper=>get\_longtext\_for\_message( me ). \\n ENDMETHOD. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_if\_t100\_message IMPLEMENTATION. \\n METHOD main. \\n DATA(id) = \`SABAPDEMOS\`. \\n DATA(no) = \`104\`. \\n DATA(v1) = \`Hello,\`. \\n DATA(v2) = \`I am\`. \\n DATA(v3) = \`a\`. \\n DATA(v4) = \`Message!\`. \\n cl\_demo\_input=>new( \\n )->add\_field( CHANGING field = id \\n )->add\_field( CHANGING field = no \\n )->add\_field( CHANGING field = v1 \\n )->add\_field( CHANGING field = v2 \\n )->add\_field( CHANGING field = v3 \\n )->add\_field( CHANGING field = v4 \\n )->request( ). \\n\\ \\n FINAL(mref) = NEW msg( id = CONV #( id ) \\n no = CONV #( no ) \\n v1 = v1 \\n v2 = v2 \\n v3 = v3 \\n v4 = v4 ). \\n\\ \\n out->write( mref->get\_text( ) ). \\n\\ \\n "MESSAGE mref TYPE 'I'. \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_if\_t100\_message DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* CCIMP \\nCLASS msg DEFINITION. \\n PUBLIC SECTION. \\n INTERFACES if\_t100\_message. \\n ALIASES: get\_text FOR if\_message~get\_text, \\n get\_longtext FOR if\_message~get\_longtext. \\n METHODS constructor IMPORTING id TYPE symsgid \\n no TYPE symsgno \\n v1 TYPE string OPTIONAL \\n v2 TYPE string OPTIONAL \\n v3 TYPE string OPTIONAL \\n v4 TYPE string OPTIONAL. \\n DATA: attr1 TYPE c LENGTH 50, \\n attr2 TYPE c LENGTH 50, \\n attr3 TYPE c LENGTH 50, \\n attr4 TYPE c LENGTH 50. \\nENDCLASS. \\n\\ \\nCLASS msg IMPLEMENTATION. \\n METHOD constructor. \\n if\_t100\_message~t100key-msgid = id. \\n if\_t100\_message~t100key-msgno = no. \\n if\_t100\_message~t100key-attr1 = 'ATTR1'. \\n if\_t100\_message~t100key-attr2 = 'ATTR2'. \\n if\_t100\_message~t100key-attr3 = 'ATTR3'. \\n if\_t100\_message~t100key-attr4 = 'ATTR4'. \\n attr1 = v1. \\n attr2 = v2. \\n attr3 = v3. \\n attr4 = v4. \\n ENDMETHOD. \\n METHOD if\_message~get\_text. \\n result = cl\_message\_helper=>get\_text\_for\_message( me ). \\n ENDMETHOD. \\n METHOD if\_message~get\_longtext. \\n result = cl\_message\_helper=>get\_longtext\_for\_message( me ). \\n ENDMETHOD. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_if\_t100\_message IMPLEMENTATION. \\n METHOD main. \\n DATA(id) = \`SABAPDEMOS\`. \\n DATA(no) = \`104\`. \\n DATA(v1) = \`Hello,\`. \\n DATA(v2) = \`I am\`. \\n DATA(v3) = \`a\`. \\n DATA(v4) = \`Message!\`. \\n cl\_demo\_input=>new( \\n )->add\_field( CHANGING field = id \\n )->add\_field( CHANGING field = no \\n )->add\_field( CHANGING field = v1 \\n )->add\_field( CHANGING field = v2 \\n )->add\_field( CHANGING field = v3 \\n )->add\_field( CHANGING field = v4 \\n )->request( ). \\n\\ \\n FINAL(mref) = NEW msg( id = CONV #( id ) \\n no = CONV #( no ) \\n v1 = v1 \\n v2 = v2 \\n v3 = v3 \\n v4 = v4 ). \\n\\ \\n out->write( mref->get\_text( ) ). \\n\\ \\n "MESSAGE mref TYPE 'I'. \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abenabap\_texts.html abenabap\_messages.html abenmessage\_interfaces.html abenif\_t100\_message.html

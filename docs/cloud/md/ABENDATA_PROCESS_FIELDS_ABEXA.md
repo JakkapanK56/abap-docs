@@ -1,0 +1,42 @@
+---
+title: "Demo for ABAP Keyword Documentation"
+description: |
+  n'! n'! Disclaimer:  n'! This class represents a demonstration program of the ABAP Keyword n'! Documentation, primarily intended to provide a better explanation n'! and visualization of syntax. It is not intended for production use n'! and may use demo artifacts that are not rel
+library: "cloud"
+libraryName: "ABAP Cloud"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENDATA_PROCESS_FIELDS_ABEXA.htm"
+abapFile: "ABENDATA_PROCESS_FIELDS_ABEXA.html"
+keywords: ["select", "do", "if", "method", "class", "data", "ABENDATA", "PROCESS", "FIELDS", "ABEXA"]
+---
+
+This example demonstrates how substrings can be accessed using offset/length specifications.
+
+In the first part, the minutes of a time field are selected by specifying an offset. Then the minutes and seconds are set to their initial values by specifying an offset in the `CLEAR` statement.
+
+In the second part, the five digit sequence `78901` from the field `f2` is replaced with `DEFGH` from `f1` by specifying offsets and lengths.
+
+In the third part, assignments are used. First, the content of `f1` is assigned to `f2` without offset specifications. The same is then done with offsets and lengths for `f1`. The next three assignments overwrite the content of `f2` with an offset of 2. Note that `f2` is padded on the right with blanks, in accordance with the conversion rule for source type `c`.
+
+In the fourth part, string templates are used. The first six places of the field `number` are written left-aligned, centered, and right-aligned to the last 12 places of the `text` field
+
+\* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_data\_process\_fields DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_data\_process\_fields IMPLEMENTATION. \\n METHOD main. \\n\\ \\n DATA time TYPE t VALUE '172545'. \\n\\ \\n DATA: f1(8) TYPE c VALUE 'ABCDEFGH', \\n f2(20) TYPE c VALUE '12345678901234567890'. \\n\\ \\n DATA: f3(8) TYPE c VALUE 'ABCDEFGH', \\n f4(8) TYPE c. \\n DATA: o TYPE i VALUE 2, \\n l TYPE i VALUE 4. \\n\\ \\n DATA: text(20) TYPE c, \\n number(8) TYPE c VALUE '123456', \\n offset TYPE i VALUE 8, \\n length TYPE i VALUE 12. \\n\\ \\n out->begin\_section( \`Example 1\` \\n )->write( time \\n )->write( time+2(2) \\n )->write( time+2(4) ). \\n CLEAR time+2(4). \\n out->write( time ). \\n\\ \\n out->next\_section( \`Example 2\` ). \\n f2+6(5) = f1+3(5). \\n out->write( f1 \\n )->write( f2 ). \\n\\ \\n out->next\_section( \`Example 3\` ). \\n f4 = f3. \\n out->write( f4 ). \\n f4 = f3+o(l). \\n out->write( f4 ). \\n f4+o(l) = f3. \\n out->write( f4 ). \\n CLEAR f4. \\n f4+o(l) = f3. \\n out->write( f4 ). \\n f4+o(l) = f3+o(l). \\n out->write( f4 ). \\n\\ \\n out->next\_section( \`Example 4\` ). \\n\\ \\n text+offset(length) = |\\{ number(6) ALIGN = LEFT WIDTH = length \\}|. \\n out->write( text ). \\n CLEAR text. \\n text+offset(length) = |\\{ number(6) ALIGN = CENTER WIDTH = length \\}|. \\n out->write( text ). \\n CLEAR text. \\n text+offset(length) = |\\{ number(6) ALIGN = RIGHT WIDTH = length \\}|. \\n out->write( text ). \\n\\ \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_data\_process\_fields DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_data\_process\_fields IMPLEMENTATION. \\n METHOD main. \\n\\ \\n DATA time TYPE t VALUE '172545'. \\n\\ \\n DATA: f1(8) TYPE c VALUE 'ABCDEFGH', \\n f2(20) TYPE c VALUE '12345678901234567890'. \\n\\ \\n DATA: f3(8) TYPE c VALUE 'ABCDEFGH', \\n f4(8) TYPE c. \\n DATA: o TYPE i VALUE 2, \\n l TYPE i VALUE 4. \\n\\ \\n DATA: text(20) TYPE c, \\n number(8) TYPE c VALUE '123456', \\n offset TYPE i VALUE 8, \\n length TYPE i VALUE 12. \\n\\ \\n out->begin\_section( \`Example 1\` \\n )->write( time \\n )->write( time+2(2) \\n )->write( time+2(4) ). \\n CLEAR time+2(4). \\n out->write( time ). \\n\\ \\n out->next\_section( \`Example 2\` ). \\n f2+6(5) = f1+3(5). \\n out->write( f1 \\n )->write( f2 ). \\n\\ \\n out->next\_section( \`Example 3\` ). \\n f4 = f3. \\n out->write( f4 ). \\n f4 = f3+o(l). \\n out->write( f4 ). \\n f4+o(l) = f3. \\n out->write( f4 ). \\n CLEAR f4. \\n f4+o(l) = f3. \\n out->write( f4 ). \\n f4+o(l) = f3+o(l). \\n out->write( f4 ). \\n\\ \\n out->next\_section( \`Example 4\` ). \\n\\ \\n text+offset(length) = |\\{ number(6) ALIGN = LEFT WIDTH = length \\}|. \\n out->write( text ). \\n CLEAR text. \\n text+offset(length) = |\\{ number(6) ALIGN = CENTER WIDTH = length \\}|. \\n out->write( text ). \\n CLEAR text. \\n text+offset(length) = |\\{ number(6) ALIGN = RIGHT WIDTH = length \\}|. \\n out->write( text ). \\n\\ \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abenoperands.html abenoperands\_data\_objects.html abenoperands\_names.html abenoffset\_length.html

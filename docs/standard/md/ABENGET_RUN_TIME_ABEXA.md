@@ -1,0 +1,24 @@
+---
+title: "ABENGET_RUN_TIME_ABEXA"
+description: |
+  ABENGET_RUN_TIME_ABEXA - Standard ABAP language reference documentation
+library: "standard"
+libraryName: "Standard ABAP"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENGET_RUN_TIME_ABEXA.htm"
+abapFile: "ABENGET_RUN_TIME_ABEXA.html"
+keywords: ["select", "do", "if", "case", "method", "class", "data", "ABENGET", "RUN", "TIME", "ABEXA"]
+---
+
+The example demonstrates how to use the statement `GET RUN TIME FIELD` statement at runtime.
+
+In this example, the runtime of three code segments is examined:
+
+The result shows that the offset of the runtime measurement can be neglected in this case and that reading specific columns of a table is faster than reading entire rows.
+
+-   An empty code segment for determining the offset of the runtime measurement
+-   A code segment that reads all data of the database table `SBOOK`
+-   A code segment that reads two columns of the database table `SBOOK`
+
+\* Public class definition \\nCLASS cl\_demo\_get\_run\_time DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_get\_run\_time IMPLEMENTATION. \\n METHOD main. \\n\\ \\n DATA: t1 TYPE i, \\n t2 TYPE i, \\n t TYPE p DECIMALS 2. \\n\\ \\n DATA n TYPE i VALUE 5. \\n cl\_demo\_input=>new( )->request( \\n EXPORTING text = 'Number of measurements' \\n CHANGING field = n ). \\n\\ \\n IF n < 1 OR n > 10. \\n out->write( 'Enter a number between 1 and 10' ). \\n RETURN. \\n ENDIF. \\n\\ \\n DATA: toff TYPE p DECIMALS 2, \\n tsel1 TYPE p DECIMALS 2, \\n tsel2 TYPE p DECIMALS 2. \\n\\ \\n DATA sbook\_wa TYPE sbook. \\n\\ \\n t = 0. \\n DO n TIMES. \\n GET RUN TIME FIELD t1. \\n GET RUN TIME FIELD t2. \\n t2 -= t1. \\n t += t2 / n. \\n ENDDO. \\n toff = t. \\n out->write( |Mean Offset Runtime: \\{ \\n toff \\} microseconds| ). \\n t = 0. \\n DO n TIMES. \\n GET RUN TIME FIELD t1. \\n\\ \\n SELECT \* "#EC CI\_ALL\_FIELDS\_NEEDED \\n FROM sbook \\n INTO @sbook\_wa \\n UP TO 1000 ROWS. \\n ENDSELECT. \\n\\ \\n GET RUN TIME FIELD t2. \\n t2 -= t1. \\n t += t2 / n. \\n ENDDO. \\n tsel1 = t - toff. \\n out->write( |Mean Runtime SELECT \* : \\{ \\n tsel1 \\} microseconds| ). \\n t = 0. \\n DO n TIMES. \\n GET RUN TIME FIELD t1. \\n\\ \\n SELECT carrid, connid \\n FROM sbook \\n INTO (@sbook\_wa-carrid, @sbook\_wa-connid) \\n UP TO 1000 ROWS. \\n ENDSELECT. \\n\\ \\n GET RUN TIME FIELD t2. \\n t2 -= t1. \\n t += t2 / n. \\n ENDDO. \\n tsel2 = t - toff. \\n out->write( |Mean Runtime SELECT list : \\{ \\n tsel2 \\} microseconds| ). \\n\\ \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\nCLASS cl\_demo\_get\_run\_time DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_get\_run\_time IMPLEMENTATION. \\n METHOD main. \\n\\ \\n DATA: t1 TYPE i, \\n t2 TYPE i, \\n t TYPE p DECIMALS 2. \\n\\ \\n DATA n TYPE i VALUE 5. \\n cl\_demo\_input=>new( )->request( \\n EXPORTING text = 'Number of measurements' \\n CHANGING field = n ). \\n\\ \\n IF n < 1 OR n > 10. \\n out->write( 'Enter a number between 1 and 10' ). \\n RETURN. \\n ENDIF. \\n\\ \\n DATA: toff TYPE p DECIMALS 2, \\n tsel1 TYPE p DECIMALS 2, \\n tsel2 TYPE p DECIMALS 2. \\n\\ \\n DATA sbook\_wa TYPE sbook. \\n\\ \\n t = 0. \\n DO n TIMES. \\n GET RUN TIME FIELD t1. \\n GET RUN TIME FIELD t2. \\n t2 -= t1. \\n t += t2 / n. \\n ENDDO. \\n toff = t. \\n out->write( |Mean Offset Runtime: \\{ \\n toff \\} microseconds| ). \\n t = 0. \\n DO n TIMES. \\n GET RUN TIME FIELD t1. \\n\\ \\n SELECT \* "#EC CI\_ALL\_FIELDS\_NEEDED \\n FROM sbook \\n INTO @sbook\_wa \\n UP TO 1000 ROWS. \\n ENDSELECT. \\n\\ \\n GET RUN TIME FIELD t2. \\n t2 -= t1. \\n t += t2 / n. \\n ENDDO. \\n tsel1 = t - toff. \\n out->write( |Mean Runtime SELECT \* : \\{ \\n tsel1 \\} microseconds| ). \\n t = 0. \\n DO n TIMES. \\n GET RUN TIME FIELD t1. \\n\\ \\n SELECT carrid, connid \\n FROM sbook \\n INTO (@sbook\_wa-carrid, @sbook\_wa-connid) \\n UP TO 1000 ROWS. \\n ENDSELECT. \\n\\ \\n GET RUN TIME FIELD t2. \\n t2 -= t1. \\n t += t2 / n. \\n ENDDO. \\n tsel2 = t - toff. \\n out->write( |Mean Runtime SELECT list : \\{ \\n tsel2 \\} microseconds| ). \\n\\ \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abenprogram\_editing.html abenabap\_tests.html abenabap\_runtime\_measurements.html abapget\_run\_time.html

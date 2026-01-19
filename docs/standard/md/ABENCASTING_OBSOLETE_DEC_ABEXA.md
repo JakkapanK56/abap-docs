@@ -1,0 +1,20 @@
+---
+title: "ABENCASTING_OBSOLETE_DEC_ABEXA"
+description: |
+  ABENCASTING_OBSOLETE_DEC_ABEXA - Standard ABAP language reference documentation
+library: "standard"
+libraryName: "Standard ABAP"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCASTING_OBSOLETE_DEC_ABEXA.htm"
+abapFile: "ABENCASTING_OBSOLETE_DEC_ABEXA.html"
+keywords: ["if", "method", "class", "data", "field-symbol", "ABENCASTING", "OBSOLETE", "DEC", "ABEXA"]
+---
+
+This example demonstrates how a casting of decimal places is performed.
+
+The three fields of type `p` all have two decimal places. The field symbols `<f1>` and `<f2>` are given one or four decimal places. The numeric values are different for the field symbols and the assigned fields.
+
+The section of the method that has been commented out also shows the syntax for the respective [obsolete casting](ABAPASSIGN_CASTING_OBSOLETE.html).
+
+\* Public class definition \\nCLASS cl\_demo\_fld\_smbls\_assign\_deci DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_fld\_smbls\_assign\_deci IMPLEMENTATION. \\n METHOD main. \\n\\ \\n DATA: pack1 TYPE p DECIMALS 2 VALUE '400', \\n pack2 TYPE p DECIMALS 2, \\n pack3 TYPE p DECIMALS 2. \\n\\ \\n FIELD-SYMBOLS: TYPE any, \\n TYPE any. \\n\\ \\n out->begin\_section( 'Cast of decimal places' ). \\n\\ \\n out->write\_data( pack1 ). \\n\\ \\n\* correct -------------------------------------------------------------- \\n\\ \\n ASSIGN pack1 TO CASTING TYPE p DECIMALS 1. \\n out->write( |: \\{ \\}| ). \\n\\ \\n pack2 = . \\n out->write( |pack2: \\{ pack2 \\}| ). \\n\\ \\n ASSIGN pack2 TO CASTING TYPE p DECIMALS 4. \\n out->write( |: \\{ \\}| ). \\n\\ \\n pack3 = \+ . \\n out->write( |pack3: \\{ pack3 \\}| ). \\n\\ \\n \= '1234.56789'. \\n out->write( |: \\{ \\}| ). \\n out->write( |pack2: \\{ pack2 \\}| ). \\n\\ \\n\* obsolete, not allowed in methods ------------------------------------- \\n\\ \\n "ASSIGN pack1 TO DECIMALS 1. \\n\\ \\n "pack2 = . \\n\\ \\n "ASSIGN pack2 TO DECIMALS 4. \\n\\ \\n "pack3 = \+ . \\n\\ \\n " = '1234.56789'. \\n\\ \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\nCLASS cl\_demo\_fld\_smbls\_assign\_deci DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_fld\_smbls\_assign\_deci IMPLEMENTATION. \\n METHOD main. \\n\\ \\n DATA: pack1 TYPE p DECIMALS 2 VALUE '400', \\n pack2 TYPE p DECIMALS 2, \\n pack3 TYPE p DECIMALS 2. \\n\\ \\n FIELD-SYMBOLS: TYPE any, \\n TYPE any. \\n\\ \\n out->begin\_section( 'Cast of decimal places' ). \\n\\ \\n out->write\_data( pack1 ). \\n\\ \\n\* correct -------------------------------------------------------------- \\n\\ \\n ASSIGN pack1 TO CASTING TYPE p DECIMALS 1. \\n out->write( |: \\{ \\}| ). \\n\\ \\n pack2 = . \\n out->write( |pack2: \\{ pack2 \\}| ). \\n\\ \\n ASSIGN pack2 TO CASTING TYPE p DECIMALS 4. \\n out->write( |: \\{ \\}| ). \\n\\ \\n pack3 = \+ . \\n out->write( |pack3: \\{ pack3 \\}| ). \\n\\ \\n \= '1234.56789'. \\n out->write( |: \\{ \\}| ). \\n out->write( |pack2: \\{ pack2 \\}| ). \\n\\ \\n\* obsolete, not allowed in methods ------------------------------------- \\n\\ \\n "ASSIGN pack1 TO DECIMALS 1. \\n\\ \\n "pack2 = . \\n\\ \\n "ASSIGN pack2 TO DECIMALS 4. \\n\\ \\n "pack3 = \+ . \\n\\ \\n " = '1234.56789'. \\n\\ \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abenabap\_data\_working.html abenvalue\_assignments.html abenreference\_assignments.html abenset\_field\_symbols.html abapassign.html abapassign\_casting.html abencasting\_obsolete\_abexas.html

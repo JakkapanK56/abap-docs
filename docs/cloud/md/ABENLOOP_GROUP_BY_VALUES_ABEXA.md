@@ -1,0 +1,44 @@
+---
+title: "Demo for ABAP Keyword Documentation"
+description: |
+  n'! n'! Disclaimer:  n'! This class represents a demonstration program of the ABAP Keyword n'! Documentation, primarily intended to provide a better explanation n'! and visualization of syntax. It is not intended for production use n'! and may use demo artifacts that are not rel
+library: "cloud"
+libraryName: "ABAP Cloud"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENLOOP_GROUP_BY_VALUES_ABEXA.htm"
+abapFile: "ABENLOOP_GROUP_BY_VALUES_ABEXA.html"
+keywords: ["select", "loop", "do", "if", "method", "class", "data", "internal-table", "ABENLOOP", "GROUP", "VALUES", "ABEXA"]
+---
+
+This example demonstrates the construction of the group key using simple value assignments.
+
+[Grouping](ABAPLOOP_AT_ITAB_GROUP_BY.html) of an internal table `flights` with [group key binding](ABAPLOOP_AT_ITAB_GROUP_BY_BINDING.html). The [group key](ABAPLOOP_AT_ITAB_GROUP_BY_KEY.html) of the [group loop](ABENGROUP_LOOP_GLOSRY.html) is constructed as a structure, where the values of the columns `carrid` or `cityfrom` of each line of the internal table are assigned to the components `carrier` and `cityfr`. This creates groups of lines that have the same value in these columns. Furthermore, the components `size` and `index` are created for the special language elements `GROUP SIZE` or `GROUP INDEX` to determine the size and index of each group.
+
+The group key that is bound to a reference variable `group_ref` and the additional components are produced in the group loop. In a [member loop](ABENMEMBER_LOOP_GLOSRY.html), the lines of each group are placed in an internal table `members` using the [value operator](ABENVALUE_OPERATOR_GLOSRY.html) with the addition [`BASE`](ABENVALUE_CONSTRUCTOR_PARAMS_ITAB.html). This table is also displayed.
+
+`members` could also be filled by evaluating a table comprehension using [`FOR ... IN GROUP`](ABENFOR_IN_GROUP.html), instead of in a [member loop](ABENMEMBER_LOOP_GLOSRY.html)\\ [`LOOP AT GROUP`](ABAPLOOP_AT_GROUP.html):
+
+members = VALUE #( FOR <flight> IN GROUP group\_ref ( <flight> ) ).
+
+The executable example for [grouping with `FOR`](ABENFOR_GROUP_BY_VALUES_ABEXA.html) demonstrates how the entire group loop can be implemented using expressions.
+
+\* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_loop\_grp\_by\_values DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\n METHODS initialize. \\n\\ \\n PRIVATE SECTION. \\n DATA: \\n carrier TYPE spfli-carrid VALUE 'LH', \\n flights TYPE TABLE OF spfli WITH EMPTY KEY. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_loop\_grp\_by\_values IMPLEMENTATION. \\n METHOD main. \\n initialize( ). \\n\\ \\n out->begin\_section( \`Flights\` ). \\n out->write( flights ). \\n out->begin\_section( \`Grouping\` ). \\n DATA members LIKE flights. \\n LOOP AT flights INTO FINAL(flight) \\n GROUP BY ( carrier = flight-carrid cityfr = flight-cityfrom \\n size = GROUP SIZE index = GROUP INDEX ) \\n ASCENDING \\n REFERENCE INTO FINAL(group\_ref). \\n out->begin\_section( \\n |Group Key: \\{ group\_ref->carrier \\}, \\{ group\_ref->cityfr \\}| ). \\n out->write( \\n |Group Size: \\{ group\_ref->size \\}, | && \\n |Group Index: \\{ group\_ref->index \\}| ). \\n CLEAR members. \\n LOOP AT GROUP group\_ref ASSIGNING FIELD-SYMBOL(). \\n members = VALUE #( BASE members ( ) ). \\n ENDLOOP. \\n out->write( members )->end\_section( ). \\n ENDLOOP. \\n ENDMETHOD. \\n METHOD initialize. \\n cl\_demo\_input=>new( )->request( CHANGING field = carrier ). \\n carrier = to\_upper( carrier ). \\n SELECT \* FROM spfli \\n WHERE carrid = @carrier \\n INTO TABLE @flights. \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_loop\_grp\_by\_values DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\n METHODS initialize. \\n\\ \\n PRIVATE SECTION. \\n DATA: \\n carrier TYPE spfli-carrid VALUE 'LH', \\n flights TYPE TABLE OF spfli WITH EMPTY KEY. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_loop\_grp\_by\_values IMPLEMENTATION. \\n METHOD main. \\n initialize( ). \\n\\ \\n out->begin\_section( \`Flights\` ). \\n out->write( flights ). \\n out->begin\_section( \`Grouping\` ). \\n DATA members LIKE flights. \\n LOOP AT flights INTO FINAL(flight) \\n GROUP BY ( carrier = flight-carrid cityfr = flight-cityfrom \\n size = GROUP SIZE index = GROUP INDEX ) \\n ASCENDING \\n REFERENCE INTO FINAL(group\_ref). \\n out->begin\_section( \\n |Group Key: \\{ group\_ref->carrier \\}, \\{ group\_ref->cityfr \\}| ). \\n out->write( \\n |Group Size: \\{ group\_ref->size \\}, | && \\n |Group Index: \\{ group\_ref->index \\}| ). \\n CLEAR members. \\n LOOP AT GROUP group\_ref ASSIGNING FIELD-SYMBOL(). \\n members = VALUE #( BASE members ( ) ). \\n ENDLOOP. \\n out->write( members )->end\_section( ). \\n ENDLOOP. \\n ENDMETHOD. \\n METHOD initialize. \\n cl\_demo\_input=>new( )->request( CHANGING field = carrier ). \\n carrier = to\_upper( carrier ). \\n SELECT \* FROM spfli \\n WHERE carrid = @carrier \\n INTO TABLE @flights. \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abenabap\_data\_working.html abenitab.html abentable\_processing\_statements.html abaploop\_at\_itab\_variants.html abaploop\_at\_itab\_group\_by.html abenloop\_group\_by\_abexas.html

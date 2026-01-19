@@ -1,0 +1,60 @@
+---
+title: "Demo for ABAP Keyword Documentation"
+description: |
+  n'! n'! Disclaimer:  n'! This class represents a demonstration program of the ABAP Keyword n'! Documentation, primarily intended to provide a better explanation n'! and visualization of syntax. It is not intended for production use n'! and may use demo artifacts that are not rel
+library: "cloud"
+libraryName: "ABAP Cloud"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENBDL_VALIDATION_ABEXA.htm"
+abapFile: "ABENBDL_VALIDATION_ABEXA.html"
+keywords: ["select", "insert", "update", "delete", "loop", "do", "if", "method", "class", "data", "types", "ABENBDL", "VALIDATION", "ABEXA"]
+---
+
+This example demonstrates how a validation is defined, implemented, and consumed in a managed RAP BO.
+
+**Data model**
+
+The CDS data model consists of the root view entity `DEMO_SALES_CDS_SO_1`, which represents a sales order.
+
+**Behavior definition**
+
+The [RAP behavior definition](ABENCDS_BEHAVIOR_DEFINITION_GLOSRY.html)\\ `DEMO_SALES_CDS_SO_1` is defined in [RAP BDL](ABENCDS_BDL_GLOSRY.html) as follows:
+
+**Definition of validation**
+
+The validation `ValidateBuyerId` checks if the value entered in field `BuyerId` is valid by checking whether this buyer ID exists in the database table `DEMO_SALES_BUPA`, which lists all business partners. It is triggered as soon as the field `BuyerId` is changed. If the buyer ID is not valid, the data changes are rejected and an error message is returned.
+
+validation ValidateBuyerId on save \\{ field BuyerId; \\}
+
+**Behavior implementation**
+
+For the above RAP behavior definition, one [ABAP behavior pool (ABP)](ABENBEHAVIOR_POOL_GLOSRY.html) is created. The global class of the behavior pool is `BP_DEMO_SALES_CDS_SO_1`. The actual implementation takes place in the `BP_DEMO_SALES_CDS_SO_1========CCIMP`.
+
+**Access with ABAP using EML**
+
+The above source code uses [EML](ABENEML_GLOSRY.html) to access the RAP business object from an ABAP class:
+
+-   A BO entity instance with the buyer ID `a` is created. This is a valid buyer ID, so the instance is committed to the database.
+-   Two further BO entity instances are created with invalid buyer IDs. These entity instances are rejected by the validation and they are inserted into an error table instead.
+-   The valid and the invalid entity instances are created in separate [RAP transactions](ABENRAP_LUW_GLOSRY.html). If all three entity instances were created in one RAP transaction, all three of them would be rejected. All data changes in one RAP transaction must be consistent, otherwise, the complete content of the transactional buffer is rejected.
+
+@AccessControl.authorizationCheck: #NOT\_REQUIRED\\n@EndUserText.label: 'CDS view entity, so, RAP managed'\\n\\ndefine root view entity DEMO\_SALES\_CDS\_SO\_1 \\nas select from demo\_sales\_order\\n\\{\\n key so\_key as SoKey,\\n id as Id,\\n lifecycle\_status as LifecycleStatus,\\n created\_by as CreatedBy,\\n created\_on as CreatedOn,\\n created\_at as CreatedAt,\\n last\_changed\_by as LastChangedBy,\\n last\_changed\_on as LastChangedOn,\\n last\_changed\_at as LastChangedAt,\\n buyer\_id as BuyerId,\\n ship\_to\_id as ShipToId,\\n quantity\_sum as QuantitySum,\\n uom\_sum as UomSum,\\n amount\_sum as AmountSum,\\n currency\_sum as CurrencySum,\\n company\_code as CompanyCode \\n\\}\\n managed implementation in class bp\_demo\_sales\_cds\_so\_1 unique;\\nstrict(2);\\n\\ndefine behavior for DEMO\_SALES\_CDS\_SO\_1 alias SalesOrder\\npersistent table demo\_sales\_order\\nlock master\\nauthorization master (global)\\n\\{\\n create;\\n update;\\n\\n field ( readonly, numbering : managed ) SoKey;\\n\\n validation ValidateBuyerId on save \\{ field BuyerId; \\}\\n\\n mapping for DEMO\_SALES\_ORDER corresponding\\n \\{\\n SoKey = so\_key;\\n BuyerId = buyer\_id;\\n ShipToId = ship\_to\_id;\\n QuantitySum = quantity\_sum;\\n UomSum = uom\_sum;\\n AmountSum = amount\_sum;\\n CurrencySum = currency\_sum;\\n CompanyCode = company\_code;\\n CreatedBy = created\_by;\\n CreatedAt = created\_at;\\n CreatedOn = created\_on;\\n LifecycleStatus = lifecycle\_status;\\n LastChangedBy = last\_changed\_by;\\n LastChangedOn = last\_changed\_on;\\n LastChangedAt = last\_changed\_at;\\n \\}\\n\\} \* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_cds\_validation DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\n METHODS fill\_table. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_cds\_validation IMPLEMENTATION. \\n METHOD main. \\n\\ \\n fill\_table( ). \\n DELETE FROM demo\_sales\_order. \\n MODIFY ENTITIES OF demo\_sales\_cds\_so\_1 \\n ENTITY SalesOrder \\n CREATE \\n FIELDS ( BuyerId ) WITH VALUE #( \\n ( %cid = '1' BuyerId = \`a\` ) ) \\n MAPPED FINAL(mapped) \\n FAILED FINAL(failed) \\n REPORTED FINAL(reported). \\n\\ \\n COMMIT ENTITIES. \\n\\ \\n IF sy-subrc <> 0. \\n out->write\_doc( \`An issue occurred in the RAP save sequence.\` ). \\n ENDIF. \\n\\ \\n MODIFY ENTITIES OF demo\_sales\_cds\_so\_1 \\n ENTITY SalesOrder \\n CREATE \\n FIELDS ( BuyerId ) WITH VALUE #( \\n ( %cid = '2' BuyerId = \`CCC\` ) \\n ( %cid = '3' BuyerId = 'DDD' ) ) \\n MAPPED FINAL(mapped1) \\n FAILED FINAL(failed1) \\n REPORTED FINAL(reported1). \\n\\ \\n COMMIT ENTITIES RESPONSE OF demo\_sales\_cds\_so\_1 \\n FAILED FINAL(failed\_commit) \\n REPORTED FINAL(reported\_commit). \\n\\ \\n IF sy-subrc <> 0. \\n out->write\_doc( \`An issue occurred in the RAP save sequence.\` ). \\n ENDIF. \\n\\ \\n READ ENTITY demo\_sales\_cds\_so\_1 \\n ALL FIELDS WITH CORRESPONDING #( mapped1-salesorder ) \\n RESULT FINAL(result) \\n FAILED FINAL(failed2) \\n REPORTED FINAL(reported2). \\n\\ \\n TYPES: BEGIN OF reported\_structure, \\n key\_field TYPE i, \\n message TYPE if\_abap\_behv\_message=>t\_severity, \\n msgv1 TYPE symsgv, \\n msgv1\_2 TYPE c LENGTH 50, \\n END OF reported\_structure. \\n\\ \\n TYPES reported\_table\_type TYPE TABLE OF reported\_structure. \\n DATA failed\_entities TYPE reported\_table\_type. \\n\\ \\n LOOP AT reported2-salesorder ASSIGNING FIELD-SYMBOL(). \\n APPEND VALUE #( key\_field = \-%key-SoKey \\n message = \-%msg->m\_severity \\n msgv1 = \-%msg->if\_t100\_dyn\_msg~msgv1 \\n msgv1\_2 = \-%msg->if\_message~get\_text( ) \\n ) TO failed\_entities. \\n ENDLOOP. \\n\\ \\n SELECT so\_key, buyer\_id \\n FROM demo\_sales\_order \\n INTO TABLE @FINAL(valid\_entities). \\n\\ \\n out->next\_section( 'Valid entities' \\n )->write( valid\_entities \\n )->next\_section( 'Invalid entities' \\n )->write( failed\_entities ). \\n\\ \\n ENDMETHOD. \\n METHOD fill\_table. \\n DELETE FROM demo\_sales\_bupa. \\n INSERT demo\_sales\_bupa FROM TABLE @( VALUE #( \\n ( id = 'a' gender = 'f' family\_name = 'Doe' ) \\n ( id = 'b' gender = 'm' family\_name = 'Smith' ) \\n ( id = 'c' gender = 'd' family\_name = 'Walker' ) \\n ) ). \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\n"!
+
+Demo for ABAP Keyword Documentation
+
+\\ \\n"! \\n"!
+
+**Disclaimer:**
+\\ \\n"! This class represents a demonstration program of the ABAP Keyword \\n"! Documentation, primarily intended to provide a better explanation \\n"! and visualization of syntax. It is not intended for production use \\n"! and may use demo artifacts that are not released as APIs for use \\n"! in ABAP for Cloud Development.
+
+\\ \\nCLASS cl\_demo\_cds\_validation DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\n METHODS fill\_table. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_cds\_validation IMPLEMENTATION. \\n METHOD main. \\n\\ \\n fill\_table( ). \\n DELETE FROM demo\_sales\_order. \\n MODIFY ENTITIES OF demo\_sales\_cds\_so\_1 \\n ENTITY SalesOrder \\n CREATE \\n FIELDS ( BuyerId ) WITH VALUE #( \\n ( %cid = '1' BuyerId = \`a\` ) ) \\n MAPPED FINAL(mapped) \\n FAILED FINAL(failed) \\n REPORTED FINAL(reported). \\n\\ \\n COMMIT ENTITIES. \\n\\ \\n IF sy-subrc <> 0. \\n out->write\_doc( \`An issue occurred in the RAP save sequence.\` ). \\n ENDIF. \\n\\ \\n MODIFY ENTITIES OF demo\_sales\_cds\_so\_1 \\n ENTITY SalesOrder \\n CREATE \\n FIELDS ( BuyerId ) WITH VALUE #( \\n ( %cid = '2' BuyerId = \`CCC\` ) \\n ( %cid = '3' BuyerId = 'DDD' ) ) \\n MAPPED FINAL(mapped1) \\n FAILED FINAL(failed1) \\n REPORTED FINAL(reported1). \\n\\ \\n COMMIT ENTITIES RESPONSE OF demo\_sales\_cds\_so\_1 \\n FAILED FINAL(failed\_commit) \\n REPORTED FINAL(reported\_commit). \\n\\ \\n IF sy-subrc <> 0. \\n out->write\_doc( \`An issue occurred in the RAP save sequence.\` ). \\n ENDIF. \\n\\ \\n READ ENTITY demo\_sales\_cds\_so\_1 \\n ALL FIELDS WITH CORRESPONDING #( mapped1-salesorder ) \\n RESULT FINAL(result) \\n FAILED FINAL(failed2) \\n REPORTED FINAL(reported2). \\n\\ \\n TYPES: BEGIN OF reported\_structure, \\n key\_field TYPE i, \\n message TYPE if\_abap\_behv\_message=>t\_severity, \\n msgv1 TYPE symsgv, \\n msgv1\_2 TYPE c LENGTH 50, \\n END OF reported\_structure. \\n\\ \\n TYPES reported\_table\_type TYPE TABLE OF reported\_structure. \\n DATA failed\_entities TYPE reported\_table\_type. \\n\\ \\n LOOP AT reported2-salesorder ASSIGNING FIELD-SYMBOL(). \\n APPEND VALUE #( key\_field = \-%key-SoKey \\n message = \-%msg->m\_severity \\n msgv1 = \-%msg->if\_t100\_dyn\_msg~msgv1 \\n msgv1\_2 = \-%msg->if\_message~get\_text( ) \\n ) TO failed\_entities. \\n ENDLOOP. \\n\\ \\n SELECT so\_key, buyer\_id \\n FROM demo\_sales\_order \\n INTO TABLE @FINAL(valid\_entities). \\n\\ \\n out->next\_section( 'Valid entities' \\n )->write( valid\_entities \\n )->next\_section( 'Invalid entities' \\n )->write( failed\_entities ). \\n\\ \\n ENDMETHOD. \\n METHOD fill\_table. \\n DELETE FROM demo\_sales\_bupa. \\n INSERT demo\_sales\_bupa FROM TABLE @( VALUE #( \\n ( id = 'a' gender = 'f' family\_name = 'Doe' ) \\n ( id = 'b' gender = 'm' family\_name = 'Smith' ) \\n ( id = 'c' gender = 'd' family\_name = 'Walker' ) \\n ) ). \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_rap.html abencds\_bdef.html abenbdl.html abenbdl\_rap\_bo.html abenbdl\_define\_beh.html abenbdl\_body.html abenbdl\_validations.html

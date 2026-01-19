@@ -1,0 +1,18 @@
+---
+title: "ABENSELECT_UNION_SUM_ABEXA"
+description: |
+  ABENSELECT_UNION_SUM_ABEXA - Standard ABAP language reference documentation
+library: "standard"
+libraryName: "Standard ABAP"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSELECT_UNION_SUM_ABEXA.htm"
+abapFile: "ABENSELECT_UNION_SUM_ABEXA.html"
+keywords: ["select", "insert", "case", "method", "class", "data", "ABENSELECT", "UNION", "SUM", "ABEXA"]
+---
+
+This example demonstrates how a union is created across a table using an aggregate expression.
+
+[`UNION`](ABAPUNION.html) is used to create the union of the result sets of two `SELECT` statements for the same DDIC database table. The first `SELECT` statement reads all flights for a carrier and the second `SELECT` statement aggregates the flights by connection, adding the number of occupied seats. A [`CAST` expression](ABENSQL_CAST.html) is used to insert a column for the flight date `fldate` from the first result set with a suitable data type in the second result set. A comment indicates how this is also possible using a [host expression](ABENABAP_SQL_HOST_EXPRESSIONS.html) in this case. A further column `mark` is filled with literals to make realistic sorts possible. The entire result contains the aggregated rows located below the associated rows of the first result set and are flagged with *X*.
+
+\* Public class definition \\nCLASS cl\_demo\_select\_union\_sum DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_select\_union\_sum IMPLEMENTATION. \\n METHOD main. \\n DATA carrid TYPE sflight-carrid VALUE 'AA'. \\n cl\_demo\_input=>new( )->request( CHANGING field = carrid ). \\n\\ \\n SELECT ' ' AS mark, carrid, connid, fldate, seatsocc \\n FROM sflight \\n WHERE carrid = @( to\_upper( carrid ) ) \\n UNION SELECT 'X' AS mark, \\n carrid, \\n connid, \\n "@( CONV d( '00000000' ) ) AS fldate, \\n CAST( '00000000' AS DATS ) AS fldate, \\n SUM( seatsocc ) AS seatsocc \\n FROM sflight \\n WHERE carrid = @( to\_upper( carrid ) ) \\n GROUP BY carrid, connid \\n ORDER BY carrid, connid, mark, fldate, seatsocc \\n INTO TABLE @FINAL(result). \\n\\ \\n out->write( result ). \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\nCLASS cl\_demo\_select\_union\_sum DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_select\_union\_sum IMPLEMENTATION. \\n METHOD main. \\n DATA carrid TYPE sflight-carrid VALUE 'AA'. \\n cl\_demo\_input=>new( )->request( CHANGING field = carrid ). \\n\\ \\n SELECT ' ' AS mark, carrid, connid, fldate, seatsocc \\n FROM sflight \\n WHERE carrid = @( to\_upper( carrid ) ) \\n UNION SELECT 'X' AS mark, \\n carrid, \\n connid, \\n "@( CONV d( '00000000' ) ) AS fldate, \\n CAST( '00000000' AS DATS ) AS fldate, \\n SUM( seatsocc ) AS seatsocc \\n FROM sflight \\n WHERE carrid = @( to\_upper( carrid ) ) \\n GROUP BY carrid, connid \\n ORDER BY carrid, connid, mark, fldate, seatsocc \\n INTO TABLE @FINAL(result). \\n\\ \\n out->write( result ). \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abendb\_access.html abenabap\_sql.html abenabap\_sql\_reading.html abapunion.html abenunion\_abexas.html

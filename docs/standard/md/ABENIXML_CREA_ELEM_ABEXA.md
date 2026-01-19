@@ -1,0 +1,18 @@
+---
+title: "ABENIXML_CREA_ELEM_ABEXA"
+description: |
+  ABENIXML_CREA_ELEM_ABEXA - Standard ABAP language reference documentation
+library: "standard"
+libraryName: "Standard ABAP"
+category: "general"
+type: "abap-reference"
+sourceUrl: "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENIXML_CREA_ELEM_ABEXA.htm"
+abapFile: "ABENIXML_CREA_ELEM_ABEXA.html"
+keywords: ["insert", "do", "method", "class", "data", "ABENIXML", "CREA", "ELEM", "ABEXA"]
+---
+
+Creates DOM nodes step by step.
+
+Nodes are created as elements, attributes, and content and inserted into XML data. The result represents XML data in asXML format, which can be deserialized to ABAP using `CALL TRANSFORMATION id`.
+
+\* Public class definition \\nCLASS cl\_demo\_ixml\_create\_elmnts DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_ixml\_create\_elmnts IMPLEMENTATION. \\n METHOD main. \\n FINAL(ixml) = cl\_ixml=>create( ). \\n FINAL(document) = ixml->create\_document( ). \\n\\ \\n FINAL(root) = document->create\_element\_ns( name = 'abap' \\n prefix = 'asx' ). \\n root->set\_attribute\_ns( name = 'asx' \\n prefix = 'xmlns' \\n value = 'http://www.sap.com/abapxml' ). \\n root->set\_attribute\_ns( name = 'version' \\n value = '1.0' ). \\n document->append\_child( root ). \\n\\ \\n FINAL(node1) = document->create\_element\_ns( prefix = 'asx' \\n name = 'values' ). \\n root->append\_child( node1 ). \\n\\ \\n FINAL(node2) = document->create\_element\_ns( name = 'TEXT' ). \\n node1->append\_child( node2 ). \\n\\ \\n node2->append\_child( document->create\_text( 'Hello XML' ) ). \\n\\ \\n DATA xml\_string TYPE string. \\n ixml->create\_renderer( document = document \\n ostream = ixml->create\_stream\_factory( \\n )->create\_ostream\_cstring( \\n string = xml\_string ) \\n )->render( ). \\n out->write\_xml( xml\_string ). \\n\\ \\n DATA result TYPE string. \\n CALL TRANSFORMATION id SOURCE XML xml\_string \\n RESULT text = result. \\n out->write\_data( result ). \\n ENDMETHOD. \\nENDCLASS. \* Public class definition \\nCLASS cl\_demo\_ixml\_create\_elmnts DEFINITION \\n INHERITING FROM cl\_demo\_classrun \\n PUBLIC \\n CREATE PUBLIC. \\n PUBLIC SECTION. \\n METHODS main REDEFINITION. \\nENDCLASS. \\n\\ \\n\* Public class implementation \\nCLASS cl\_demo\_ixml\_create\_elmnts IMPLEMENTATION. \\n METHOD main. \\n FINAL(ixml) = cl\_ixml=>create( ). \\n FINAL(document) = ixml->create\_document( ). \\n\\ \\n FINAL(root) = document->create\_element\_ns( name = 'abap' \\n prefix = 'asx' ). \\n root->set\_attribute\_ns( name = 'asx' \\n prefix = 'xmlns' \\n value = 'http://www.sap.com/abapxml' ). \\n root->set\_attribute\_ns( name = 'version' \\n value = '1.0' ). \\n document->append\_child( root ). \\n\\ \\n FINAL(node1) = document->create\_element\_ns( prefix = 'asx' \\n name = 'values' ). \\n root->append\_child( node1 ). \\n\\ \\n FINAL(node2) = document->create\_element\_ns( name = 'TEXT' ). \\n node1->append\_child( node2 ). \\n\\ \\n node2->append\_child( document->create\_text( 'Hello XML' ) ). \\n\\ \\n DATA xml\_string TYPE string. \\n ixml->create\_renderer( document = document \\n ostream = ixml->create\_stream\_factory( \\n )->create\_ostream\_cstring( \\n string = xml\_string ) \\n )->render( ). \\n out->write\_xml( xml\_string ). \\n\\ \\n DATA result TYPE string. \\n CALL TRANSFORMATION id SOURCE XML xml\_string \\n RESULT text = result. \\n out->write\_data( result ). \\n ENDMETHOD. \\nENDCLASS. abenabap.html abenabap\_reference.html abendata\_interchange.html abenabap\_xml.html abenabap\_xml\_libs.html abenabap\_ixml\_lib.html abenabap\_ixml\_lib\_abexas.html
