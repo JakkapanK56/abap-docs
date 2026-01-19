@@ -12,6 +12,9 @@
     "scrape:standard": "node scripts/scrape.js --library standard --force",
     "scrape:cloud": "node scripts/scrape.js --library cloud --force",
     "scrape:all": "node scripts/scrape.js --all",
+    "scrape:retry": "node scripts/scrape.js --library standard --retry-failed",
+    "scrape:retry:cloud": "node scripts/scrape.js --library cloud --retry-failed",
+    "scrape:retry:all": "node scripts/scrape.js --all --retry-failed",
     
     "generate": "node scripts/generate.js",
     "generate:standard": "node scripts/generate.js --library standard --force",

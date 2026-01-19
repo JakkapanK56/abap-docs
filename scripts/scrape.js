@@ -36,13 +36,15 @@ function parseArgs(argv) {
     if (a === '--concurrency') { args.concurrency = Number(argv[++i]); continue; }
     if (a === '--all') { args.all = true; continue; }
     if (a === '--force') { args.force = true; continue; }
+    if (a === '--retry-failed') { args.retryFailed = true; continue; }
   }
   return {
     library: args.library || 'standard',
     limit: Number.isFinite(args.limit) ? args.limit : Infinity,
     concurrency: Number.isFinite(args.concurrency) ? args.concurrency : 8,
     all: Boolean(args.all),
-    force: Boolean(args.force)
+    force: Boolean(args.force),
+    retryFailed: Boolean(args.retryFailed)
   };
 }
 
@@ -130,9 +132,10 @@ async function fetchWithRetry(url, tries = 3) {
 function deriveBasePrefix(rootUrl) {
   const u = new URL(rootUrl);
   let prefix = u.toString();
-  if (prefix.endsWith('index.htm')) {
-    prefix = prefix.replace(/index\.htm$/, '');
-  }
+  // Remove index file from prefix
+  prefix = prefix.replace(/\/(index\.htm|ABENABAP\.html)$/, '/');
+  // Ensure trailing slash
+  if (!prefix.endsWith('/')) prefix += '/';
   return prefix;
 }
 
@@ -161,14 +164,13 @@ async function getSeedUrls(rootUrl) {
   const basePrefix = deriveBasePrefix(rootUrl);
   const seeds = new Set();
   
-  // Known entry documents
+  // Known entry documents - using .html for modern wrapper compatibility
   const knownFiles = [
-    'abenabap.htm',
-    'abenabap_glossary.htm', 
-    'abenabap_index.htm',
-    'abenabap_subjects.htm',
-    'abenabap_examples.htm',
-    'abap_docu_tree.htm?file=abenabap.htm'
+    'ABENABAP.html',
+    'ABENABAP_GLOSSARY.html', 
+    'ABENABAP_INDEX.html',
+    'ABENABAP_SUBJECTS.html',
+    'ABENABAP_EXAMPLES.html'
   ];
   
   for (const file of knownFiles) {
@@ -178,8 +180,51 @@ async function getSeedUrls(rootUrl) {
   return { basePrefix, seeds: Array.from(seeds) };
 }
 
+function unwrapSapUi5Content(html) {
+  if (!html.includes('sap-ui-bootstrap')) return html;
+  
+  // Find the JSONModel initialization for the content
+  // Look for: var oModel = new sap.ui.model.json.JSONModel({ ... });
+  const match = html.match(/var\s+oModel\s*=\s*new\s+sap\.ui\.model\.json\.JSONModel\(\s*({[\s\S]*?})\s*\);/);
+  if (!match) return html;
+  
+  const jsonContent = match[1];
+  
+  // Extract all values that look like content
+  // Regex matches key: "value" pattern where value is double-quoted
+  const valueRegex = /\b\w+:\s*"((?:[^"\\]|\\.)*)"/g;
+  let valMatch;
+  const contentParts = [];
+  
+  while ((valMatch = valueRegex.exec(jsonContent)) !== null) {
+    let content = valMatch[1];
+    // Unescape quotes: \" -> "
+    content = content.replace(/\\"/g, '"');
+    contentParts.push(content);
+  }
+  
+  if (contentParts.length === 0) return html;
+  
+  // Join parts
+  const fullContent = contentParts.join('\n');
+  
+  // Reconstruct a simple HTML page compatible with existing tools
+  return `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<div class="all">
+${fullContent}
+</div>
+</body>
+</html>`;
+}
+
 async function scrapeLibrary(rootUrl, opts) {
-  const { limit, concurrency, force } = opts;
+  const { limit, concurrency, force, retryFailed } = opts;
   const library = libraryFromRootUrl(rootUrl);
   const config = LIBRARY_CONFIG[library];
   const { basePrefix, seeds } = await getSeedUrls(rootUrl);
@@ -192,12 +237,61 @@ async function scrapeLibrary(rootUrl, opts) {
   
   await ensureDir(dirs.base);
 
-  // Check if already scraped
   const manifestPath = path.resolve(dirs.base, '_manifest.json');
+  let existingManifest = null;
+  
+  // Handle --retry-failed: only retry previously failed URLs
+  if (retryFailed && fs.existsSync(manifestPath)) {
+    existingManifest = JSON.parse(await fsp.readFile(manifestPath, 'utf8'));
+    const failedUrls = existingManifest.failedUrls || [];
+    
+    if (failedUrls.length === 0) {
+      console.log(`   ✅ No failed URLs to retry`);
+      return existingManifest;
+    }
+    
+    console.log(`   🔄 Retrying ${failedUrls.length} previously failed URLs...`);
+    
+    const retryQueue = [...failedUrls];
+    const retrySaved = [];
+    const retryFailed2 = [];
+    
+    for (const url of retryQueue) {
+      try {
+        let html = await fetchWithRetry(url);
+        html = unwrapSapUi5Content(html);
+        const htmlPath = getHtmlFilePath(dirs.html, basePrefix, url);
+        await saveHtml(htmlPath, html);
+        retrySaved.push(url);
+        console.log(`   ✅ Recovered: ${url.split('/').pop()}`);
+      } catch (err) {
+        retryFailed2.push(url);
+        console.warn(`   ⚠️  Still failing: ${url.split('/').pop()}: ${err.message}`);
+      }
+      await sleep(100); // Rate limiting
+    }
+    
+    // Update manifest
+    existingManifest.savedCount += retrySaved.length;
+    existingManifest.savedUrls.push(...retrySaved);
+    existingManifest.failedUrls = retryFailed2;
+    existingManifest.lastRetryAt = new Date().toISOString();
+    
+    await fsp.writeFile(manifestPath, JSON.stringify(existingManifest, null, 2));
+    
+    console.log(`   ✅ Recovered ${retrySaved.length} files, ${retryFailed2.length} still failing`);
+    return existingManifest;
+  }
+
+  // Check if already scraped (normal mode)
   if (!force && fs.existsSync(manifestPath)) {
-    const existing = JSON.parse(await fsp.readFile(manifestPath, 'utf8'));
-    console.log(`   ⏭️  Already scraped: ${existing.savedCount} files`);
-    return existing;
+    existingManifest = JSON.parse(await fsp.readFile(manifestPath, 'utf8'));
+    const failedCount = (existingManifest.failedUrls || []).length;
+    console.log(`   ⏭️  Already scraped: ${existingManifest.savedCount} files`);
+    if (failedCount > 0) {
+      console.log(`   ⚠️  ${failedCount} URLs failed previously. Use --retry-failed to retry them.`);
+    }
+    return existingManifest;
   }
 
   // Clean HTML directory if force
@@ -209,23 +303,36 @@ async function scrapeLibrary(rootUrl, opts) {
   const seen = new Set(queue.map(normalizeUrl));
   const saved = [];
   const savedFiles = [];
+  const failedUrls = [];
 
   async function worker() {
     while (queue.length > 0 && saved.length < limit) {
       const url = queue.shift();
       if (!url) break;
       
+      const htmlPath = getHtmlFilePath(dirs.html, basePrefix, url);
+      let html = '';
+      let fromCache = false;
+
       try {
-        const html = await fetchWithRetry(url);
-        const links = extractLinks(html, url);
-        const htmlPath = getHtmlFilePath(dirs.html, basePrefix, url);
+        // Check if file already exists
+        if (!force && fs.existsSync(htmlPath)) {
+          html = await fsp.readFile(htmlPath, 'utf8');
+          fromCache = true;
+        } else {
+          html = await fetchWithRetry(url);
+          // Unwrap SAPUI5 wrapper if present
+          html = unwrapSapUi5Content(html);
+          await saveHtml(htmlPath, html);
+        }
         
-        await saveHtml(htmlPath, html);
         saved.push(url);
         savedFiles.push({
           url,
           htmlFile: path.relative(dirs.base, htmlPath)
         });
+        
+        const links = extractLinks(html, url);
         
         // Add new links to queue
         for (const link of links) {
@@ -245,10 +352,13 @@ async function scrapeLibrary(rootUrl, opts) {
         }
         
       } catch (err) {
-        console.warn(`   ⚠️  Failed to fetch ${url}: ${err.message}`);
+        console.warn(`   ⚠️  Failed to process ${url}: ${err.message}`);
+        failedUrls.push(url);
       }
       
-      await sleep(50); // Rate limiting
+      if (!fromCache) {
+        await sleep(50); // Rate limiting only for network requests
+      }
     }
   }
 
@@ -264,6 +374,8 @@ async function scrapeLibrary(rootUrl, opts) {
     basePrefix,
     savedCount: saved.length,
     savedUrls: saved,
+    failedUrls: failedUrls,
+    failedCount: failedUrls.length,
     files: savedFiles,
     output: {
       htmlDir: path.relative(dirs.base, dirs.html)
@@ -274,6 +386,9 @@ async function scrapeLibrary(rootUrl, opts) {
   await fsp.writeFile(manifestPath, JSON.stringify(manifest, null, 2));
 
   console.log(`   ✅ Scraped ${saved.length} files for ${config.name}`);
+  if (failedUrls.length > 0) {
+    console.log(`   ⚠️  ${failedUrls.length} URLs failed. Use --retry-failed to retry them later.`);
+  }
   return manifest;
 }
 

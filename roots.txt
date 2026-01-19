@@ -1,2 +1,2 @@
-https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/index.htm
-https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/index.htm
+https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP.html
+https://help.sap.com/doc/abapdocu_cp_index_htm/CLOUD/en-US/ABENABAP.html
