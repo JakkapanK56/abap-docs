@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abenassignment_access_gdl.html">Assignments, Calculations, and Other Types of Data Access</a> / <span>Anonymous Containers</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>Anonymous containers are character-like or byte-like data objects of type <code class='code'>c</code> or <code class='code'>string</code> type (or <code class='code'>x</code>/<code class='code'>xstring</code> type). Data objects of other types (especially structures) are assigned using <a target='_parent' href='ABENCASTING_GUIDL.html' class='blue'>casting</a> to these objects, to store them persistently in these containers.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Do not use character or byte fields as containers</strong></p>
+<p>Do not store structured data in unstructured character-like or byte-like variables.</p></div>
+<h2>Details</h2><div class="content"><p>The direct storage of structured data in unstructured character-like or byte-like data objects is problematic, particularly with data exchanges using remote function calls (RFC), input/output through the file system of the <a target='_parent' href='ABENHOST_COMPUTER_GLOSRY.html' class='green'>host computer</a> or output to a printer. Unexpected results can occur due to platform-dependent byte orders (endianness), alignment requirements and different character sets (code pages).</p>
+<p>If, for example, a container is saved and imported from an AS instance whose <a target='_parent' href='ABENHOST_COMPUTER_GLOSRY.html' class='green'>host computer</a> has a different byte order, problems occur if the container is used for content for which the byte order is critical. In other words, the numeric fields of types <code class='code'>i</code>, <code class='code'>decfloat16</code>, <code class='code'>decfloat34</code> and <code class='code'>f</code>. The order of the character-like data objects of bytes is also dependent on the platform in the character representation <a target='_parent' href='ABENUCS2_GLOSRY.html' class='green'>UCS-2</a> of the programming language ABAP.</p>
+<p>Even without these technical problems, it can difficult to correctly import data that has been stored as described above. You usually have to perform another casting operation for the data type of the data stored in the container. However, as the relevant type information is not saved with the data, it might not be possible to perform type-compliant casting.</p></div>
+<h2>Hint</h2><div class="content"><p>If data needs to be saved in an unstructured container, the statement <code class='code'>EXPORT ... TO DATA BUFFER</code> can be used. This type of data storage is robust against different platform properties. However, you cannot use <code class='code'>EXPORT</code> and <code class='code'>IMPORT</code> to directly process reference variables or instances referenced by them. As a workaround, you can serialize these variables and instances for storage by using the statement <code class='code'>CALL TRANSFORMATION</code>. A class must include the <code class='code'>IF_SERIALIZABLE_OBJECT</code> tag interface, so that its objects can be serialized using <code class='code'>CALL TRANSFORMATION</code>.</p></div>
+</div>
+</body>
+</html>

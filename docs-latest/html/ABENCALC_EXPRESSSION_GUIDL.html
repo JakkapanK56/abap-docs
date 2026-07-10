@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenstructure_style_gdl.html">Structure and Style</a> / <a href="abenalternative_spelling_gdl.html">Alternative Spellings</a> / <span>Calculations</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>In ABAP, the <a target='_parent' href='ABENARITHMETIC_OPERATOR_GLOSRY.html' class='green'>arithmetic operators</a> in <a target='_parent' href='ABENARITHMETIC_EXPRESSION_GLOSRY.html' class='green'>arithmetic expressions</a> are used for numeric calculations. <a target='_parent' href='ABENCALCULATION_ASSIGNMENT_GLOSRY.html' class='green'>Calculation assignments</a> with the operators <a target='_parent' href='ABENCALCULATION_ASSIGNMENTS.html' class='blue'><code class='code'>+=</code></a>, <a target='_parent' href='ABENCALCULATION_ASSIGNMENTS.html' class='blue'><code class='code'>-=</code></a>, <a target='_parent' href='ABENCALCULATION_ASSIGNMENTS.html' class='blue'><code class='code'>*=</code></a>, and <a target='_parent' href='ABENCALCULATION_ASSIGNMENTS.html' class='blue'><code class='code'>/=</code></a> are available for the basic arithmetic operations. These operator formats are accompanied by the dedicated ABAP keywords <code class='code'>ADD</code>, <code class='code'>SUBTRACT</code>, <code class='code'>MULTIPLY</code>, and <code class='code'>DIVIDE</code>.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Use the operator format</strong></p>
+<p>For calculations, use the operator format with the operators (<code class='code'>+=</code>, <code class='code'>-=</code>, <code class='code'>*=</code>, or <code class='code'>/=</code>) instead of the ABAP keyword format.</p></div>
+<h2>Details</h2><div class="content"><p>Calculations with the statements <code class='code'>ADD</code>, <code class='code'>SUBTRACT</code>, <code class='code'>MULTIPLY</code>, and <code class='code'>DIVIDE</code> do not allow expressions in the operand positions and are often more difficult to read than the corresponding operator format.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows a multiplication using the statement <code class='code'>MULTIPLY</code>.</p>
+<pre><code>MULTIPLY n1 by n2.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code shows the same example as above, but in the more compact operator format.</p>
+<pre><p>n1 *=  n2.</p></pre></div>
+</div>
+</body>
+</html>

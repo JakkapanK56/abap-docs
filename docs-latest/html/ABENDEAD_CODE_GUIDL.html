@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenstructure_style_gdl.html">Structure and Style</a> / <a href="abencomplexity_gdl.html">Complexity</a> / <span>Dead Code</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>Dead code is program parts that are never executed because they are no longer required or were never actually required at any time. This code can accumulate during the development (rejected prototypes) or maintenance (changeover to new code without deleting the old code) of programs.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Remove dead code</strong></p>
+<p>Completely remove any unused or inaccessible program parts from live programs.</p></div>
+<h2>Details</h2><div class="content"><p>Although dead code does not affect the executed program parts directly, it still has a negative impact on the product. Program parts that cannot be accessed during program execution do not provide any benefit. Instead they cause increased costs in the course of a program lifecycle because they must be identified as unused for maintenance and further development purposes. The worst case scenario is that if these program parts are not immediately recognized as unused, they will be reused or modified during further developments or refactoring measures. A lot of time and effort is wasted making changes to unused code. In addition, these program parts increase the space required in the program buffer during program execution.</p>
+<p>Dead code also interferes with the aim of maximum <a target='_parent' href='ABENCORRECTNESS_QUALITY_GUIDL.html' class='blue'>test coverage</a> by unit tests using ABAP Unit or scenario tests using e<code class='code'>CATT</code>. Code not used in the live system is either tested, which is very time-consuming, or is not tested, which results in poor test coverage. Unused and inaccessible program parts must therefore be identified and removed as quickly as possible.</p>
+<p><a target='_parent' href='ABENCHECK_CORRECTNESS_GDL.html' class='blue'>Check tools</a> indicate dead code if it can be identified. Examples:</p>
+<ul><li>The syntax check warns you about unused private methods of local classes.</li><li>The extended program check warns you about unused declarations or statement blocks in control structures that can never be accessed.</li></ul>
+<p>However, these static checks can never be complete because not every use of a program part has to be known statically. Therefore, Coverage Analyzer is another important tool for isolating potential dead code.</p></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenstructure_style_gdl.html">Structure and Style</a> / <a href="abennaming_gdl.html">Naming</a> / <span>Program-Internal Names</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>Program-internal names describe entities that are declared in the program and are called within the program or called by other programs. Typical examples include identifiers for data types and data objects as well as methods and method interface parameters.</p>
+<p>Program-internal declarations can be configured in different contexts that all span a separate namespace. These contexts are arranged in the order from local to global:</p>
+<ol><li>Local declarations in a procedure (<a target='_parent' href='ABENFUNCT_MODULE_SUBROUTINE_GUIDL.html' class='blue'>Method</a>)</li><li>Declarations of instance components and static components in a class</li><li>Global declarations in the declaration part of a program</li></ol>
+<p>Here local declarations always hide the more global declarations of higher contexts. Different types of declarations each span a separate namespace in their context, except the class components, which are all located in one single namespace, regardless of their type.</p>
+<p>The identifiers used in ABAP programs are must comply with the syntactic requirements for classes (in accordance with the rule <a target='_parent' href='ABENABAP_OBJ_PROGR_MODEL_GUIDL.html' class='blue'>Use ABAP Objects</a> and the rule <a target='_parent' href='ABENPROGRAM_PROPERTY_GUIDL.html' class='blue'>Applying Default Settings to Program Properties</a>). In other words, the identifiers must begin with a letter, which is followed other letters and numbers that can be separated by underscores.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Prevent program-internal names from being confused or hidden</strong></p>
+<p>Choose program-internal names that cannot be confused with ABAP words or other declarations. In addition, a local name must not hide a more global name. Global entities and interface parameters of procedures should have a prefix for identification purposes.</p></div>
+<h2>Details</h2><div class="content"><p>Besides using the general rule of assigning <a target='_parent' href='ABENTELLING_NAMES_GUIDL.html' class='blue'>meaningful names</a>, it is also important for program-internal declarations that you stick to the above rule of eliminating human error (avoiding name confusion). Unlike a human reader, the compiler usually knows exactly what an identifier is referring to. Use the following prefixes to avoid the danger of unwanted hiding and name confusion:</p>
+<ul><li><code class='code'>g_</code> for global data objects</li><li><code class='code'>l_</code> for local data objects that hide static attributes</li><li><code class='code'>i_</code> for <code class='code'>IMPORTING</code> parameters</li><li><code class='code'>e_</code> for <code class='code'>EXPORTING</code> parameters</li><li><code class='code'>c_</code> for <code class='code'>CHANGING</code> parameters</li><li><code class='code'>r_</code> for <code class='code'>RETURNING</code> parameters</li></ul>
+<p>Further measures are the use of compound identifiers and component selectors.</p>
+<p>The following sections discuss the different aspects of program-internal names in detail and with a systematic approach.</p>
+<p>Naming conventions are frequently established for names within the source code that define specifications for naming, including potential prefixes and suffixes. These specifications often get bogged down in excessive formal strictness. Names created this way contain redundant information, are difficult to maintain and often do not achieve the main aim of readability and self-documenting sources. Therefore, we limited our discussion to the naming-related aspects that we consider essential and universal. Further specifications are only useful at the level of development groups/organizations.</p>
+<p>If prefixes and/or suffixes are used, it is common practice to store the technical properties of the described object in these prefixes/suffixes. Apart from the fact that we do not consider it necessary to specify technical information in names, there are so many technical properties of an object in ABAP that they cannot be mapped using simple rules for short prefixes/suffixes. Or combinations of different technical additions often cannot be interpreted uniquely. Some examples:</p>
+<ul><li>With respect to the <em>data type</em> of a data object, there are naming conventions where <em>v</em> and <em>c</em> as prefixes stand for <em> variable</em> or <em>constant</em> elementary data objects. Similarly, <em>s</em> and <em>t</em> as prefixes stand for <em>structures</em> and internal <em>tables</em>. The type property <em>elementary</em> is wrongly equated with <em>variable</em> or <em>constant</em>. If the properties <em>static variable</em> and <em>sorted table</em> are also supposed to be expressed using <em>s</em>, this is very likely to cause mistakes with name assignments. This makes it much harder to achieve the goal of readable, self-documenting source codes.</li><li>With respect to the <em>validity area</em> or the <em>context</em> of a data object, the naming conventions often stipulate the prefixes <code class='code'>g_</code> and <code class='code'>l_</code> for the names of global and local data objects. We identified <code class='code'>g_</code> for global data objects as the only convention that is actually required for program-internal names. However, the simultaneous labeling of all non-global objects with the prefix <code class='code'>l_</code> for the local validity area is almost never necessary. <code class='code'>l_</code> should only be used if a local name is to be the same as a more global name and the corresponding lack of hiding component selectors would produce unreadable source code. The latter case only occurs for long class names in front of <code class='code'>=></code>. If <code class='code'>me-></code> is used in front of the names of instance attributes, the method does not become any less unreadable than when an <code class='code'>l_</code> is placed in front of the name of a local data object.</li><li class='no_list_style'>It would actually be completely misleading to label static attributes of classes as global, using the prefix <code class='code'>g_</code>. These attributes are only valid within the class and have completely different semantics than global data objects. The use of these attributes does not indicate a design weakness as it is generally the case for global data objects today.</li><li>With respect to the <em>method parameters</em>, we identified the prefixes <code class='code'>i_</code>, <code class='code'>e_</code>, <code class='code'>c_</code>, and <code class='code'>r_</code> for importing, exporting, changing, and returning parameters as possible characteristics for distinguishing from data objects declared in the method. Apart from this, no further technical information needs to be expressed with additional prefixes. With method parameters in particular, technical information in prefixes tends to cause confusion rather than improve readability. For example, a prefix <code class='code'>is_</code> for <em>importing structure</em> would conflict with the prefix <code class='code'>is_</code> for <em>truth values</em>, and a prefix <code class='code'>it_</code> for <em>importing table</em> could easily be understood as a general abbreviation of <em>internal table</em>. If the role the parameter plays cannot be known from the descriptive name of a parameter and the procedure name, the names assigned are completely wrong and/or the procedure does not fulfill any clearly defined tasks. This type of conceptual weakness cannot be fixed (even with technical prefixes).</li></ul>
+<p>In summary, we recommend that you should use name additions cautiously, particularly additions with technical information. Of course, every organization is free to use these conventions, which can supplement our basic rules. In ABAP - with its high versatility of types, many contexts, the distinction between pass by reference and pass by value - it is probably not an easy task to create a complete, self-contained, consistent, technically correct, and - above all - easy-to-understand set of rules for prefixes and suffixes. The known results are just pure conventions that are usually incomplete and are not always applicable.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The example shown below demonstrates how to hide names in different contexts. The fact that no descriptive names were used for the data objects (for the sake of simplicity) can be disregarded here.</p>
+<pre><code>DATA a1 TYPE string VALUE `a1 global`. 
+DATA a2 TYPE string VALUE `a2 global`. 
+DATA a3 TYPE string VALUE `a3 global`. 
+DATA a4 TYPE string VALUE `a4 global`. 
+DATA a5 TYPE string VALUE `a5 global`.CLASS demo DEFINITION. 
+  PUBLIC SECTION. 
+    METHODS main 
+      IMPORTING a1 TYPE string DEFAULT 'a1 imported' 
+      RETURNING value(a6) TYPE string. 
+    CLASS-DATA a1  TYPE string VALUE `a1 class`. 
+    CLASS-DATA a2  TYPE string VALUE `a2 class`. 
+    DATA a3        TYPE string VALUE `a3 class`. 
+    DATA a4        TYPE string VALUE `a4 class`. 
+ENDCLASS.CLASS demo IMPLEMENTATION. 
+  METHOD main. 
+    DATA a3 TYPE string VALUE `a3 local`. 
+    DATA a4 TYPE string VALUE `a4 local`. 
+    CONCATENATE a1 demo=>a2 me->a3 a4 a5 
+      INTO a6 SEPARATED BY `, `. 
+  ENDMETHOD. 
+ENDCLASS.</code></pre>
+<p>If you just consider the implementation of the <code class='code'>main</code> method in the <code class='code'>CONCATENATE</code> statement, it is clearly evident only for the <code class='code'>demo=>a2</code> and <code class='code'>me->a3</code> operands that they are attributes of the class and that a4 is a local data object of the method. It is only possible in the general overview to see that <code class='code'>a1</code> describes an importing parameter, <code class='code'>a5</code> describes a global data object of the program, and a6 describes a returning parameter. The global data objects a1 to a4 cannot be addressed in the method because they are hidden by local data objects or attributes of the class.</p></div>
+<h2>Good Example</h2><div class="content"><p>Unlike the source code above, the following source code includes the previously discussed prefixes, to prevent hiding and to distinguish method parameters from local data objects. Again, descriptive names were not used here to focus on aspects that are essential for this example.</p>
+<pre><code>DATA g_a1 TYPE string VALUE `g_a1 global`. 
+DATA g_a2 TYPE string VALUE `g_a2 global`. 
+DATA g_a3 TYPE string VALUE `g_a3 global`. 
+DATA g_a4 TYPE string VALUE `g_a4 global`. 
+DATA g_a5 TYPE string VALUE `g_a5 global`.CLASS demo DEFINITION. 
+  PUBLIC SECTION. 
+    METHODS main 
+      IMPORTING i_a1 TYPE string DEFAULT 'i_a1 imported' 
+      RETURNING value(r_a6) TYPE string. 
+    CLASS-DATA a1  TYPE string VALUE `a1 class`. 
+    CLASS-DATA a2  TYPE string VALUE `a2 class`. 
+    DATA a3        TYPE string VALUE `a3 class`. 
+    DATA a4        TYPE string VALUE `a4 class`. 
+ENDCLASS.CLASS demo IMPLEMENTATION. 
+  METHOD main. 
+    DATA a3 TYPE string VALUE `a3 local`. 
+    DATA a4 TYPE string VALUE `a4 local`. 
+    CONCATENATE i_a1 demo=>a2 me->a3 a4 g_a5 
+     INTO r_a6 SEPARATED BY `, `. 
+  ENDMETHOD. 
+ENDCLASS.</code></pre>
+<p>All operands are now clearly known in the <code class='code'>CONCATENATE</code> statement. A prefix (<code class='code'>l_</code>) can be implemented for the local names, but this is unnecessary for two reasons:</p>
+<ul><li>The declaration is defined near the place of usage and is always visible to the reader.</li><li>If you consistently use the selectors <code class='code'>-></code> and <code class='code'>=></code> to address the attributes of a class, all names without a prefix and with no specified class or a reference variable are known as local data objects.</li></ul>
+<p>By applying the minimal naming convention used here, you can address all data objects that are declared in the above source code section in the method. Of course, the declaration of the global data objects is only implemented to demonstrate hiding and how to prevent it. Global data objects should <a target='_parent' href='ABENDECLARATION_VARIABLES_GUIDL.html' class='blue'>no longer be used</a> in programs that do not work with classic dynpros.</p></div>
+</div>
+</body>
+</html>

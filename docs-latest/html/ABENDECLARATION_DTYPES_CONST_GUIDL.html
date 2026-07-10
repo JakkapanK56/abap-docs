@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abendata_type_obj_gdl.html">Data Types and Data Objects</a> / <span>Declaration of Data Types and Constants</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>Data types and constants can be declared in the following contexts:</p>
+<ul><li><strong>Cross-program</strong></li><ul><li>in the ABAP Dictionary</li><li>in global classes and interfaces</li><li>in type pools</li></ul><li><strong>Local program</strong></li><ul><li>in the global declaration part of a program</li><li>in global classes and interfaces</li><li>in procedures (<a target='_parent' href='ABENFUNCT_MODULE_SUBROUTINE_GUIDL.html' class='blue'>Methods</a>)</li></ul></ul>
+<p>Technically speaking, type pools, global classes and interfaces are also ABAP programs, in which data types and constants are created using the <code class='code'>TYPES</code> and <code class='code'>CONSTANTS</code> statements. In contrast to other ABAP programs, the declarations can also be statically visible in other programs, depending on the visibility section. Absolute type names enable you to dynamically access the types of all programs.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Declare data types and constants in the appropriate context</strong></p>
+<p>Declare data types and constants in the context that guarantees the best possible encapsulation.</p></div>
+<h2>Details</h2><div class="content"><p>Data types and constants should be declared in the context in which they are <a target='_parent' href='ABENENCAPSULATION_GUIDL.html' class='blue'>visible</a> for all potential consumers but not anywhere else:</p>
+<ul><li><strong>Local program data types and constants</strong></li><ul><li>Data types that are only required by local data objects (usually helper variables) or constants that are only required in a procedure (<a target='_parent' href='ABENFUNCT_MODULE_SUBROUTINE_GUIDL.html' class='blue'>method</a>) should be declared as local data types or constants.</li><li>Data types and constants that are only required within local classes should be declared in the corresponding visibility section of the classes or integrated using an interface.</li><li>If data types are required in multiple local classes and interfaces of a program, they should be created in the appropriate visibility section of a local class or an interface. Local classes or interfaces can be used that contain nothing else apart from these types or constants. In the global declaration part of programs, declarations of data types or constants are not required for semantic reasons.</li></ul><li><strong>Cross-program data types and constants</strong></li><ul><li>Data types and constants that a consumer requires to use a class or interface should be declared in the public visibility section of the global class or interface. Examples include data types used to type interface parameters of methods, and constants expected as actual parameters by methods, such as IDs of <a target='_parent' href='ABENEXCEPTION_TEXTS_GUIDL.html' class='blue'>exception texts</a> in exception classes.</li><li>Data types required by different programs, classes, or interfaces are declared as real types of the ABAP Dictionary (not in type pools). These are usually semantically independent types, for which the ABAP Dictionary provides additional services, such as descriptive texts and documentation options. In this context, you must consider the <a target='_parent' href='ABENSEPARATION_CONCERNS_GUIDL.html' class='blue'>separation of concerns</a>.</li><li class='no_list_style'>For example, a structure of the ABAP Dictionary should never be used to type (Web) Dynpro fields and to simultaneously define a database table. Ideally, data types should be declared in encapsulated packages, which manage the cross-package use of their repository objects and which only expose types actually required outside the package in their package interfaces.</li><li class='no_list_style'>You should generally avoid declaring or even exposing purely technical types without semantic meaning, in application development packages of the ABAP Dictionary. The declaration of these types (such as <code class='code'>INT2</code> or <code class='code'>CHAR10</code>) should be restricted to fundamental basis packages.</li><li>You should not create any new type pools. Data types should be declared in global classes or interfaces, or as real types of the ABAP Dictionary. You should only create constants in global classes or interfaces. However, the use of existing type pools is still <a target='_parent' href='ABENDATAOBJECTS_TRUE_VALUE_GUIDL.html' class='blue'>allowed</a>. It is no longer necessary to load type pools explicitly using the <code class='code'>TYPE-POOLS</code> statement. However, you only need to declare new types or constants in a context, if no <a target='_parent' href='ABENUSING_TYPES_GUIDL.html' class='blue'>semantically appropriate</a> types or constants exist that are more global. For example, if an appropriate ABAP Dictionary data type exists, it is not necessary to create a local data type in the class, to type an interface parameter of a global class method. In this case, the data type in the ABAP Dictionary might have to be published in the same package interface as the class. This would also be the case, however, if an interface parameter is typed with a data type of the class that refers to an ABAP Dictionary data type.</li></ul></ul>
+<p>The misuse of include programs for the declaration of data types and data objects that can be reused across various programs is <a target='_parent' href='ABENMULTIPLE_USE_INCLUDE_GUIDL.html' class='blue'>not allowed</a>.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows the declaration of constants in a type pool that are required across different programs. The name of the type pool must precede the names of the constants as a prefix. You should not create any new <a target='_parent' href='ABENPROGRAM_TYPE_GUIDL.html' class='blue'>type pools</a>. For constants that are required in various different programs, the above rule recommends a declaration in global classes or interfaces.</p>
+<pre><code>TYPE-POOL zicon. 
+  TYPES zicon_icon TYPE ... 
+  CONSTANTS: 
+    zicon_cancel      TYPE zicon_icon VALUE icon_cancel, 
+    zicon_check       TYPE zicon_icon VALUE icon_check, 
+    zicon_check_words TYPE zicon_icon VALUE icon_intensify, 
+    zicon_document    TYPE zicon_icon VALUE icon_hlp, 
+    zicon_download    TYPE zicon_icon VALUE icon_export, 
+    ...</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code illustrates the declaration of the constants in the above example in a global class. The visibility of the constants is restricted to the current package. In other programs, the constants are addressed using <code class='code'>cl_..._icons=></code>.</p>
+<pre><code>CLASS cl_..._icons DEFINITION PUBLIC FINAL. 
+  PUBLIC SECTION. 
+    TYPES  icon TYPE ... 
+    CONSTANTS cancel      TYPE icon VALUE icon_cancel. 
+    CONSTANTS check       TYPE icon VALUE icon_check. 
+    CONSTANTS check_words TYPE icon VALUE icon_intensify. 
+    CONSTANTS document    TYPE icon VALUE icon_hlp. 
+    CONSTANTS download    TYPE icon VALUE icon_export. 
+    ... 
+ENDCLASS.</code></pre></div>
+</div>
+</body>
+</html>

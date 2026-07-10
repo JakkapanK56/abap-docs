@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenstructure_style_gdl.html">Structure and Style</a> / <a href="abencomments_gdl.html">Comments</a> / <span>Language of Comments</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>The natural language that has established itself worldwide for computer programming is English. This is because the language elements in all significant programming languages have been taken from English and their syntax based on English grammar. ABAP is no exception. In fact, efforts have been made to guarantee correct English by giving additions of related statements different names, even if they have the same meaning. Well-known examples include the (now obsolete) additions <code class='code'>VARYING</code> and <code class='code'>VARY</code> of the statements <code class='code'>DO</code> and <code class='code'>WHILE</code>. Here, ABAP can even be viewed as a subset of the English language.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Write program comments in English</strong></p>
+<p>Write all comments in ABAP programs in English only, so that as many readers as possible can understand them and benefit from them.</p></div>
+<h2>Details</h2><div class="content"><p>English comments are a basic prerequisite for distributed development at an international level. There are other good reasons for using English as the comment language:</p>
+<ul><li>If names are in <a target='_parent' href='ABENNAME_LANGU_GUIDL.html' class='blue'>English</a>, the statements of an ABAP program can be considered (with a little good will) to be English sentences. For the reader, English comments are best suited for the source code. If comments in another language were used, this would result in a continuous switching between the languages, which would be exhausting even for readers who can speak the languages used.</li><li>Frequently, the unwanted <a target='_parent' href='ABENCONTENT_GUIDL.html' class='blue'>retelling comments</a> are very similar to the described ABAP statements if they are written in English. This way, the author quickly realizes that his comment is superfluous.</li></ul>
+<p>This rule applies regardless of the <a target='_parent' href='ABENORIGINAL_LANGU_GUIDL.html' class='blue'>original language</a> chosen.</p></div>
+<h2>Use</h2><div class="content"><p>Technical terms that originate from country-specific legislation (such as "Abgeltungssteuer" in German) or specific abbreviations (such as <code class='code'>D&#x00DC;VO</code>) cannot be translated meaningfully or would no longer be recognizable after translation. Such terms should be placed in quotation marks and not be translated into English. In this case, it should be noted that <a target='_parent' href='ABENCHARACTER_SET_GUIDL.html' class='blue'>country-specific characters</a> can be replaced with 7-bit ASCII characters. The goal of the above rule is to enable as many users a possible to follow the program flow. This is still possible if non-IT terms are worded in another language.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows a typical example of German comments, mixed with English terms, which usually do not even follow the required notation or terminology.</p>
+<pre><code>"Horizontales Splittercontrol im Hilfecontainer 
+CREATE OBJECT splitter_h 
+  EXPORTING 
+    parent = help_container 
+    rows = 1 
+    columns = 2."Vertikales Splittercontrol im linken Container 
+CREATE OBJECT splitter_v 
+  EXPORTING 
+    parent = container_left 
+    rows = 2 
+    columns = 1.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code shows the above source code with English comments, as set out in the above rule.</p>
+<pre><code>  "Horizontal splitter control in help container 
+CREATE OBJECT splitter_h 
+  EXPORTING 
+    parent = help_container 
+    rows = 1 
+    columns = 2.  "Vertical splitter control in left container 
+CREATE OBJECT splitter_v 
+  EXPORTING 
+    parent = container_left 
+    rows = 2 
+    columns = 1.</code></pre>
+<p>The goal of this example is to show the difference between German and English comments. If more meaningful <a target='_parent' href='ABENTELLING_NAMES_GUIDL.html' class='blue'>names</a> had been chosen, that is <code class='code'>splitter_horizontal</code> instead of <code class='code'>splitter_h</code>, and so on, comments could be dispensed with altogether, thus complying with the following <a target='_parent' href='ABENCONTENT_GUIDL.html' class='blue'>rule</a>.</p></div>
+</div>
+</body>
+</html>

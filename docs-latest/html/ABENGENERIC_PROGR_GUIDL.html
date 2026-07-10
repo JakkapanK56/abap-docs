@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abendynamic_prog_technique_gdl.html">Dynamic Programming Techniques</a> / <span>Dynamic Programming</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>Dynamic programming (dynamic creation of source code) makes programs as dynamic as possible. The following methods can be used to achieve this:</p>
+<ul><li><strong>Dynamic token specification</strong></li><li class='no_list_style'>Dynamic token specification involves specifying individual operands or whole parts of statements (clauses) in the form of character-like data objects. These are usually enclosed in parentheses and must contain source code with correct syntax at runtime. Important examples:</li><ul><li>Dynamic access to attributes of classes</li><li>Dynamic calls of procedures, particularly methods (known as dynamic invokes)</li><li>Dynamic type specifications when anonymous data objects are created. In this case, types can be used that are only created at runtime using Runtime Type Services (<a target='_parent' href='ABENRTTI.html' class='blue'>RTTS</a>).</li><li>Dynamic specifications of clauses when internal tables are accessed or in ABAP SQL.</li><li class='no_list_style'>Dynamic token specifications are often used in combination with <a target='_parent' href='ABENDYN_ACCESS_DATA_OBJ_GUIDL.html' class='blue'>dynamic access to data objects</a>.</li></ul><li><strong>Program generation</strong></li><li class='no_list_style'>Program generation involves preparing complete programs as content for internal tables and then creating the programs. A distinction is made between the following cases:</li><ul><li>Transient program generation using <code class='code'>GENERATE SUBROUTINE POOL</code>, where the generated programs only exist in the <a target='_parent' href='ABENINTERNAL_SESSION_GLOSRY.html' class='green'>internal session</a> of the current program.</li><li>Persistent program generation with <code class='code'>INSERT REPORT</code>. The generated programs are saved as repository objects.</li></ul></ul></div>
+<h2>Rule</h2><div class="content"><p><strong>Avoiding Program Generation</strong></p>
+<p>Program generation should only be used as a last resort for dynamic programming. Other dynamic methods (especially in application programs) should be tried first, such as dynamic token specification, runtime type services (RTTS) and dynamic access to data objects.</p></div>
+<h2>Details</h2><div class="content"><p>Program generation has a lot of conceptual problems such as checking, testing, and editing the new programs. In addition, programs generated hastily can be a security risk because they cannot be statically checked. Creating programs is usually very intensive in terms of runtime and resources. Due to the above reasons, program generation should be avoided wherever possible and other dynamic methods used instead:</p>
+<ul><li>The dynamic token specification has the advantage that only parts of the statements are dynamic. The rest can be checked statically.</li><li>Runtime type services (RTTS) can be used as follows:</li><ul><li>RTTS define the type properties of data objects at runtime (Runtime Type Information, RTTI). The capabilities of RTTI extend far beyond the statement <code class='code'>DESCRIBE FIELD</code>.</li><li>It creates types at runtime (Runtime Type Creation, RTTC). RTTC should be used if the <code class='code'>CREATE DATA</code> statement does not offer sufficient options for the planned implementation (for example, building new structures).</li></ul></ul>
+<p>These methods, combined with <a target='_parent' href='ABENDYN_ACCESS_DATA_OBJ_GUIDL.html' class='blue'>field symbols and data references</a>, are now usually sufficient for most tasks that could only be solved using program generation in older releases.</p></div>
+<h2>Use</h2><div class="content"><p>Program generation should only be used as a last resort if the other methods are not sufficient to achieve dynamic program control. Another reason is the processing speed. When program generation is used, the costs incurred due to checking and generation occur less frequently than with the other dynamic methods. However, program generation usually has worse system performance than dynamic token specification. The conceptual problems explained at the start are still applicable here and therefore careful consideration is needed.</p>
+<p>Unlike application programs, system programs usually frequently rely on program generation and the associated language constructs. Examples include the generation of proxy classes for Web Dynpro or Web Services. ABAP Editor itself also uses statements such as <code class='code'>READ REPORT</code> and <code class='code'>INSERT REPORT</code>.</p></div>
+<h2>Hints</h2><div class="content"><ul><li>Even generated programs should always adhere to the predefined guidelines. For example, in a generated subroutine pool the program logic should be implemented/generated in the form of <a target='_parent' href='ABENABAP_OBJ_PROGR_MODEL_GUIDL.html' class='blue'>local classes</a>. The generated functions are usually called by means of a single <a target='_parent' href='ABENFUNCT_MODULE_SUBROUTINE_GUIDL.html' class='blue'>subroutine</a> that is used as an entry point into the generated local classes (see the following example).</li><li>To minimize the risks involved, it can be useful to save templates with correct syntax that adhere to the guidelines in the repository. <code class='code'>READ REPORT</code> can then be used to load the templates as templates for dynamically generated programs, in which only small parts are changed or added at runtime.</li><li>Subroutines in generated subroutine pools are an exception to the <a target='_parent' href='ABENABAP_OBJ_PROGR_MODEL_GUIDL.html' class='blue'>rule</a>, which states that subroutines should no longer be created, and an exception to the <a target='_parent' href='ABENINTERN_EXTERN_PROC_CALL_GUIDL.html' class='blue'>rule</a>, which states that subroutines should no longer be called. In addition, absolute type names can be used to access the local classes of a generated subroutine pool. However, this violates the rule <a target='_parent' href='ABENINTERN_EXTERN_PROC_CALL_GUIDL.html' class='blue'>Only call suitable procedures externally</a>.</li></ul></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code demonstrates unnecessary program generation. The only reason for generating the program are dynamic reads on a database table. The name of the database table and the row type of the internal table into which data is read are replaced by a parameter value in the source code of the program to be generated. The value operator <a target='_parent' href='ABENCONSTRUCTOR_EXPRESSION_VALUE.html' class='blue'><code class='code'>VALUE</code></a> is used to create the internal table. As recommended, the subroutine of the generated subroutine pool only contains the call for a method of a local class where the actual implementation is located. Instead of filling the program table row by row, it would have also been possible in this case to create a corresponding program in the repository and load this program using <code class='code'>READ REPORT</code>.</p>
+<pre><code>PARAMETERS dbtab TYPE c LENGTH 16.DATA table TYPE REF TO data. 
+FIELD-SYMBOLS <table> TYPE STANDARD TABLE.DATA: source TYPE TABLE OF string, 
+      program TYPE string, 
+      mess TYPE string.source = VALUE #( 
+  ( `program.` ) 
+  ( `class main definition.` ) 
+  ( `   public section.` ) 
+  ( `     class-data` ) 
+  ( `       dyn_table type standard table of dyn_name.` ) 
+  ( `     class-methods meth` ) 
+  ( `       exporting table type ref to data.` ) 
+  ( `endclass.` ) 
+  ( `class main implementation.` ) 
+  ( `   method meth.` ) 
+  ( `     select *` ) 
+  ( `            from dyn_name` ) 
+  ( `            into table @dyn_table.` ) 
+  ( `     get reference of dyn_table into table.` ) 
+  ( `   endmethod.` ) 
+  ( `endclass.` ) 
+  ( `form subr changing table type ref to data.` ) 
+  ( `   main=>meth(` ) 
+  ( ` importing table = table ).` ) 
+  ( `endform.` ) ).REPLACE ALL OCCURRENCES OF 'dyn_name' 
+        IN TABLE source WITH dbtab. 
+GENERATE SUBROUTINE POOL source NAME program MESSAGE mess. 
+IF sy-subrc = 0. 
+   PERFORM subr IN PROGRAM (program) CHANGING table. 
+   IF table IS BOUND. 
+     ASSIGN table->* TO <table>. 
+   ENDIF. 
+ELSE. 
+   ...ENDIF.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code produces the same result as the example above, when executed successfully. In other words, the field symbol <code class='code'>&lt;table></code> points to an internal table that is filled with data from the dynamically specified database table. However, this task is performed much more efficiently in the example below due to the creation of an anonymous data object and a dynamically specified token. If the target table cannot be structured in exactly the same way as the database table, Runtime Type Creation (RTTC) must also be used.</p>
+<pre><code>PARAMETERS dbtab TYPE c LENGTH 20. 
+DATA table TYPE REF TO data. 
+FIELD-SYMBOLS <table> TYPE STANDARD TABLE.TRY. 
+   CREATE DATA table TYPE TABLE OF (dbtab). 
+   ASSIGN table->* TO <table>. 
+   SELECT * 
+         FROM (dbtab) 
+         INTO TABLE @<table>. 
+  CATCH cx_sy_create_data_error cx_sy_dynamic_osql_error. 
+  ... 
+ENDTRY.</code></pre></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abenmodularization_unit_gdl.html">Modularization Units</a> / <span>Type of Formal Parameters in Procedures</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>The parameter interface of a procedure consists of formal parameters and specifies the <a target='_parent' href='ABENCLASS_EXCEPTION_GUIDL.html' class='blue'>exceptions</a> possible in the procedure. The possible types of formal parameters are:</p>
+<ul><li><strong>Input parameters</strong></li><li class='no_list_style'>Defined using <code class='code'>IMPORTING</code> in methods and function modules and using <code class='code'>USING</code> in subroutines.</li><li><strong>Output parameters</strong></li><li class='no_list_style'>Defined using <code class='code'>EXPORTING</code> in methods and function modules.</li><li><strong>Input/output parameters</strong></li><li class='no_list_style'>Defined using <code class='code'>CHANGING</code> in methods, function modules, and subroutines.</li><li><strong>Return values</strong></li><li class='no_list_style'>Defined using <code class='code'>RETURNING</code> in methods.</li></ul>
+<p>The actual behavior of a formal parameter, however, is in part determined by the combination of the parameter type and the <a target='_parent' href='ABENTYPE_TRANSF_FORMAL_PARA_GUIDL.html' class='blue'>pass by type</a>.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Choose the appropriate formal parameter type</strong></p>
+<p>Select a formal parameter type that corresponds to the parameter semantics:</p>
+<ul><li>Input parameters for parameters that are evaluated but not changed in the procedure.</li><li>Output parameters or return values for parameters that are not evaluated but changed in the procedure.</li><li>Input/output parameters for parameters that are evaluated and changed in the procedure.</li></ul></div>
+<h2>Details</h2><div class="content"><p>For the consumer of a procedure, the parameter types provide important information about how they are used in the procedure and leads the user to expect the procedure to behave in a certain way. If an unsuitable parameter type is selected, the risk of inappropriate use increases.</p>
+<ul><li>Input-only parameters should always have the <code class='code'>IMPORTING</code> type (or <code class='code'>USING</code> for subroutines). Be aware that, when using pass by reference, writes performed on an input parameter defined using <code class='code'>USING</code> are possible without a syntax error being produced (as is the case with input parameters of methods or function modules defined using <code class='code'>IMPORTING</code>). Yet another reason to not use subroutines.</li><li>Output-only parameters should always be <code class='code'>EXPORTING</code> or <code class='code'>RETURNING</code>.</li><li>Parameters that are received and changed should always be of the <code class='code'>CHANGING</code> type. In particular, in a procedure (<a target='_parent' href='ABENFUNCT_MODULE_SUBROUTINE_GUIDL.html' class='blue'>method</a>) the fact that an <code class='code'>EXPORTING</code> parameter (or a <code class='code'>USING</code> parameter in the case of subroutines) passed by reference <a target='_parent' href='ABENREF_TRANSF_OUTPUT_PARAM_GUIDL.html' class='blue'>behaves</a> (from a technical perspective) like a <code class='code'>CHANGING</code> parameter should not be exploited.</li></ul>
+<p>Input parameters or input/output parameters that are not necessarily required for the execution of a procedure should be defined as optional by using <code class='code'>OPTIONAL</code> or by specifying a <code class='code'>DEFAULT</code> value. Otherwise, calling programs are forced to pass unnecessary parameters and create helper variables especially for this purpose.</p>
+<p>A narrow parameter interface in line with a <a target='_parent' href='ABENPROC_VOLUME_GUIDL.html' class='blue'>procedure with an appropriate number of statements</a> only requires a few input parameters and one return value. However, this cannot really be applied consistently in practice and is therefore not set out as a rule here.</p></div>
+<h2>Hint</h2><div class="content"><p>Another parameter type are table parameters that can be declared for function modules and subroutines using <code class='code'>TABLES</code>. Basically, they have the same effects as input/output parameters for internal tables. This parameter type is obsolete and should no longer be used.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows a formal parameter that is declared as an output parameter using <code class='code'>EXPORTING</code>, but is used in the method like an input/output parameter declared with <code class='code'>CHANGING</code>. This does not correspond to the semantics that a calling program expects.</p>
+<pre><code>CLASS class DEFINITION. 
+  PUBLIC SECTION. 
+    METHODS do_something 
+      EXPORTING e_parameter TYPE ... 
+ENDCLASS.CLASS class IMPLEMENTATION. 
+  METHOD do_something. 
+    "evaluate e_parameter 
+    ... 
+    "set e_parameter 
+    ... 
+  ENDMETHOD. 
+ENDCLASS.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code corrects the above example by declaring the parameter as an input/output parameter with <code class='code'>CHANGING</code> according to its use.</p>
+<pre><code>CLASS class DEFINITION. 
+  PUBLIC SECTION. 
+    METHODS do_something 
+      CHANGING c_parameter TYPE ... 
+ENDCLASS.CLASS class IMPLEMENTATION. 
+  METHOD do_something. 
+    "evaluate c_parameter 
+    ... 
+    "set c_parameter 
+    ... 
+  ENDMETHOD. 
+ENDCLASS.</code></pre></div>
+</div>
+</body>
+</html>

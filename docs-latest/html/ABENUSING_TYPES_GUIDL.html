@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abendata_type_obj_gdl.html">Data Types and Data Objects</a> / <span>Using Types</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>You can use the data types declared according to the rules on <a target='_parent' href='ABENBOUND_INDEPENDENT_DTYPE_GUIDL.html' class='blue'>Bound and Standalone Data Types</a> and <a target='_parent' href='ABENDECLARATION_DTYPES_CONST_GUIDL.html' class='blue'>Declaration of Data Types and Constants</a> for declaring and creating data objects, as well as for typing field symbols or interface parameters. You specify them after the <code class='code'>TYPE</code> addition of the corresponding statement.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Use semantically appropriate data types only</strong></p>
+<p>Use existing types only if they match the semantics of the typed object. You must not select an existing type based only on the technical properties.</p></div>
+<h2>Details</h2><div class="content"><p>As long as it extends beyond an elemental ABAP type, the type of a data object or an interface parameter provides the source code reader with information about the semantics of these variables. This makes it easier to recognize the meaning of individual variables.</p>
+<p>For this reason, you must use only data types whose semantics match the usage. The technical properties of a type alone do not justify its use in a specific context, as this impedes the readability of the program.</p>
+<p>In particular, this applies to the reuse or multiple use of existing types. If you require a data type with specific technical properties for an application, you should not simply use any type with these properties from ABAP Dictionary. In the past, this has frequently been the chosen procedure. Consequently applying package encapsulation may help prevent the unwanted use of own data types.</p></div>
+<h2>Hint</h2><div class="content"><p>This rule applies especially for the use of structures from ABAP Dictionary. For example, you should never use a structure defining a database table as a template for input or output fields of classic dynpros or in Web Dynpro. This would violate the <a target='_parent' href='ABENSEPARATION_CONCERNS_GUIDL.html' class='blue'>SoC principle</a>.</p></div>
+<h2>Bad Example</h2><div class="content"><p>In the following source code a variable is declared, whose name and use clearly indicate that it is used for a truth value. The variable is declared with a technically correct, but semantically incorrect, data type. <code class='code'>syst-batch</code>, after all, is the data type for the <a target='_parent' href='ABENSYSTEM_FIELDS_GDL.html' class='blue'>system field</a> <code class='code'>sy-batch</code>, which indicates whether a program is executed in the background.</p>
+<pre><code>DATA is_empty TYPE syst-batch. 
+... 
+IF is_empty IS INITIAL. 
+  ... 
+ENDIF.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code shows an improved example compared to the source code above. In this case, the <code class='code'>abap_bool</code> type of type pool <code class='code'>abap</code>, which is intended for <a target='_parent' href='ABENDATAOBJECTS_TRUE_VALUE_GUIDL.html' class='blue'>truth values</a>, is used. In addition, the request of the truth value is performed using a specifically designated constant from the same type pool.</p>
+<pre><code>DATA is_empty TYPE abap_boolean. 
+... 
+IF is_empty EQ abap_false. 
+  ... 
+ENDIF.</code></pre></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abenassignment_access_gdl.html">Assignments, Calculations, and Other Types of Data Access</a> / <span>Using Conversion Rules</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>ABAP contains numerous conversion rules for assignments between data objects of different data types. These rules relate to assignments between:</p>
+<ul><li><a target='_parent' href='ABENCONVERSION_ELEMENTARY.html' class='blue'>Elementary data objects</a></li><li><a target='_parent' href='ABENCONVERSION_FLAT_ELEMENTARY.html' class='blue'>Elementary data objects and structures</a></li><li><a target='_parent' href='ABENCONVERSION_STRUC.html' class='blue'>Structures</a></li><li><a target='_parent' href='ABENCONVERSION_ITAB.html' class='blue'>Internal tables</a></li><li><a target='_parent' href='ABENCONVERSION_REFERENCES.html' class='blue'>Reference variables</a></li></ul>
+<p>Assignments between data objects of nearly every different data type are possible. The only prohibited assignments are for data types for data and time specifications. Almost all allowed assignments have a corresponding conversion rule. It is especially important to have rules for assignments between data objects of the same data type, if different technical properties (such as length or number of decimal places) are allowed. <a target='_parent' href='ABENLOSSLESS_ASSIGNMENT_GLOSRY.html' class='green'>Lossless assignments</a> allow only conversions that produce valid values and where no values are lost.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Avoid unexpected conversion results</strong></p>
+<p>Only assign data objects to each other if the content corresponds to the data type of the target field and produces an expected result. Do not exploit every ABAP conversion rule to its full extent. Consider using <a target='_parent' href='ABENLOSSLESS_ASSIGNMENT_GLOSRY.html' class='green'>lossless assignments</a>.</p></div>
+<h2>Details</h2><div class="content"><p>The ABAP conversion rules are based on the philosophy that assignments should be allowed between as many combinations of values as possible, without raising exceptions. In this situation, ABAP behaves quite differently from other programming languages. In other languages, assignments between different data types are usually handled much more strictly and special conversion exits or explicit casting for specific requested conversions are used.</p>
+<p>Although it is convenient to be able to readily assign all possible data objects to each other, there are also disadvantages, such as the <a target='_parent' href='ABENAVOIDING_INVALID_VALUES_GUIDL.html' class='blue'>creation of invalid values</a>. Another example is <a target='_parent' href='ABENCASTING_GUIDL.html' class='blue'>implicit casting</a>, which occurs when assignments are made between elementary data objects and structures, or between incompatible structures.</p>
+<p>Even if no invalid values are created, problems still can occur. If valid target values are created from invalid source values, this does not necessarily meet the expectations of the reader and it can make program maintenance considerably difficult. One example of this is the handling of invalid content in the source field in assignments from a character-like type to a byte-like type. Instead of exiting the assignment with an exception, hexadecimal zeros are passed from the first invalid character.</p>
+<p>The only solution here are <a target='_parent' href='ABENLOSSLESS_ASSIGNMENT_GLOSRY.html' class='green'>lossless assignments</a> with the operator <a target='_parent' href='ABENCONSTRUCTOR_EXPRESSION_EXACT.html' class='blue'><code class='code'>EXACT</code></a>, which produce an exception in these cases. Even though this is a bit late in the day, the behavior of an assignment with the operator <code class='code'>EXACT</code> could be regarded as the normal, expected behavior. Other unexpected behaviors represent an implementation of special rules, which is actually the standard behavior in ABAP.</p></div>
+<h2>Bad Example</h2><div class="content"><p>Anyone who is familiar with all the details of the ABAP conversion rules would probably expect an exception when the text in the following source code is assigned to the numeric text. However, only the digits of the text are respected. Therefore, the target field is given the value <em>00000042</em> instead of the value <em>00000007</em>, which might also be expected.</p>
+<pre><code>DATA text TYPE string, 
+num_text TYPE n LENGTH 8. 
+... 
+text = '4 Apples + 2 Oranges'. 
+... 
+num_text = text.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>This issue is corrected in the source code below. The <a target='_parent' href='ABENCONSTRUCTOR_EXPRESSION_EXACT.html' class='blue'><code class='code'>EXACT</code></a> operator is used, which raises an exception.</p>
+<pre><code>... 
+text = '4 Apples + 2 Oranges'. 
+... 
+TRY. 
+    num_text = EXACT #( text ). 
+  CATCH cx_sy_conversion_error. 
+     ... 
+ENDTRY.</code></pre></div>
+</div>
+</body>
+</html>

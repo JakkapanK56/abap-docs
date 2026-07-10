@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenarchitecture_gdl.html">Architecture</a> / <a href="abenerror_handling_gdl.html">Error Handling</a> / <span>Exception Texts</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>Each global exception class has a predefined <a target='_parent' href='ABENEXCEPTION_TEXTS.html' class='blue'>exception text</a> that has the same name as the exception class. This text can be edited and further exception texts can be defined. The exception texts of an exception class can be created either by referencing <a target='_parent' href='ABENEXCEPTION_TEXTS_T100.html' class='blue'>messages&nbsp;in&nbsp;the&nbsp;table&nbsp;<code class='code'>T100</code></a> or by referencing <a target='_parent' href='ABENEXCEPTION_TEXTS_INTERNAL.html' class='blue'>texts in Online Text Repository (OTR)</a>.</p>
+<p>For each exception text, Class Builder creates a static constant in the exception class with the same name as the exception text. When the exception is raised, this can be passed to the parameter <code class='code'>TEXTID</code> of the instance constructor to determine the exception text. If the parameter is not passed, the predefined exception text with the same name as the exception class is used.</p>
+<p>From a technical perspective, the parameter <code class='code'>TEXTID</code> of the instance constructor can also be used to pass messages or texts from OTR as exception texts.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Using Messages as Exception Texts</strong></p>
+<p>Messages should be used as exception texts for exception classes in applications. OTR texts should be restricted to system classes. Only the associated texts can be used when an exception is raised.</p></div>
+<h2>Details</h2><div class="content"><p>The following guideline describes how to choose the text category:</p>
+<ul><li><a target='_parent' href='ABENEXCEPTION_TEXTS_T100.html' class='blue'>Messages</a> should be used as exception texts in all exception classes in application programming.</li><li><a target='_parent' href='ABENEXCEPTION_TEXTS_INTERNAL.html' class='blue'>OTR texts</a> should only be used in system classes, namely exception classes for system exceptions. OTR offers various benefits when compared with messages, such as no restriction to 73 characters and unlimited placeholders, but lacks full tool support. More specifically, <a target='_parent' href='ABENADT_GLOSRY.html' class='green'>ABAP development tools for Eclipse (ADT)</a> do not support OTR texts.</li></ul>
+<p>From a technical perspective, it is possible to pass a data object to the input parameter <code class='code'>TEXTID</code> of the instance constructor when an exception is raised. This data object specifies either a message or an OTR text, depending on the text category. This approach is, however, absolutely not advisable. If the parameter <code class='code'>TEXTID</code> is used, an exception can only be raised with the texts specific to it. Only the associated constants of the exception class can be passed to the input parameter <code class='code'>TEXTID</code> of the instance constructor.</p></div>
+<h2>Hints</h2><div class="content"><ul><li>In cases where a class-based exception is used to wrap a <a target='_parent' href='ABENCLASS_EXCEPTION_GUIDL.html' class='blue'>classic exception</a> and <a target='_parent' href='ABAPMESSAGE_RAISING.html' class='blue'><code class='code'>MESSAGE ... RAISING</code></a> is used to associate this classic exception with a message text (or after a message is caught using <a target='_parent' href='ABAPCALL_FUNCTION_PARAMETER.html' class='blue'><code class='code'>error_message</code></a>), the class-based exception can use the same message text regardless of whether the program in question is a system program or application program. The system interface <a target='_parent' href='ABENIF_T100_DYN_MSG.html' class='blue'><code class='code'>IF_T100_DYN_MSG</code></a> and the addition <a target='_parent' href='ABAPRAISE_EXCEPTION_MESSAGE.html' class='blue'><code class='code'>MESSAGE</code></a> of the statement <a target='_parent' href='ABAPRAISE_EXCEPTION_CLASS.html' class='blue'><code class='code'>RAISE EXCEPTION</code></a> and of the addition <a target='_parent' href='ABENCONDITIONAL_EXPRESSION_RESULT.html' class='blue'><code class='code'>THROW</code></a> in a <a target='_parent' href='ABENCONDITIONAL_EXPRESSIONS.html' class='blue'>conditional exception</a> are used for these cases.</li><li>Classic exceptions are not associated with exception texts. If classic exceptions are required for reasons of downward compatibility, the statement <a target='_parent' href='ABAPMESSAGE_RAISING.html' class='blue'><code class='code'>MESSAGE ... RAISING</code></a> gives the option of emulating exception texts here. Using <code class='code'>MESSAGE ...</code><code class='code'>RAISING</code> in cases in which non-class-based exceptions must still be used is preferable to using the statement <code class='code'>RAISE</code>, because it offers the option of providing additional text information with an exception.</li></ul></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code passes a <a target='_parent' href='ABENUUID_GLOSRY.html' class='green'>UUID</a> for an OTR text to the input parameter <code class='code'>TEXTID</code> of the instance constructor when an exception is raised. According to the rule above, however, only exception texts from the exception class can be passed, with each exception class containing the corresponding constants.</p>
+<pre><code>... 
+DATA otr_id TYPE sotr_conc. 
+otr_id = '9753EBD0102AD0418D902B8D972083C4'. 
+RAISE EXCEPTION TYPE cx_system_exception 
+   EXPORTING 
+      textid = otr_id. 
+...</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code passes the constant for the associated OTR text to the input parameter <code class='code'>TEXTID</code> of the instance constructor when an exception is raised, as specified by the rule above.</p>
+<pre><code>... 
+RAISE EXCEPTION TYPE cx_system_exception 
+   EXPORTING 
+      textid = cx_system_exception=>cx_system_exception. 
+...</code></pre></div>
+</div>
+</body>
+</html>

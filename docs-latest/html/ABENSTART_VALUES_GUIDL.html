@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abendata_type_obj_gdl.html">Data Types and Data Objects</a> / <span>Start Values</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>If you declare a data object with the statement <code class='code'>DATA</code>, you can use the addition <a target='_parent' href='ABAPDATA_OPTIONS.html' class='blue'><code class='code'>VALUE</code></a> to set a value, with which the data object is filled when it is created. If the addition <code class='code'>VALUE</code> is not used, the system uses the type-dependent initial value. If the statement <code class='code'>CONSTANTS</code> is used, the addition <code class='code'>VALUE</code> must always be specified. If the type-dependent initial value is required here, this can be achieved using the addition <code class='code'>VALUE IS INITIAL</code>. The addition <a target='_parent' href='ABAPMETHODS_PARAMETERS.html' class='blue'><code class='code'>DEFAULT</code></a> for input parameters of methods is a further option for start values.</p>
+<p>If the specified start value does match the type and length of the data object, the value is converted when the program is generated.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Start values must match the data type of the data object</strong></p>
+<p>Only use the addition <code class='code'>VALUE</code> to enter start values that exactly match the data type of the declared data object in terms of type, content, and length.</p></div>
+<h2>Details</h2><div class="content"><p>The start value cannot always be specified in a type-compliant way, since ABAP does not support type-compliant <a target='_parent' href='ABENLITERALS_GUIDL.html' class='blue'>literals</a> for all possible data types. In all cases where a conversion cannot be avoided, choose the content of literals specified as start values so that the actual value meets the requirements when the source code is read.</p></div>
+<h2>Hint</h2><div class="content"><p>If a start value cannot be converted to the data type of the data object, no syntax error occurs and program generation is canceled at activation time instead. Non-convertible start values for input parameters of methods, in fact, are not detected until the method is called. This can only occur, however, when literals are specified.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The average reader may well expect the constant <code class='code'>high_noon</code> in the following source code to contain the value 120000. However, the constant actually contains the value 092000, because the value of the numeric literal refers to the number of seconds. This means 12,000 seconds is actually the time 09:20 on the following day.</p>
+<pre><code>CONSTANTS high_noon TYPE t VALUE 120000.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code corrects the above example by replacing the numeric literal with a text field literal. Now the constant <code class='code'>high_noon</code> contains the expected value 120000.</p>
+<pre><code>CONSTANTS high_noon TYPE t VALUE '120000'.</code></pre></div>
+</div>
+</body>
+</html>

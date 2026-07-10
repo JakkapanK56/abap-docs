@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenstructure_style_gdl.html">Structure and Style</a> / <a href="abencomplexity_gdl.html">Complexity</a> / <span>Nesting Depth</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>The nesting depth is the number of statement blocks that are nested due to the use of control structures (branches, loops). We will discuss the nesting depth at the level of a procedure (<a target='_parent' href='ABENFUNCT_MODULE_SUBROUTINE_GUIDL.html' class='blue'>method</a>). <a target='_parent' href='ABENDIAL_MOD_EVENT_BLOCK_GUIDL.html' class='blue'>Implementations must not</a> occur at other points.</p>
+<p>The maximum nesting depth is restricted to 256 by ABAP Compiler.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Restrict the nesting depth of control structures</strong></p>
+<p>Restrict the maximum nesting depth within a procedure (<a target='_parent' href='ABENFUNCT_MODULE_SUBROUTINE_GUIDL.html' class='blue'>method</a>) to five levels.</p></div>
+<h2>Details</h2><div class="content"><p>In addition to the <a target='_parent' href='ABENPROC_VOLUME_GUIDL.html' class='blue'>number of executable statements</a>, the control structures of a procedure (<a target='_parent' href='ABENFUNCT_MODULE_SUBROUTINE_GUIDL.html' class='blue'>method</a>) are also important for their clarity and traceability. Each new nesting level makes nested branches and loops (such as in the statements <code class='code'>IF</code>, <code class='code'>CASE</code>, <code class='code'>DO</code>, <code class='code'>WHILE</code>, and <code class='code'>LOOP</code>) increasingly complicated and difficult to interpret. For this reason, the nesting depth must be restricted within a procedure, for example by moving functions to other procedures.</p>
+<p>A maximum nesting depth of five levels is considered tolerable. A deeper nesting requires a great deal of effort to trace the program flow based on the source code. This would considerably constrain maintenance and further development.</p>
+<p>The use of modern language elements can help to restrict the maximum nesting depth. This is the case if a statement or a built-in function replaces an entire control structure, for instance, for <code class='code'>REPLACE</code> with the addition <code class='code'>ALL OCCURRENCES</code> or for the numeric extremum functions, <code class='code'>nmax( )</code> and <code class='code'>nmin( )</code>, to determine the maximum or minimum value. The former replaces a loop, the latter an <code class='code'>IF</code> control structure.</p></div>
+<h2>Example</h2><div class="content"><p>The transition from the bad to the good example in the rule for <a target='_parent' href='ABENMODERN_ABAP_GUIDL.html' class='blue'>modern ABAP</a> shows how you can reduce the nesting depth by using modern language elements.</p></div>
+</div>
+</body>
+</html>

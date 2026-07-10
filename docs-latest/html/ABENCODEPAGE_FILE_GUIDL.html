@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abeninternationalization_gdl.html">Internationalization</a> / <span>Code Pages for Files</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>When you open text files on the <a target='_parent' href='ABENHOST_COMPUTER_GLOSRY.html' class='green'>host computer</a> of the current AS instance using the <code class='code'>OPEN DATASET</code> statement, you specify the following options that are very important for internationalization:</p>
+<ul><li>The <code class='code'>ENCODING</code> addition specifies the character representation where the content of the file is handled.</li><li>The <code class='code'>WITH BYTE-ORDER MARK</code> addition, which is only possible for UTF-8 files, specifies that a byte order mark (BOM) is inserted at the beginning of a text file when it is written.</li></ul>
+<p>If the code page is not specified explicitly when a file is written, it is set implicitly (to UTF-8 in a Unicode system). If nothing is specified, a BOM is not set.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Write text files in UTF-8 and with a byte order mark.</strong></p>
+<p>Open text files for output explicitly in the UTF-8 code page. The byte order mark should be inserted and taken into account when the file is read.</p></div>
+<h2>Details</h2><div class="content"><p>When a file is read, the code page used is usually very difficult to identify. However, if the byte-order mark is inserted, a file is clearly defined as a UTF-8. Therefore, you should always specify the <code class='code'>ENCODING UTF-8 WITH BYTE-ORDER MARK</code> additions when opening a text output file with the <code class='code'>OPEN DATASET</code> statement. When a text file of this type is read, it should only be opened with the <code class='code'>SKIPPING BYTE-ORDER MARK</code> addition, so that the byte order mark is automatically skipped and does not appear in the read application data.</p></div>
+<h2>Use</h2><div class="content"><p>Files used for data exchange with applications that do not support UTF-8 format must be output in a suitable code page.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows how a text file is opened for writes without explicitly specifying the code page. In Unicode systems, UTF-8 is selected implicitly, but a byte order mark is not inserted.</p>
+<pre><code>OPEN DATASET dset 
+  FOR OUTPUT IN TEXT MODE 
+  ENCODING DEFAULT.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code shows how a text file is opened for writes by explicitly specifying the UTF-8 code page and using the byte order mark.</p>
+<pre><code>OPEN DATASET dset 
+  FOR OUTPUT IN TEXT MODE 
+  ENCODING UTF-8 WITH BYTE-ORDER MARK.</code></pre></div>
+</div>
+</body>
+</html>

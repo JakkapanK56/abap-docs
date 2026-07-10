@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abenmodularization_unit_gdl.html">Modularization Units</a> / <span>Dialog Modules and Event Blocks</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>Besides procedures, there are two further types of processing blocks. However, they do not have a parameter interface and do not allow declaration of local data: (<code class='code'>AT SELECTION-SCREEN</code> and <code class='code'>GET</code> are exceptions but they should not be exploited):</p>
+<ul><li><strong>Dialog modules</strong></li><li class='no_list_style'>Dialog modules are introduced using the statement <code class='code'>MODULE</code> and ended using the statement <code class='code'>ENDMODULE</code>. These modules form the functional interface between classic dynpros and the associated ABAP program. They are called from within the dynpro flow logic.</li><li><strong>Event blocks</strong></li><li class='no_list_style'>Event blocks are introduced by the corresponding keyword and implicitly ended by the next processing block. The processing of an event block is raised by the ABAP runtime framework when the relevant event occurs. There are event blocks for:</li><ul><li>Loading a program (<code class='code'>LOAD-OF-PROGRAM</code>)</li><li>Reporting events that occur during the processing of an executable program (with a logical database) (<code class='code'>INITIALIZATION</code>, <code class='code'>START-OF-SELECTION</code>, <code class='code'>GET</code>, <code class='code'>END-OF-SELECTION</code>)</li><li>Selection screen events (<code class='code'>AT SELECTION-SCREEN ...</code>)</li><li>List events of classic list processing (<code class='code'>AT LINE-SELECTION</code>, <code class='code'>AT USER-COMMAND</code>)</li></ul></ul></div>
+<h2>Rule</h2><div class="content"><p><strong>No implementations in dialog modules and event blocks</strong></p>
+<p>Only use dialog modules and event routines if they are necessary from a technical viewpoint. In these cases, do not implement the required function. Instead, call the relevant (local) methods.</p></div>
+<h2>Details</h2><div class="content"><p>Since it is not possible to declare local data in dialog modules and event blocks, you cannot implement any useful program logic. This means that any dialog modules and event blocks (provided that they are still necessary) should only contain one method call. If you <a target='_parent' href='ABENABAP_OBJ_PROGR_MODEL_GUIDL.html' class='blue'>use ABAP Objects</a> consistently, only the following elements are required:</p>
+<ul><li><code class='code'>LOAD-OF-PROGRAM</code> or <code class='code'>INITIALIZATION</code> as the program constructor in cases where <a target='_parent' href='ABENPROGRAM_TYPE_GUIDL.html' class='blue'>program types</a> other than class pools are used</li><li>Dialog modules and <code class='code'>AT SELECTION-SCREEN</code> when <a target='_parent' href='ABENENCAP_CLASS_INTERF_GUIDL.html' class='blue'>classic dynpros and selection screens</a> are processed</li><li><code class='code'>START-OF-SELECTION</code> in <a target='_parent' href='ABENPROGRAM_TYPE_GUIDL.html' class='blue'>executable programs</a> for background processing. To improve readability, you should always specify the statement explicitly (although it is optional in many situations).</li><li>Although possible in the syntax, you should never specify an event block more than once within a program.</li></ul></div>
+<h2>Hint</h2><div class="content"><p>Using <code class='code'>LOAD-OF-PROGRAM</code> in a function pool is basically the same as using a static constructor in a global class. In executable programs, you can use <code class='code'>INITIALIZATION</code> instead, if any parameters passed using <code class='code'>SUBMIT</code> need to be evaluated.</p></div>
+<h2>Example</h2><div class="content"><p>The following source code shows the PAI modules of the function pool <code class='code'>DEMO_CR_CAR_RENTAL_SCREENS</code> from the package <code class='code'>SABAP_DEMOS_CAR_RENTAL_DYNPRO</code>. The screens in this package can be called using transaction <code class='code'>DEMO_CR_CAR_RENTAL</code>. These dialog modules adhere to the above rule. They do not contain their own implementations. They call methods of a local class of the function pool.</p>
+<pre><code>MODULE cancel INPUT. 
+  screen_handler=>cancel( ). 
+ENDMODULE.MODULE user_command_0100 INPUT. 
+  screen_handler=>user_command_0100( ). 
+ENDMODULE.MODULE customers_mark INPUT. 
+  customer_table=>mark( ). 
+ENDMODULE.MODULE reservations_mark INPUT. 
+  reservation_table=>mark( ). 
+ENDMODULE.</code></pre></div>
+</div>
+</body>
+</html>

@@ -6,26 +6,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    
-    "// === MAIN SCRIPTS ===": "",
-    "scrape": "node scripts/scrape.js",
-    "scrape:standard": "node scripts/scrape.js --library standard --force",
-    "scrape:cloud": "node scripts/scrape.js --library cloud --force",
-    "scrape:all": "node scripts/scrape.js --all",
-    "scrape:retry": "node scripts/scrape.js --library standard --retry-failed",
-    "scrape:retry:cloud": "node scripts/scrape.js --library cloud --retry-failed",
-    "scrape:retry:all": "node scripts/scrape.js --all --retry-failed",
-    
+    "scrape": "node ./scripts/scrape.js",
+    "scrape:retry": "node scripts/scrape.js --retry-failed",
     "generate": "node scripts/generate.js",
-    "generate:standard": "node scripts/generate.js --library standard --force",
-    "generate:cloud": "node scripts/generate.js --library cloud --force",
-    "generate:all": "node scripts/generate.js --all",
-    
-    "// === COMPLETE PIPELINE ===": "",
-    "pipeline": "npm run scrape && npm run generate",
-    "pipeline:standard": "npm run scrape:standard && npm run generate:standard",
-    "pipeline:cloud": "npm run scrape:cloud && npm run generate:cloud",
-    "pipeline:all": "npm run scrape:all && npm run generate:all"
+    "pipeline": "npm run scrape && npm run generate"
   },
   "keywords": [],
   "author": "",

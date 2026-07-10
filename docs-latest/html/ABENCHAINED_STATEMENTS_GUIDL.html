@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenstructure_style_gdl.html">Structure and Style</a> / <a href="abenalternative_spelling_gdl.html">Alternative Spellings</a> / <span>Chained Statements</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>Successive ABAP statements that have the same starting part can be expressed in a chained statement. A chained statement consists of the identical starting part that is specified once and that is concluded by a colon (:). Behind this colon, the remaining parts are separated by commas (,). Only the last part is concluded with a period (.). During the syntax check and the compilation, a chained statement is handled like the respective sequence of individual ABAP statements, where the shared starting part is put in front of each remaining part. The identical starting parts are not restricted to the keyword.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Only use chained statements where appropriate</strong></p>
+<p>Use chained statements mainly for declarations. They should always be used for related declarations of type <code class='code'>TYPES BEGIN OF ... TYPES END OF ...</code>.</p></div>
+<h2>Details</h2><div class="content"><p>The main motivation for using chained statements is to increase the readability of programs. Using chained statements correctly in declarations achieves this goal. In other statements, chained statements can actually decrease the readability or, in the worst case, result in incorrect program behavior. When using chained statements, only <a target='_parent' href='ABENSTATEMENT_GUIDL.html' class='blue'>one statement at most should be specified per program line</a>. Never span <a target='_parent' href='ABENEXPRESSION_GLOSRY.html' class='green'>expressions</a> or functional calls across multiple parts of chained statements.</p>
+<p><strong>Declarations</strong></p>
+<p>In complex declarations, chained statements can be used to improve readability. (However, if local declarations are too complex, this suggests an <a target='_parent' href='ABENPROC_VOLUME_GUIDL.html' class='blue'>insufficient separation of tasks</a>, and should not occur.) In particular, multiple chained statements can be used to group related declarations:</p>
+<pre><p>DATA: 
+   airplane            TYPE REF TO cl_airplane, 
+   airplane_attributes TYPE cl_airplane=>airplane_attributes. 
+DATA: 
+   airport            TYPE REF TO cl_airport, 
+   airport_attributes TYPE cl_airport=>airport_attributes. 
+...</p></pre>
+<p>The grouping of declarative statements that semantically represent a composite statement is even more important. For example, the declaration of structured types and data objects in ABAP is done using individual statements, whose close relationship should be expressed by a chained statement:</p>
+<pre><p>TYPES: 
+   BEGIN OF file, 
+     name TYPE string, 
+     owner TYPE sy-uname, 
+     creation_date TYPE timestamp, 
+   END OF file.</p></pre>
+<p>For structures that copy components of another structure using the statements <code class='code'>INCLUDE TYPE</code> or <code class='code'>INCLUDE STRUCTURE</code>, this procedure cannot be used consistently because the beginning of the statement is different and therefore the chained statement must be interrupted. In any case, we <a target='_parent' href='ABENINCLUDING_STRUCTURES_GUIDL.html' class='blue'>no longer recommend</a> using the statement <code class='code'>INCLUDE</code>.</p>
+<p><strong>Operational Statements</strong></p>
+<p>For operational statements, however, chained statements are not recommended because they do not usually result in better readability. Example:</p>
+<pre><p>CALL METHOD meth EXPORTING para = : '1', '2', '3'.</p></pre>
+<p>Here, the exploitation of the fact that the same starting parts in front of the colon are not limited to the keyword was a little overdone. The following chained statement would be easier to read:</p>
+<pre><p>CALL METHOD: 
+meth EXPORTING para = '1', 
+meth EXPORTING para = '2', 
+meth EXPORTING para = '3'.</p></pre>
+<p>However, in this case the best <a target='_parent' href='ABENMETHOD_CALL_GUIDL.html' class='blue'>notation</a> can manage without a chained statement anyway:</p>
+<pre><p>meth( '1' ). 
+meth( '2' ). 
+meth( '3' ).</p></pre>
+<p><strong>Unexpected Behavior</strong></p>
+<p>If chained statements are not understood correctly, this can easily produce statements with correct syntax but unexpected behavior. Prominent examples are initiating statements within control structures. Here, the use of chained statements does not usually lead to the intended result.</p>
+<p>Let us look at the following <code class='code'>TRY</code> control structure, in which the <code class='code'>CATCH</code> statements are implemented using a chained statement:</p>
+<pre><p>TRY. 
+     ... 
+  CATCH: cx_1, cx_2, cx_3. 
+     "exception handling 
+      ... 
+ENDTRY.</p></pre>
+<p>A reader and probably even a developer would assume that this is a <code class='code'>CATCH</code> block that handles three exceptions. In fact, the complete syntax is as follows:</p>
+<pre><p>TRY. 
+     ... 
+  CATCH cx_1. 
+  CATCH cx_2. 
+  CATCH cx_3. 
+    "exception handling 
+     ... 
+ENDTRY.</p></pre>
+<p>The <code class='code'>cx_1</code> and <code class='code'>cx_2</code> exceptions are indeed caught, but the corresponding <code class='code'>CATCH</code> blocks are empty. Only the third exception <code class='code'>cx_3</code> has a <code class='code'>CATCH</code> block that is not empty. The syntax that the developer presumably intended is as follows:</p>
+<pre><p>TRY. 
+    ... 
+  CATCH cx_1 cx_2 cx_3. 
+    "exception handling 
+    ... 
+ENDTRY.</p></pre>
+<p>For the <code class='code'>WHEN</code> blocks within a <code class='code'>CASE</code> control structure, the following applies:</p>
+<pre><p>WHEN: a, b, c.</p></pre>
+<p>is not equivalent to the more probable</p>
+<pre><p>WHEN a OR b OR c.</p></pre>
+<p>The <a target='_parent' href='ABENEXTENDED_PROGRAM_CHECK_GUIDL.html' class='blue'>extended program check</a> warns of empty statement blocks after <code class='code'>CATCH</code> and <code class='code'>WHEN</code>. In this way, the extended program check can be used to uncover where chained statements have been misused within <code class='code'>TRY</code> and <code class='code'>CASE</code> control structures.</p>
+<p>Another example in which the use of chained statements can cause problems are ABAP SQL statements. Here are two examples:</p>
+<ul><li>The following chained statement consists of two <code class='code'>SELECT</code> statements that both supply a work area with values, and of which only the second one has a <code class='code'>WHERE</code> condition.</li><li class='no_list_style'><code class='code'>SELECT SINGLE carrid, connid <br>       FROM spfli <br>       WHERE @carrid = '...' <br>       INTO: @carrid_wa, @connid_wa.</code></li></ul>
+<p>The following <code class='code'>INTO</code> clause was undoubtedly meant here:</p>
+<pre><p>INTO (@carrid_wa, @connid_wa).</p></pre>
+<ul><li>In the following example, the seemingly single statement does not update the discount and the telephone number of the customer with the customer ID 00017777. Instead, these are in fact two statements, of which the first changes the discount for all customers and the second changes the telephone number of the customer with the customer ID 00017777.</li><li class='no_list_style'><code class='code'>UPDATE scustom SET: discount = '003', <br>                    telephone = '0621/444444' <br>               WHERE id = '00017777'.</code></li></ul>
+<p>Even if the previous examples of the chained statements would show the semantic that is expected by the developer, such use is not recommended in any case because each reader would probably expect a different program behavior, and the readability and maintainability of the source code would be impaired considerably.</p>
+<p><strong>Expressions and Function Calls</strong></p>
+<p>Unfortunately, ABAP statements can be spanned across the colon in chained statements, even within expressions or function calls. The following example with correct syntax shows what can happen here, even in the simplest of cases. This example cannot be understood and nor does it produce the expected result.</p>
+<pre><p>DATA: itab TYPE TABLE OF i, 
+      num  TYPE i. 
+ 
+itab = VALUE #(: ( 1 ) ), ( 2 ) ), ( 3 ) ), ( 4 ) ). 
+num  = itab[: 1 ], 2 ], 3 ], 4 ]. 
+ 
+cl_demo_output=>new( 
+  )->write_data(: `Text1` ), `Text2` ), num 
+  )->display( ).</p></pre></div>
+</div>
+</body>
+</html>

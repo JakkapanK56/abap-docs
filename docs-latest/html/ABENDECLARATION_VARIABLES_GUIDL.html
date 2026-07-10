@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abendata_type_obj_gdl.html">Data Types and Data Objects</a> / <span>Declaration of Variables</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>Variables can be declared in the following contexts:</p>
+<ul><li>As attributes of global classes and interfaces across programs</li><li>Locally in the program</li><ul><li>in the global declaration part of a program</li><li>as attributes of local classes and interfaces</li><li>in procedures (<a target='_parent' href='ABENFUNCT_MODULE_SUBROUTINE_GUIDL.html' class='blue'>Methods</a>)</li></ul></ul>
+<p>Variables that are declared within most of the event blocks or dialog modules as well as between completed processing blocks also belong to the global declaration part of a program, but violate the rule <a target='_parent' href='ABENGLOBAL_DECLAR_GUIDL.html' class='blue'>implement global declarations centrally</a>.</p>
+<p>Program-local variables that are declared in the global declaration part of a program are generally referred to as <em>global variables</em>.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Do not declare global variables</strong></p>
+<p>Do not declare variables in the global declaration part of a program. Variables may only be declared as attributes of classes and interfaces or locally in methods.</p></div>
+<h2>Details</h2><div class="content"><p>This rule is directly derived from the basic rule <a target='_parent' href='ABENABAP_OBJ_PROGR_MODEL_GUIDL.html' class='blue'>use ABAP objects</a>. If you disregard helper variables in procedures (<a target='_parent' href='ABENFUNCT_MODULE_SUBROUTINE_GUIDL.html' class='blue'>methods</a>), the content of the variable of a program indicates the state of the program and consequently the state of an application. In object-oriented programming, the class replaces the program, and the state of an application is no longer the state of the programs but the state of the classes or objects.</p>
+<p>Furthermore, the rule <a target='_parent' href='ABENENCAPSULATION_GUIDL.html' class='blue'>exploit the benefits of encapsulation</a> also assumes a critical role. The data of an application is sufficiently protected from misuse only in the visibility sections of classes.</p>
+<p>Except for the following exception, you should not declare any global variables in a new ABAP program. They indicate a poor programming style that disregards proven concepts such as task sharing and encapsulation. If you need to access the same data of a program from multiple local classes and interfaces, you must create them in an appropriate visibility section of a local class or an interface. These can also be local classes or interfaces that contain nothing but such attributes.</p></div>
+<h2>Hint</h2><div class="content"><p>The above rule also applies to the declaration of <a target='_parent' href='ABENDYN_ACCESS_DATA_OBJ_GUIDL.html' class='blue'>field symbols</a> with the <code class='code'>FIELD-SYMBOLS</code> statement.</p></div>
+<h2>Use</h2><div class="content"><p>If classic dynpros and selections screens are still used instead of <a target='_parent' href='ABENINTERFACE_TECH_GUIDL.html' class='blue'>SAPUI5</a> or <a target='_parent' href='ABENINTERFACE_TECH_GUIDL.html' class='blue'>Web Dynpro ABAP</a>, global variables are required as interfaces for the communication between ABAP and classic dynpros. Global variables can be declared using the following statements for this purpose alone:</p>
+<ul><li><code class='code'>DATA</code>, <a target='_parent' href='ABENTABLE_WORK_AREA_GUIDL.html' class='blue'><code class='code'>TABLES</code></a> and <code class='code'>CONTROLS</code> for general dynpros</li><li><code class='code'>PARAMETERS</code> and <code class='code'>SELECT-OPTIONS</code> for selection screens</li></ul>
+<p>In these cases, you have to ensure the maximum possible <a target='_parent' href='ABENENCAP_CLASS_INTERF_GUIDL.html' class='blue'>encapsulation</a> of those global variables.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows the top include of a function pool for document display. In addition to the required interface work area, which is declared with <code class='code'>TABLES</code>, further global variables exist that indicate the state of the display. However, according to the above rule, you are not allowed to use global variables for purposes other than communication with a classic dynpro.</p>
+<pre><code>FUNCTION-POOL show_documents. 
+TABLES document_structure. 
+DATA: g_language TYPE sy-langu, 
+      g_display_mode TYPE ... 
+      ... 
+CLASS screen_handler DEFINITION. 
+  PUBLIC SECTION. 
+    ...</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code shows an improved example. The previously global variables are encapsulated in a class that is specifically provided for the state of the display, and can be addressed using <code class='code'>display_status=></code> in the other classes of the program.</p>
+<pre><code>FUNCTION-POOL show_documents. 
+TABLES document_structure. 
+CLASS display_status DEFINITION. 
+  PUBLIC SECTION. 
+      CLASS-DATA: language TYPE sy-langu, 
+                  display_mode TYPE ... 
+                  ... 
+ENDCLASS. 
+CLASS screen_handler DEFINITION. 
+  PUBLIC SECTION. 
+  ...</code></pre></div>
+</div>
+</body>
+</html>

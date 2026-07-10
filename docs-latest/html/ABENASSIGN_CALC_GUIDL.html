@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenstructure_style_gdl.html">Structure and Style</a> / <a href="abenalternative_spelling_gdl.html">Alternative Spellings</a> / <span>Assignments</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>For explicit assignments in which the value of a source is assigned to a target, ABAP contains the general assignment operator <a target='_parent' href='ABENEQUALS_OPERATOR.html' class='blue'><code class='code'>=</code></a> and the special casting operator <a target='_parent' href='ABAPMOVE_CAST.html' class='blue'><code class='code'>?=</code></a>. Statements with these operators</p>
+<pre><p>lhs =<span class='meta_style'>|</span>?= rhs.</p></pre>
+<p>enable assignments of</p>
+<ul><li>data objects,</li><li>return values or results of functional methods, built-in functions or construction expressions, table expressions and</li><li>results of calculation expressions (arithmetic expressions, bit expressions, and string expressions)</li></ul>
+<p>to be made to variables that can also be declared inline and to <a target='_parent' href='ABENWRITABLE_EXPRESSION_GLOSRY.html' class='green'>writable expressions</a>.</p>
+<p>Alongside the assignment operators, two obsolete statements exist for historical reasons that can also perform assignments:</p>
+<ul><li>The statement</li><li class='no_list_style'><a target='_parent' href='ABAPMOVE_OBS.html' class='blue'><code class='code'>MOVE source TO<span class='meta_style'>|</span>?TO destination.</code></a></li><li class='no_list_style'>assigns a source <code class='code'>source</code> to a target <code class='code'>destination</code>. It covers some of the operators performed by the assignment operators <a target='_parent' href='ABENEQUALS_OPERATOR.html' class='blue'><code class='code'>=</code></a> and <a target='_parent' href='ABAPMOVE_CAST.html' class='blue'><code class='code'>?=</code></a>.</li><li>The statement</li><li class='no_list_style'><a target='_parent' href='ABAPCOMPUTE.html' class='blue'><code class='code'>COMPUTE lhs =<span class='meta_style'>|</span>?= rhs.</code></a></li><li class='no_list_style'>has the same semantics as <code class='code'>lhs =<span class='meta_style'>|</span>?= rhs</code>. The keyword <code class='code'>COMPUTE</code> can be written in front of each assignment with the assignment operators <a target='_parent' href='ABENEQUALS_OPERATOR.html' class='blue'><code class='code'>=</code></a> and <a target='_parent' href='ABAPMOVE_CAST.html' class='blue'><code class='code'>?=</code></a> where the left side is not an inline declaration, but is ignored.</li></ul></div>
+<h2>Rule</h2><div class="content"><p><strong>Assignments with the assignment operators <code class='code'>=</code> and <code class='code'>?=</code> only</strong></p>
+<p>Use the assignment operators instead of the statement <code class='code'>MOVE</code>. Do not use the keyword <code class='code'>COMPUTE</code> in front of assignments.</p></div>
+<h2>Details</h2><div class="content"><p>Assignments with the assignment operators <a target='_parent' href='ABENEQUALS_OPERATOR.html' class='blue'><code class='code'>=</code></a> and <a target='_parent' href='ABAPMOVE_CAST.html' class='blue'><code class='code'>?=</code></a> implement the most global concept. The right side is a <a target='_parent' href='ABENGENERAL_EXPR_POSITION_GLOSRY.html' class='green'>general expression position</a> and the left side is a <a target='_parent' href='ABENDECLARATION_POSITION_GLOSRY.html' class='green'>declaration position</a> (except in downcasts).</p>
+<p>The statements <code class='code'>MOVE</code> and <code class='code'>COMPUTE</code> have the following drawbacks:</p>
+<ul><li>The statement <code class='code'>MOVE</code> cannot be used globally. The only sources allowed are data objects, function methods, and certain built-in functions whose arguments must be single data objects. The only targets allowed are variables; inline declarations are not possible. Any future enhancements to operand positions will not be applied to <code class='code'>MOVE</code>.</li><li>The keyword <code class='code'>COMPUTE</code> is both confusing and surplus to requirements. If an arithmetic expression or other calculation expression is on the right side, the keyword <code class='code'>COMPUTE</code> has the correct meaning, but is redundant. If a data object, a function method, a built-in function, or a constructor expression is on the right side, the keyword <code class='code'>COMPUTE</code> has the wrong meaning, since a return value is assigned instead of an expression being calculated.</li></ul>
+<p>The statements <code class='code'>MOVE</code> and <code class='code'>COMPUTE</code> were created at a time when assignments were only made between individual data objects and calculations were exclusively arithmetic. Neither of these statements is appropriate in a modern, expression-oriented ABAP program that exploits all options on the left and right sides of an assignments.</p></div>
+<h2>Hint</h2><div class="content"><p>The optional addition <code class='code'>EXACT</code> of the statements <a target='_parent' href='ABAPMOVE_OBS.html' class='blue'><code class='code'>MOVE</code></a> and <a target='_parent' href='ABAPCOMPUTE.html' class='blue'><code class='code'>COMPUTE</code></a>, which produces lossless assignments and lossless calculations, has been replaced in full by the lossless operator <a target='_parent' href='ABENCONSTRUCTOR_EXPRESSION_EXACT.html' class='blue'><code class='code'>EXACT</code></a>.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows a simple assignment using <code class='code'>MOVE</code> and the assignment of an arithmetic expression after <code class='code'>COMPUTE</code>.</p>
+<pre><code> DATA text1 TYPE string. 
+DATA text2 TYPE string. 
+... 
+MOVE text1 TO text2. 
+ 
+DATA result TYPE decfloat34. 
+DATA number1 TYPE i. 
+DATA number2 TYPE i. 
+... 
+COMPUTE result = number1 * number2.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code shows the same example as above but without specifying the keywords <code class='code'>MOVE</code> and <code class='code'>COMPUTE</code>. This makes inline declarations possible on the left side.</p>
+<pre><code>DATA text1 TYPE string. 
+... 
+DATA(text2) = text1. 
+ 
+DATA number1 TYPE i. 
+DATA number2 TYPE i. 
+... 
+FINAL(result) = CONV decfloat34( number1 * number2 ).</code></pre></div>
+</div>
+</body>
+</html>

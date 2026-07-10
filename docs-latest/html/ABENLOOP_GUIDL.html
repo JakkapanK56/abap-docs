@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abenitab_gdl.html">Internal Tables</a> / <span>Loop Processing</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>Alongside the statements for processing individual lines in internal tables, other statements can be used to address and modify the entire body of the table. Examples:</p>
+<ul><li>All categories of assignments applying to whole internal tables</li><li>Deleting the whole of an internal table using <code class='code'>CLEAR</code> or <code class='code'>FREE</code></li><li>Operations in target ranges such as <code class='code'>SELECT INTO TABLE</code></li></ul>
+<p>These types of accesses to the table body cause problems by producing a loop across the internal table</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Do not modify the entire table body in a loop</strong></p>
+<p>You cannot use a loop across an internal table to perform accesses to the table that modify the entire table body at once.</p></div>
+<h2>Details</h2><div class="content"><p>A modifying access to the entire table body usually produces a runtime error and at the very least unpredictable program behavior. If this is known statically, a syntax error occurs within classes. This error also occurs in <code class='code'>LOOP</code> statements with a secondary key known statically when the table operations in question are used. Otherwise, the syntax check simply returns a warning for compatibility reasons.</p></div>
+<h2>Hints</h2><div class="content"><ul><li>This rule is mainly intended to make you more aware of the problem. If you only work with <a target='_parent' href='ABENABAP_OBJ_PROGR_MODEL_GUIDL.html' class='blue'>ABAP Objects</a> or if no <a target='_parent' href='ABENSYNTAX_CHECK_GUIDL.html' class='blue'>syntax check warnings</a> are ignored, the rule above should be met automatically.</li><li>For more information, see <a target='_parent' href='ABENITAB_LOOP_CHANGE.html' class='blue'>Changing Internal Tables in a Loop</a>.</li></ul></div>
+</div>
+</body>
+</html>

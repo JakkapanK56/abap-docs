@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenarchitecture_gdl.html">Architecture</a> / <a href="abenuser_interfaces_gdl.html">User Interfaces</a> / <span>Encapsulating Classic User Interfaces</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>The <a target='_parent' href='ABENSEPARATION_CONCERNS_GUIDL.html' class='blue'>separation of concerns</a> is one of the basic rules of these ABAP programming guidelines. This separation, which refers to a strict division of ABAP code into parts for presentation services, application services, and persistence services, is also technically possible for classic dynpro-based UI technologies. The MVC approach is not directly supported, but SoC can also be achieved through the consistent use of the available encapsulation technologies.</p>
+<p>However, SoC was rarely implemented in classic dialog programming. Here, presentation logic, application logic, and persistence logic were often combined in a monolithic module pool.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Encapsulate classic dynpros and selection screens</strong></p>
+<p>Only create classic dynpros and selection screens in programs in a logical layer specifically provided for this purpose. You can use function pools as the program type.</p></div>
+<h2>Details</h2><div class="content"><p>When using classic UI technologies, you need to separate the display logic from the application logic for the following reasons:</p>
+<ul><li>Reuse individual components</li><li>Automated program logic tests, irrespective of the UI</li><li>Change the UI technology</li></ul>
+<p>In addition, the communication between classic dynpros or selection screens and ABAP programs is implemented using global variables. This poses conceptual problems and cannot be combined with a modern, object-oriented approach for application programs.</p>
+<p>Since class pools do not support classic dynpros and selection screens, you can only use function pools for encapsulation. In this role, a function pool must be considered a global class. Here, the data of the global declaration part assumes the role of the private attributes, and the function modules assume the role of the public methods. The relevant procedure is demonstrated in <code class='code'>DEMO_CR_CAR_RENTAL_SCREENS</code> of package <code class='code'>SABAP_DEMOS_CAR_RENTAL_DYNPRO</code>. It applies to selection screens.</p>
+<p>Besides UI elements, these function pools can only contain display logic in the form of local classes. The application logic communicates with the display logic using the function modules of this function pool. You can still call the first dynpro of a dynpro sequence using a transaction code. This method is used in cases where the user starts the application.</p>
+<p>The guidelines described in this book are also valid in function pools. It is especially important that the <a target='_parent' href='ABENDIAL_MOD_EVENT_BLOCK_GUIDL.html' class='blue'>dialog modules</a> (PBO and PAI), which are called by the dynpro, or the <a target='_parent' href='ABENDIAL_MOD_EVENT_BLOCK_GUIDL.html' class='blue'>event blocks</a> for selection screen processing do not contain any program logic. Instead they should directly delegate the processing to the relevant methods of the local classes. The same applies to the <a target='_parent' href='ABENFUNCT_MODULE_SUBROUTINE_GUIDL.html' class='blue'>function modules</a> that act as the external interface. In addition, you must <a target='_parent' href='ABENSELECT_TABLE_TYPE_GUIDL.html' class='blue'>restrict</a> the scope of the function pool global data to the minimum scope required for communicating with dynpros.</p></div>
+<h2>Use</h2><div class="content"><p>Following the above rule means you cannot use standard selection screens. Therefore, it is necessary to make an exception to this rule for executable programs that are executed during background processing. This is because the required parameter interface must be a standard selection screen defined directly in the program. An encapsulation in a function pool is not possible here. However, in this case, the events of selection screen processing should only call one appropriate method of a local class within the executable program.</p></div>
+<h2>Bad Example</h2><div class="content"><p>A classic dialog program - usually a single module pool - processes all the facets of an application.</p></div>
+<h2>Good Example</h2><div class="content"><p>The following source code shows a part of a function pool <code class='code'>DEMO_CR_CAR_RENTAL_SCREENS</code> with expanded include programs. This function pool encapsulates the dynpro and selection screen for transaction <code class='code'>DEMO_CR_CAR_RENTAL</code>, following the above rule. The connection to the application layer is established exclusively using the <code class='code'>if_demo_cr_car_rentl_service</code> interface, which is also used in the Web Dynpro application of this transaction.</p>
+<pre><code>FUNCTION-POOL demo_cr_car_rental_screens.* Top IncludeSELECTION-SCREEN BEGIN OF SCREEN 200 TITLE text-ccr. 
+PARAMETERS g_name TYPE demo_cr_customer_name. 
+SELECTION-SCREEN END OF SCREEN 200.TABLES demo_cr_scustomer_cntrl.CONTROLS: customers TYPE TABLEVIEW USING SCREEN 0100, 
+          reservations TYPE TABLEVIEW USING SCREEN 0100.DATA g_ok_code TYPE sy-ucomm.DATA: g_customers TYPE TABLE OF demo_cr_scustomer_cntrl, 
+      g_customer LIKE LINE OF g_customers.DATA: g_reservations TYPE TABLE OF demo_cr_sreservation_cntrl, 
+      g_reservation LIKE LINE OF g_reservations.* Local Class DeclarationsCLASS screen_handler DEFINITION. 
+  PUBLIC SECTION. 
+    CLASS-DATA car_rental_service 
+       TYPE REF TO if_demo_cr_car_rentl_service. 
+    CLASS-METHODS: class_constructor, 
+                   status_0100, 
+                   user_command_0100, 
+                   cancel. 
+  PRIVATE SECTION. 
+    CLASS-METHODS: customer_search_by_id, 
+                   ... 
+ENDCLASS.CLASS customer_table DEFINITION. 
+  PUBLIC SECTION. 
+    CLASS-METHODS: change_tc_attr, 
+                   mark. 
+ENDCLASS. 
+... 
+* Function ModuleFUNCTION demo_cr_call_car_rental_screen. 
+  CALL SCREEN 100. 
+ENDFUNCTION. 
+* PBO ModulesMODULE status_0100 OUTPUT. 
+  screen_handler=>status_0100( ). 
+ENDMODULE.MODULE customers_change_tc_attr OUTPUT. 
+  customer_table=>change_tc_attr( ). 
+ENDMODULE. 
+... 
+* PAI ModulesMODULE cancel INPUT. 
+  screen_handler=>cancel( ). 
+ENDMODULE.MODULE user_command_0100 INPUT. 
+  screen_handler=>user_command_0100( ). 
+ENDMODULE.MODULE customers_mark INPUT. 
+  customer_table=>mark( ). 
+ENDMODULE. 
+... 
+* Local Class Implementations 
+...</code></pre>
+<p>Dynpro <code class='code'>100</code> is called in a function module but can also be linked to a transaction code. In the classic PBO and PAI modules, methods of local classes are called. However the implementation of these methods is not shown here. There is a class for general screen handling and a class for each table control. The application layer is accessed using the specified interface for implementations of the class.</p></div>
+</div>
+</body>
+</html>

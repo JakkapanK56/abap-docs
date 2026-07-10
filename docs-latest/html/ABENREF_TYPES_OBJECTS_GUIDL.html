@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abendata_type_obj_gdl.html">Data Types and Data Objects</a> / <span>Reference to Data Types or Data Objects</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>As well as <a target='_parent' href='ABENUSING_TYPES_GUIDL.html' class='blue'>using data types</a> for declarations and typings with the addition <code class='code'>TYPE</code>, the alternative addition <code class='code'>LIKE</code> of the corresponding statements can be used to reference the data type of one of the data objects visible at this position directly. This includes references to data objects of the same program, interface parameters of the current procedure, attributes of global classes and interfaces, and constants in type pools.</p></div>
+<h2>Rule</h2><div class="content"><p><strong> Declare dependent data objects with reference to other data objects</strong></p>
+<p>If a data object directly depends on another data object, refer to it directly using <code class='code'>LIKE</code> for the declaration. In all other cases, use <code class='code'>TYPE</code> to refer to a standalone data type.</p></div>
+<h2>Details</h2><div class="content"><p>For example, if a helper variable of the type of an input parameter is required within a procedure (<a target='_parent' href='ABENFUNCT_MODULE_SUBROUTINE_GUIDL.html' class='blue'>method</a>), it should not be declared with reference to the type of the parameter using <code class='code'>TYPE</code> but with reference to the parameter itself using <code class='code'>LIKE</code>. It is also possible to declare work areas using <code class='code'>LIKE LINE OF</code> if the parameter is an internal table. In the case of typing with <code class='code'>LIKE</code>, the type of the parameter can be changed retroactively without always having to adapt the procedure implementation.</p>
+<p>However, if no close reference to another data object exists, it is usually more useful to declare data objects with reference to a <a target='_parent' href='ABENBOUND_INDEPENDENT_DTYPE_GUIDL.html' class='blue'>standalone data type</a> by using <code class='code'>TYPE</code>.</p></div>
+<h2>Hint</h2><div class="content"><p>Obsolete references to flat structures or database tables or views of the ABAP Dictionary using <code class='code'>LIKE</code> should never be implemented.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows the declaration of a helper variable in a method that is supposed to be of the same data type as an interface parameter. The <code class='code'>TYPE</code> reference to the data type requires a manual implementation of any type changes.</p>
+<pre><code>CLASS some_class DEFINITION ... 
+   PUBLIC SECTION. 
+     METHODS some_method 
+       CHANGING some_parameter TYPE some_type. 
+     ... 
+ENDCLASS. 
+CLASS some_class IMPLEMENTATION. 
+   METHOD some_method. 
+     DATA save_parameter TYPE some_type. 
+     save_parameter = some_parameter. 
+     ... 
+   ENDMETHOD. 
+   ... 
+ENDCLASS.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code shows the improved declaration of the helper variable that now directly refers to the interface parameter with <code class='code'>LIKE</code>, so that possible type changes are automatically accepted.</p>
+<pre><code>   ... 
+    METHOD some_method. 
+      DATA save_parameter LIKE some_parameter. 
+      save_parameter = some_parameter. 
+      ... 
+    ENDMETHOD. 
+...</code></pre></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abendata_type_obj_gdl.html">Data Types and Data Objects</a> / <span>Strings</span></nav>
+<div class="all">
+<h2>Exception</h2><div class="content"><p>In the following cases, fields of a fixed length should be used instead of strings:</p>
+<ul><li>The length of the field is critical, for example, for templates or for interfaces to screen fields.</li><li>Despite <a target='_parent' href='ABENADMIN_COSTS_DYN_MEM_OBJ_GUIDL.html' class='blue'>sharing</a>, the additional administration work outweighs the benefits  which can often be the case for very short strings. If it is obvious that a certain length is never exceeded, short fields of a fixed length can also be used.</li><li>Structures that only contain character-like components should be handled like a single text field. This is not possible for structures that contain text strings.</li></ul></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows an internal table for saving an HTML page whose line type is a text field with a fixed length of 255. Most of the memory space of the internal table, however, is probably wasted on blanks.</p>
+<pre><code>TYPES html_line TYPE c LENGTH 255. 
+DATA html_table TYPE TABLE OF html_line. 
+APPEND '<HTML>' TO html_table. 
+... 
+APPEND '<BODY>' TO html_table. 
+... 
+APPEND '</BODY>' TO html_table. 
+APPEND '</HTML>' TO html_table.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code shows the above example but uses text strings. The memory space gained should outweigh the additional administration effort considerably. As an alternative to using an internal table, the HTML page can also be concatenated in a single text string; however, this makes it more difficult to read, for example, in the ABAP Debugger.</p>
+<pre><code>DATA html_table TYPE TABLE OF string. 
+APPEND `<HTML>` TO html_table. 
+... 
+APPEND `<BODY>` TO html_table. 
+... 
+APPEND `</BODY>` TO html_table. 
+APPEND `</HTML>` TO html_table.</code></pre></div>
+</div>
+</body>
+</html>

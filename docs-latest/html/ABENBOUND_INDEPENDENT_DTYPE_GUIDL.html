@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abendata_type_obj_gdl.html">Data Types and Data Objects</a> / <span>Bound and Standalone Data Types</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>A bound data type only exists as a property of a data object. It is created when a data object is not declared using a reference to a standalone data type that defines all technical properties, but when technical properties are defined in the statement <code class='code'>DATA</code> instead. Here <code class='code'>DATA</code> is used as a synonym for all statements that declare data objects. The resulting type is a property of the declared variable and it is bound to this variable. If this type is needed in several different places, it has to be defined separately for each place where it is used.</p>
+<p>A standalone data type is declared in the ABAP Dictionary or using the statement <code class='code'>TYPES</code> and defines all technical properties of a data object with one exception: When table types are defined, they can be generic with respect to the keys specified. A standalone generic type can only be used for typing but not for data declarations. However, there is one exception: In a <code class='code'>DATA</code> statement, the standard key is added to the generic standard table type.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Use standalone data types</strong></p>
+<p>Use standalone data types instead of constructing bound data types when declaring data objects.</p></div>
+<h2>Details</h2><div class="content"><p>Here is a list of reasons that support the declaration of standalone types:</p>
+<ul><li>The declaration of a standalone data type allows multiple data objects (or interface parameters or field symbols) to use a type without the need to always redefine this type.</li><li>Even if only one data object of this type is required initially, it is very likely that further data objects will be added during the course of the development. If the type needs to be adapted later on, you can do this centrally.</li><li>Declaring a standalone type and using it to declare a data object is nothing more than following the rule for the <a target='_parent' href='ABENSEPARATION_CONCERNS_GUIDL.html' class='blue'>SoC principle</a>.</li></ul>
+<p>The data type should always have a specific meaning and a meaningful <a target='_parent' href='ABENNAMING_GDL.html' class='blue'>name</a>. This gives data types a clear semantic meaning and makes the program easier to read and understand. Therefore, you should declare different data types for technically identical but semantically different data objects. This also increases the probability that a type can be adapted later on without making major program changes.</p>
+<p>Therefore you should avoid declaring purely technical data types that cannot be associated with specific semantics, because this does not make it easier to read or enhance the program.</p></div>
+<h2>Hint</h2><div class="content"><p>A separate <a target='_parent' href='ABENDECLARATION_DTYPES_CONST_GUIDL.html' class='blue'>rule</a> specifies where the standalone data types should be declared.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows the declaration of two data objects that are supposed to have the same data type. However, the technical properties, length, and number of decimal places are defined as standalone, bound data types in the <code class='code'>DATA</code> statements in question.</p>
+<pre><p>... <br>DATA number_1 TYPE p LENGTH 6 DECIMALS 2. <br>DATA number_2 TYPE p LENGTH 6 DECIMALS 2. <br>...</p></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code moves the definition of the technical properties of the data objects in the above example to a separate <code class='code'>TYPES</code> statement. The standalone data type is only declared once and can then be used multiple times.</p>
+<pre><p>TYPES number_type TYPE p LENGTH 6 DECIMALS 2. 
+<code class='code'>...</code> 
+<code class='code'>DATA: number_1 TYPE number_type,</code> 
+<code class='code'>      number_2 TYPE number_type.</code> 
+<code class='code'>...</code></p></pre></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abenassignment_access_gdl.html">Assignments, Calculations, and Other Types of Data Access</a> / <span>Avoiding Invalid Values</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>For performance reasons, the ABAP runtime framework does not check whether the target field contains a valid value after each and every assignment. Particularly for target fields of the character-like data type <code class='code'>n</code> and the date/time types <code class='code'>d</code> and <code class='code'>t</code>, the conversion rules allow any characters as the result of an assignment. However, only the following values are valid:</p>
+<ul><li>For type <code class='code'>n</code>: digits only</li><li>For type <code class='code'>d</code>: a calendar date in the format <em>YYYYMMDD</em></li><li>For type <code class='code'>t</code>: a time in the format <em>HHMMSS</em></li></ul>
+<p>For a detailed description of the validity of date fields and time fields, see also the <a target='_parent' href='ABENCHAR_DATE_TIME_FIELDS_VALIDITY.html' class='blue'>relevant section</a> of the documentation.</p>
+<p>A <a target='_parent' href='ABENLOSSLESS_ASSIGNMENT_GLOSRY.html' class='green'>lossless assignment</a> can be used to force checks on valid values.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Only assign valid values</strong></p>
+<p>In assignments and calculations, data objects are filled with data types <code class='code'>n</code>, <code class='code'>d</code>, and <code class='code'>t</code> with valid values only.</p></div>
+<h2>Details</h2><div class="content"><p>Statements that work with variables with types <code class='code'>n</code>, <code class='code'>d</code>, or <code class='code'>t</code> can only be guaranteed to behave correctly if values are valid.  If date and time fields are required, it is important to be aware of their special characteristics. Since the initial value for variables of type <code class='code'>d</code> is itself not a valid value, a suitable start value must always be specified by using the addition <code class='code'>VALUE</code>. Note that in arithmetic calculations with date fields, if an assignment to a target field with data type <code class='code'>d</code> has 0 as a result value, this is an invalid initial value and may require special handling.</p>
+<p>If the responsibility for filling data objects of the critical data types lies elsewhere, <a target='_parent' href='ABENUSE_CONVERSION_RULES_GUIDL.html' class='blue'>it is best to</a> always check the validity of their content before use. <a target='_parent' href='ABENLOSSLESS_ASSIGNMENT_GLOSRY.html' class='green'>Lossless assignments</a> with the operator <a target='_parent' href='ABENCONSTRUCTOR_EXPRESSION_EXACT.html' class='blue'><code class='code'>EXACT</code></a> can be used to do this. Note that the initial value of a date field of type <code class='code'>d</code> is interpreted as valid for a lossless assignment, but the value <em>00010101</em> is considered to be a valid date only in <a target='_parent' href='ABENABAP_SQL_GLOSRY.html' class='green'>ABAP SQL</a>.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows a case where the conversion rules in ABAP can lead to problems if not used properly in combination with date fields. The literals can be transferred to the date fields, without raising an exception, to give the values 07092009 and 16092009. Unfortunately, these are interpreted as 09.20.0709 and 09.20.1609, which are invalid dates. During the calculation, they are both converted to the value 0 and the result is 0. Looking at the dates, you would expect the result to be 9.</p>
+<pre><code>DATA: date1  TYPE d, 
+      date2  TYPE d, 
+      result TYPE i. 
+date1 = '07092009'. 
+date2 = '16092009'. 
+result = date2 - date1.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code shows a date calculation that does give the expected result of 9, thanks to valid values in the date fields. The validity of the literal values is guaranteed by the use of the operator <code class='code'>EXACT</code>.</p>
+<pre><code>TRY. 
+    DATA(result) = EXACT d( '20090916' ) - EXACT d( '20090907' ). 
+  CATCH cx_sy_conversion_no_date. 
+    ... 
+ENDTRY.</code></pre>
+<p>The following source code shows how you can check whether the date fields are valid in the calculation, if they are not filled in the same program. Since the <code class='code'>EXACT</code> operator does not perform a check for compatible types, the data fields are first converted to temporary text strings, and these are checked.</p>
+<pre><code> TRY. 
+    result = EXACT d( CONV string( date2 ) ) - 
+             EXACT d( CONV string( date1 ) ). 
+  CATCH cx_sy_conversion_no_date. 
+    ... 
+ENDTRY.</code></pre></div>
+</div>
+</body>
+</html>

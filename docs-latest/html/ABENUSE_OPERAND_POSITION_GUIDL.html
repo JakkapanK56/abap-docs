@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abensystem_fields_gdl.html">System Fields</a> / <span>Using Elements in Operand Positions</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>Statements that modify the content of system fields generally evaluate the operands first and then set the system fields. In some complex statements, however, a system field could be set first, before all operand positions are evaluated.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Do not use system fields in statements that set the fields</strong></p>
+<p>For reasons of robustness, do not use system fields as operands of statements that themselves set these system fields.</p></div>
+<h2>Details</h2><div class="content"><p>A program does not always define whether a particular system field is set in a statement before or after an operand is evaluated. This means that, to reduce risks and to make the program easier to read, the content of a system field should always be copied to a helper variable and only this copy should be used within the statement in question.</p></div>
+<h2>Hint</h2><div class="content"><p>Also take note of how functional methods are used in operand positions. These methods also modify important system fields. Also be careful here when using system fields in operand positions of the same statement.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows how the system field <code class='code'>sy-tabix</code> is used in a <code class='code'>READ</code> statement that sets the system field itself. The case shown here does not itself present any difficulties, however we still recommend you follow the rule above, not least to make the code more readable.</p>
+<pre><code>LOOP AT itab1 ... WHERE ... 
+   ... 
+   READ TABLE itab2 ... INDEX sy-tabix. 
+   ... 
+ENDLOOP.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code makes the example above more robust by assigning the value of the system field <code class='code'>sy-tabix</code> to a helper variable before it is used.</p>
+<pre><code>LOOP AT itab1 ... WHERE ... 
+   index = sy-tabix. 
+   ... 
+   .... itab2[ index ] ... 
+   ... 
+ENDLOOP.</code></pre></div>
+</div>
+</body>
+</html>

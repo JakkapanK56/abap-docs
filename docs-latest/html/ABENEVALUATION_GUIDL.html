@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abensystem_fields_gdl.html">System Fields</a> / <span>Evaluation of System Fields</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>System fields describe general system states or are set specifically by individual statements. The content of system fields is only defined as described in the documentation of the system fields or in the documentation of ABAP statements that set system fields. In contexts other than those described there, the content of system fields is not defined. Particularly statements whose effects on system fields are undocumented can modify the content of specific system fields, such as the <a target='_parent' href='ABENRETURN_CODE_GUIDL.html' class='blue'>return code</a> <code class='code'>sy-subrc</code>, in an undefined way. This applies especially to statements that call ABAP code implicitly or explicitly when executed.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Evaluate system fields in the right position</strong></p>
+<p>Evaluate system fields only in contexts for which they are defined. If an ABAP statement sets a system field in accordance with its documentation, the field should be evaluated directly after the statement. You must not evaluate system fields after statements, however, whose effects are undocumented.</p></div>
+<h2>Details</h2><div class="content"><p>If possible, a system field should be evaluated directly after the statement that set it, to prevent it from being overwritten by other statements. The bigger the gap between the ABAP statement in question and the evaluation of a system field, the higher the risk that this system field will be affected by a different statement in the meantime.</p>
+<p>If necessary, the values of system fields should be saved in helper variables. This applies in particular to the general <a target='_parent' href='ABENRETURN_CODE_GUIDL.html' class='blue'>return code</a>, <code class='code'>sy-subrc</code>, which is set by very many different statements. Other common examples include the <code class='code'>sy-index</code> loop counter or the <code class='code'>sy-tabix</code> table index.</p>
+<p>You should never evaluate statement-related system fields after statements that do not set these fields according to their documentation. As before, a common example is the evaluation of <code class='code'>sy-subrc</code>. If it is not documented for a statement that it sets <code class='code'>sy-subrc</code> in a defined way, an evaluation after this statement is very risky. Either <code class='code'>sy-subrc</code> still has the previous value, or it is set in an undefined way by the statement. Both outcomes can lead to incorrect program behavior. The bad example in the <a target='_parent' href='ABENEXTENDED_PROGRAM_CHECK_GUIDL.html' class='blue'>extended program check</a> section shows an example of this.</p></div>
+<h2>Hint</h2><div class="content"><p>The static methods of the class <code class='code'>CL_ABAP_SYST</code> also provide important system states. There is no possibility of a previous overwriting in the program.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows an example where <code class='code'>sy-subrc</code> is evaluated too late. Even if it is not documented for the statements between <code class='code'>FIND</code> and <code class='code'>IF</code> that they set <code class='code'>sy-subrc</code>, the value can be overwritten due to possible side effects.</p>
+<pre><code>FIND PCRE ... IN ... 
+... 
+... "other statements 
+... 
+IF sy-subrc = 0. 
+   ... 
+ENDIF.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code corrects the above example  by assigning <code class='code'>sy-subrc</code> to a helper variable directly after <code class='code'>FIND</code>. This variable is then evaluated in <code class='code'>IF</code>. It can also be necessary to assign <code class='code'>sy-index</code> or <code class='code'>sy-tabix</code> to a helper variable directly after <code class='code'>DO</code> or <code class='code'>LOOP</code> loop is entered.</p>
+<pre><code>FIND PCRE ... IN ... 
+find_subrc = sy-subrc. 
+... 
+... "other statements 
+... 
+IF find_subrc = 0. 
+   ... 
+ENDIF.</code></pre></div>
+</div>
+</body>
+</html>

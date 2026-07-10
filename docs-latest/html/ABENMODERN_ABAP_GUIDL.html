@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenabap_specific_rules_gdl.html">ABAP-Specific Rules</a> / <span>Modern ABAP</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>ABAP is a living programming language that is continually being developed. Since its introduction some 30 years ago, new ABAP programs have been developed continually, with work to advance the ABAP language ongoing at the same time. Developments to the ABAP language are either extensions of the existing language properties for implementing new functions, or they replace existing functions with more advanced concepts. The replacement of existing language elements with new ones usually makes the existing language elements superfluous or obsolete. The most prominent example of a development of the ABAP language is still the implementation of ABAP Objects.</p>
+<p>With regard to the ABAP language, SAP has committed itself to a policy of strict downward compatibility. On the one hand, this means that an ABAP program written for ABAP release 3.0, for example, can be executed on an AS ABAP in ABAP release 7.0 or higher (provided that a non-Unicode system is being used). On the other hand, this also has the following implications:</p>
+<ul><li>Until now, there was little impetus for experienced developers to break with old habits and engage in new concepts. The only exception is the changeover to Unicode systems, where ABAP programs have to be converted to the ABAP language version <a target='_parent' href='ABENSTANDARD_ABAP_GLOSRY.html' class='green'>Standard ABAP</a>, which has slightly different syntax rules.</li><li>ABAP beginners get confused by the multitude of options available for the same task. Where there is doubt, older programs are used as templates, and the obsolete concepts are frequently still used instead of the new ones.</li></ul>
+<p>These problems can be solved using the following simple rule.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Do not use obsolete language elements</strong></p>
+<p>Do not use obsolete language elements for new developments. We also recommend an incremental changeover to new concepts as they become available.</p></div>
+<h2>Details</h2><div class="content"><p>Newer language elements are always the better language elements. Obsolete language elements are only provided for downward compatibility reasons. A statement or statement addition is declared as obsolete only when a more powerful alternative exists or when the language element is identified as being prone to errors (in the sense that it invites insecure and non-robust programming). It follows that you cannot ensure secure and robust programming if you use obsolete language elements, which is why obsolete language elements should not be used for new developments.</p>
+<p>If ABAP Objects is used, the majority of the obsolete statements and additions are already prohibited in the syntax. For this reason among others, we strongly recommend <a target='_parent' href='ABENABAP_OBJ_PROGR_MODEL_GUIDL.html' class='blue'>using ABAP Objects</a>. Outside of ABAP Objects, that is in cases that are <a target='_parent' href='ABENABAP_OBJ_PROGR_MODEL_GUIDL.html' class='blue'>still allowed</a>, no obsolete language elements can be used. <a target='_parent' href='ABENABAP_OBSOLETE.html' class='blue'>Obsolete Language Elements</a> provides an overview of the obsolete statements and statement additions.</p>
+<p>In connection with the above rule, the question on the coexistence of old and new concepts within a program unit arises. There is only one area in which this is clearly defined in the syntax, namely when using the <a target='_parent' href='ABENCLASS_EXCEPTION_GUIDL.html' class='blue'>classic exception concept and the class-based exception concept</a> in processing blocks. Otherwise, obsolete language elements can be directly next to new language elements in a program part. In this context, we recommend keeping the use within a context as consistent as possible, that is, do not use different statements, such as <code class='code'>FIND</code> and <code class='code'>SEARCH</code>, in parallel for the same purpose.</p>
+<p>This does not, however, mean that obsolete language elements should be used in enhancements to existing procedures to preserve consistency just because they already exist. Instead, this is the best moment to switch the entire procedure to the corresponding new language elements. By using unit tests to cover the procedures to be changed, it is possible to ensure that there are no unpleasant surprises during the changeover.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows the solution of a task using obsolete language elements. A procedure is supposed to replace all occurrences of <code class='code'>substring</code> in a <code class='code'>text</code> with a new character string <code class='code'>new</code> if the substring is not at the end of a word.</p>
+<pre><code>FORM bad_example USING    substring TYPE csequence 
+                          new       TYPE csequence 
+                 CHANGING text      TYPE csequence. 
+  DATA: pattern TYPE string, 
+        subrc   TYPE sy-subrc. 
+  CONCATENATE '*' substring INTO pattern. 
+  SEARCH text FOR pattern. 
+  IF sy-subrc <> 0. 
+    CLEAR subrc. 
+    WHILE subrc = 0. 
+      REPLACE substring WITH new INTO text. 
+      subrc = sy-subrc. 
+    ENDWHILE. 
+  ENDIF. 
+ENDFORM.</code></pre>
+<p>In the above source code, aside from the modularization with <code class='code'>FORM - ENDFORM</code>, the statement <code class='code'>SEARCH</code> and the used variant of <code class='code'>REPLACE</code> are obsolete. Furthermore, a string operator && is available as a replacement for <code class='code'>CONCATENATE</code>.</p></div>
+<h2>Good Example</h2><div class="content"><p>The following source code executes the same task as above; however, it uses the latest available language elements.</p>
+<pre><code>METHOD good_example. 
+  FIND PCRE substring && `\b` IN text. 
+  IF sy-subrc <> 0. 
+    REPLACE ALL OCCURRENCES OF substring IN text WITH new. 
+  ENDIF. 
+ENDMETHOD.</code></pre>
+<p>The subroutine is replaced with a method. Using <code class='code'>FIND</code> together with a regular expression composed using the string operator && makes helper variables superfluous. The <code class='code'>WHILE</code> loop is replaced with <code class='code'>REPLACE ALL OCCURRENCES</code>, which means it is unnecessary to use another helper variable, and the control flow is moved to the ABAP runtime framework. The latter increases the execution speed and helps to <a target='_parent' href='ABENNESTING_DEPTH_GUIDL.html' class='blue'>limit the maximum nesting depth</a>.</p></div>
+</div>
+</body>
+</html>

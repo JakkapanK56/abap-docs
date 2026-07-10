@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenarchitecture_gdl.html">Architecture</a> / <a href="abenuser_interfaces_gdl.html">User Interfaces</a> / <span>Lists</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>A list is a medium used for the structured and formatted output of data. The following lists are available in ABAP:</p>
+<ul><li>Classic lists, which are written to a list buffer using ABAP statements and displayed on a special list dynpro.</li><li>Output of the SAP List Viewer (ALV), which is displayed in <a target='_parent' href='ABENGUI_CONTROL_GLOSRY.html' class='green'>GUI controls</a> during the processing of classic dynpros. ALV lists are accessed using classes, such as <code class='code'>CL_SALV_TABLE</code> (non-hierarchically tabular lists), <code class='code'>CL_SALV_HIERSEQ_TABLE</code> (hierarchically sequential lists), or <code class='code'>CL_SALV_TREE</code> (hierarchically tabular lists).</li></ul>
+<p>Classic lists are the only option to send ABAP data from ABAP programs directly to the SAP spool system as spool lists. If SAP List Viewer is used, the lists that are displayed in the viewer are automatically converted to classic spool lists during printing.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Use SAP List Viewer</strong></p>
+<p>Do not use classic lists. If dynpro-based, classic UI technologies are still used, SAP List Viewer (ALV) or other GUI control-based technologies should be used instead of classic lists in production programs.</p></div>
+<h2>Details</h2><div class="content"><p>Using classic lists is no longer recommended for the following reasons:</p>
+<ul><li>The processing of lists is based on global data and events of the ABAP runtime framework.</li><li>The list buffer that is used for classic lists is bound to an executable program or a dynpro sequence and not to classes and objects.</li><li>It is almost impossible to separate presentation logic and application logic when writing to lists.</li><li>The UI of a classic list is not standardized and thus usually not accessible.</li></ul>
+<p>The concept of classic lists is therefore mostly incompatible with the ABAP Objects concept, and classic lists cannot be encapsulated in function pools as easily as classic dynpros and selection screens.</p>
+<p>While the application developer must ensure <a target='_parent' href='ABENACCESSIBILITY_GUIDL.html' class='blue'>accessibility</a> in classic lists with a great deal of effort, the ALV lists automatically comply with the accessibility requirements because the ALV already provides the required services, such as user-specific settings.</p></div>
+<h2>Use</h2><div class="content"><p>Small helper programs that are not intended for live use in application systems can continue to use classic lists for system-related console output. The <code class='code'>WRITE</code> list statement here assumes the same role as <code class='code'>System.out.println(...)</code> in Java or <code class='code'>printf</code> in C.</p>
+<p>In cases in which an ALV output seems to be overdimensioned, other methods are possible, such as Textedit Control or Browser Control (or its wrapping in dynamic documents) for the formatted output of non-tabular content. As before, accessibility must be guaranteed here.</p></div>
+<h2>Hint</h2><div class="content"><p>For simple console output, XML-based output streams can be used. An example of this is shown by the class <a target='_parent' href='ABENCL_DEMO_OUTPUT.html' class='blue'><code class='code'>CL_DEMO_OUTPUT_STREAM</code></a>. The class <code class='code'>CL_DEMO_OUTPUT</code> demonstrates possible applications of this class. It is used in programs in the <a target='_parent' href='ABENABAP_EXAMPLES.html' class='blue'>ABAP Example Library</a>.</p></div>
+<h2>Bad Example</h2><div class="content"><p>Executing the program <code class='code'>DEMO_CLASSICAL_REPORTING</code> produces a classic list output. However, according to the above rule, using classic lists in application programs is no longer recommended.</p></div>
+<h2>Good Example</h2><div class="content"><p>Executing the program <code class='code'>DEMO_ALV_REPORTING</code> produces ALV lists with the same content and the same functions as the classic lists in the previous example. ALV lists replace classic lists in those cases in which classic dynpros are still used.</p></div>
+</div>
+</body>
+</html>

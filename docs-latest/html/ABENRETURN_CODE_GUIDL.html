@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abensystem_fields_gdl.html">System Fields</a> / <span>Return Code</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>The most prominent system field is probably the <a target='_parent' href='ABENRETURN_CODE_GLOSRY.html' class='green'>return code</a> <code class='code'>sy-subrc</code>, which signals the successful execution of an ABAP statement or, if you are <a target='_parent' href='ABENUSE_EXCEPTION_CLASS_GUIDL.html' class='blue'>using classic exceptions</a>, of a procedure. A return code of 0 generally indicates successful execution.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Evaluate the return code <code class='code'>sy-subrc</code></strong></p>
+<p>Evaluate the return code <code class='code'>sy-subrc</code> after every ABAP statement that sets the value according to the documentation. However, <code class='code'>sy-subrc</code> should never be set after statements are executed for which the setting of a return code is not documented.</p></div>
+<h2>Details</h2><div class="content"><p>The system field <code class='code'>sy-subrc</code> indicates whether a statement was successfully executed. If the execution was not successful, the program should usually react accordingly. If this does not happen, the program's response will probably be unexpected.</p>
+<p>This rule is a specialization of the more general rule <a target='_parent' href='ABENEVALUATION_GUIDL.html' class='blue'>evaluate system fields in the correct place</a>. It is specified here again separately due to the prominent role of the return code <code class='code'>sy-subrc</code>. The system field <code class='code'>sy-subrc</code> must always be evaluated immediately and, if necessary, assigned to a help variable. An evaluation cannot occur after statements that set <code class='code'>sy-subrc</code> not defined, because otherwise wrong conclusions could easily be drawn.</p></div>
+<h2>Hint</h2><div class="content"><p>Special care must be taken in <a target='_parent' href='ABAPCALL_METHOD_FUNCTIONAL.html' class='blue'>functional method calls</a>. If executed successfully, each method call sets the return code <code class='code'>sy-subrc</code> to 0, which means that functional method calls overwrite the return code when used in statements where the setting of the return code is not documented. The same applies to the instance operator <a target='_parent' href='ABENCONSTRUCTOR_EXPRESSION_NEW.html' class='blue'><code class='code'>NEW</code></a> when instances of classes are created.</p></div>
+<h2>Use</h2><div class="content"><p>If a handling action seems unnecessary because, in the developer's opinion, the statement is always executed successfully, the assumption should at least be saved and documented using an <a target='_parent' href='ABENASSERTIONS_GUIDL.html' class='blue'>assertion</a>.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows how further processing of data is performed using the work area of a <code class='code'>SELECT</code> statement, without a request from <code class='code'>sy-subrc</code>. However, the content of <code class='code'>wa</code> is usually undefined here, if a request from <code class='code'>sy-subrc</code> does not guarantee that database access will be successful.</p>
+<pre><code>SELECT ... 
+       INTO wa 
+       ... 
+... "work with wa</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code corrects the above example. This means the successful execution of the <code class='code'>SELECT</code> statement is checked.</p>
+<pre><code>SELECT ... 
+       INTO wa 
+       ... 
+IF sy-subrc <> 0. 
+  ... 
+ENDIF 
+... "work with wa</code></pre></div>
+</div>
+</body>
+</html>

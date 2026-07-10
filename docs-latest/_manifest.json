@@ -1,0 +1,1272 @@
+{
+  "rootUrl": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_PGL.html",
+  "basePrefix": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/",
+  "savedCount": 150,
+  "savedUrls": [
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_PGL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENGENERAL_RULES_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_SPECIFIC_RULES_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRUCTURE_STYLE_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARCHITECTURE_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENROBUST_ABAP_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSEPARATION_CONCERNS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENKISS_PRINCIPLE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCORRECTNESS_QUALITY_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_OBJ_PROGR_MODEL_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPROGR_TYPE_FEATURES_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMODERN_ABAP_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCHECK_CORRECTNESS_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFORMATTING_CODE_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNAMING_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCOMMENTS_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPROGR_PROC_STRUCTURE_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSOURCE_CODE_ORGA_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENALTERNATIVE_SPELLING_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCOMPLEXITY_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENOBJ_ORIENTED_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENERROR_HANDLING_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSER_INTERFACES_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATA_STORAGE_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATA_TYPE_OBJ_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENASSIGNMENT_ACCESS_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSYSTEM_FIELDS_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENITAB_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMODULARIZATION_UNIT_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDYNAMIC_PROG_TECHNIQUE_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERNATIONALIZATION_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNESTING_DEPTH_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXTENDED_PROGRAM_CHECK_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCODE_INSPECTOR_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP-TESTCOCKPIT_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFUNCT_MODULE_SUBROUTINE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENENCAP_CLASS_INTERF_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDIAL_MOD_EVENT_BLOCK_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPROGRAM_TYPE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPROGRAM_PROPERTY_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENORIGINAL_LANGU_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCLASS_EXCEPTION_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSYNTAX_CHECK_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLOWER_UPPER_CASE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTATEMENT_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_PRETTY_PRINTER_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLINE_WIDTH_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNAME_LANGU_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTELLING_NAMES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNAMES_REPOS_OBJ_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPROG_INTERN_NAMES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRUC_COMP_NAMES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCOMMENT_LANGU_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONTENT_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARRANGE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENGLOBAL_DECLAR_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLOCAL_DECLAR_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMACROS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSOURCE_CODE_MODULAR_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMULTIPLE_USE_INCLUDE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENALTERNATIVE_LANGU_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCHAINED_STATEMENTS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMETHOD_CALL_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENASSIGN_CALC_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCALC_EXPRESSSION_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXPRESSION_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPROC_VOLUME_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCLASS_SIZE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDEAD_CODE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENENCAPSULATION_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMODULARIZATION_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTATIC_CLASS_SINGLETON_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINHERITANCE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCLASS_REF_INTERF_REF_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLOCAL_TYPE_GLOB_CLASS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINSTANCE_CONSTRUCTOR_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENREACTION_ERROR_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXCEPTION_CATEGORY_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXCEPTION_TEXTS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_EXCEPTION_CLASS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENHANDL_PROP_EXCEPT_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCLEANUP_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENASSERTIONS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMESSAGES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERFACE_TECH_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLIST_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENACCESSIBILITY_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPERSISTENT_DATA_STORAGE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATABASE_ACCESS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCLIENT_HANDLING_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_SHARED_MEMORY_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_SHARED_OBJECTS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENBOUND_INDEPENDENT_DTYPE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDECLARATION_DTYPES_CONST_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDECLARATION_VARIABLES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDECLARATION_INLINE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENIMMUTABLE_VARIABLES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINCLUDING_STRUCTURES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSING_TYPES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENREF_TYPES_OBJECTS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_WORK_AREA_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLITERALS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRINGS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTART_VALUES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATAOBJECTS_TRUE_VALUE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENASSIGNEMNT_DIFF_TYPES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENAVOIDING_INVALID_VALUES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_CONVERSION_RULES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTRAILING_BLANKS_LITERALS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNUMBERS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSELECT_NUMERIC_TYPE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENROUNDING_ERROR_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDIVISION_ZERO_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCASTING_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENRUNTIME_ERROR_DATA_OBJ_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUNKNOWN_CONTAINER_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENREF_TRANSF_GLOBAL_DATA_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSYST_FIELD_ACCESS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENOBS_INTERN_SYSTEM_FIELD_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEVALUATION_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENRETURN_CODE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_ACTUAL_PARAMETERS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_UI_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_OPERAND_POSITION_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSELECT_TABLE_TYPE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSECONDARY_KEY_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINITIAL_MEMORY_REQU_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSORT_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCOLLECT_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_OUTPUT_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLOOP_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTYPE_FORMAL_PARAM_PROC_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTYPE_TRANSF_FORMAL_PARA_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENREF_TRANSF_OUTPUT_PARAM_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTYPE_FORMAL_PARAM_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERN_EXTERN_PROC_CALL_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXIT_PROCEDURE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_DYNAMIC_PROGR_TECH_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENRUNTIME_ERROR_DYN_PROC_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_DYN_DATA_OBJECT_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMEM_CONS_DYN_MEM_OBJ_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENADMIN_COSTS_DYN_MEM_OBJ_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDYN_ACCESS_DATA_OBJ_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENGENERIC_PROGR_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSYSTEM_TEXT_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTRANS_RELEVANT_TEXT_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTEXT_ENVIRONM_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCHARACTER_SET_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSPLIT_TEXT_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCODEPAGE_FILE_GUIDL.html"
+  ],
+  "failedUrls": [],
+  "failedCount": 0,
+  "skippedUrls": [
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENAS_ABAP_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENADT_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_SECURITY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCTS_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTANDARD_ABAP_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_OBSOLETE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTANDARD_DB_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERNAL_SESSION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDECLARATION_OPERATOR_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEQUALS_OPERATOR.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSYSTEM_FIELDS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENESCAPE_FUNCTIONS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_TEST_COCKPIT_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_DEV_ENVIR_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXTENDED_PROGRAM_CHECK_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_VERSION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNON_UNICODE_ABAP_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_SQL_STRICT_MODES.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFIXED_POINT_ARITHMETIC_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXCEPTIONS_NON_CLASS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRAISE_EXCEPTION.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMESSAGE_RAISING.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_METHOD_STATIC_SHORT.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_FUNCTION.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXCEPTIONS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLET.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPREFIX_NAME_SPACE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNAME_SPACE_PREFIX_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPARTNER_NAMESPACE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCUSTOMER_NAMESPACE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSAP_NAMESPACE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENOBJECT_TYPE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCLASS_LIBRARY_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATA_TYPE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_DICTIONARY_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_CDS_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMOVE-CORRESPONDING.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPR_CORRESPONDING.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCL_ABAP_CORRESPONDING.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINTO_CLAUSE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCOMPUTING_OBSOLETE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPADD-CORRESPONDING.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTOP_INCLUDE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_MACROS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDEFINE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPEND-OF-DEFINITION.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_VALUE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENREL_OPERATOR_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENHOST_VARIABLE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXPRESSION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_METHOD_STATIC.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMOVE_CAST.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENWRITABLE_EXPRESSION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMOVE_OBS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCOMPUTE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENGENERAL_EXPR_POSITION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDECLARATION_POSITION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_EXACT.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITHMETIC_OPERATOR_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITHMETIC_EXPRESSION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCALCULATION_ASSIGNMENT_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCALCULATION_ASSIGNMENTS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCLASS_POOL_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCCDEF_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCCIMP_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTEST_CLASS_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTEST_INCLUDE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRAISE_SHORTDUMP.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONDITIONAL_EXPRESSION_RESULT.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXCEPTION_TEXTS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXCEPTION_TEXTS_T100.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXCEPTION_TEXTS_INTERNAL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_FUNCTION_PARAMETER.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENIF_T100_DYN_MSG.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRAISE_EXCEPTION_MESSAGE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRAISE_EXCEPTION_CLASS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONDITIONAL_EXPRESSIONS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUUID_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPASSERT.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMESSAGE_MAINTENANCE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMESSAGE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_MESSAGES_TYPES.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMESSAGE_INTO.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENXML_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENJSON_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENICF_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENAPC_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENGUI_CONTROL_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCL_DEMO_OUTPUT.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_EXAMPLES.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENHOST_COMPUTER_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSECONDARY_DB_CONNECTION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDBA_COCKPIT_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXPORT_IMPORT_TABLE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_SQL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_DB_SCHEMA_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENAMDP.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENADBC.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPEXEC.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPENDEXEC.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATABASE_CONNECTION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_BUFFERING_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENADBC_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATABASE_ACCESS_RECOMM.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCDS_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENAMDP_VS_ABAP_SQL_CS_ABEXA.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSQL_SCRIPT_CURR_CONV_ABEXA.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSQL_CURR_UNIT_CONV_FUNC.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_SQL_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT_CLIENT.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPIUMD_CLIENT.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNATIVE_SQL_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENAMDP_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCLIENT_SAFE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCURRENT_CLIENT_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENAMDP_CLIENT_SAFETY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT_CLIENT_OBSOLETE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPUD_CLIENT_OBSOLETE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSHM_AREA_CONSTRUCTOR_CLASS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATA_INLINE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFINAL_INLINE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFIELD-SYMBOL_INLINE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENWRITE_POSITION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDECLARATION_STATEMENT_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLOCAL_DATA_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENIMMUTABLE_VARIABLE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONTEXT_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_OPTIONS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_PARAMETERS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPREDICATE_OPERATOR_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCHAR_DATE_TIME_FIELDS_VALIDITY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLOSSLESS_ASSIGNMENT_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONVERSION_ELEMENTARY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONVERSION_FLAT_ELEMENTARY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONVERSION_STRUC.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONVERSION_ITAB.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONVERSION_REFERENCES.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_PROCESSING_TRAIL_BLANKS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUP_CAST_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDOWN_CAST_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUCS2_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSYSTEM_FIELDS_OBSOLETE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSYSTEM_FIELDS_INTERNAL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENRETURN_CODE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_METHOD_FUNCTIONAL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_NEW.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINITIAL_MEM_REQ_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_ITAB.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXPRESSION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXPRESSIONS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXP_RESULT.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENITAB_LOOP_CHANGE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCALCULATION_TYPE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENBUILT_IN_TYPES_GENERIC.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMATHEMATICAL_FUNKTION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDESCRIPTION_FUNCTION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONVERSION_OPERATOR_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_CONV.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONDENSE_FUNCTIONS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_LEAVE_PROGRAM.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUNIT_TEST_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDB_COMMIT_DURING_UPDATE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMEMORY_USAGE_ABEXA.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_REF.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENRTTI.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTEXT_SYMBOL_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTEXT_ENVIRONMENT_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLOGON_LANGUAGE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSET_LOCALE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSORT_ITAB.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCONVERT_TEXT.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_SOURCE_CODE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTEXT_ENV_LANGU_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUTF16_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSURROGATES_GLOSRY.html"
+  ],
+  "queue": [],
+  "seen": [
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_PGL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENGENERAL_RULES_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_SPECIFIC_RULES_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRUCTURE_STYLE_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARCHITECTURE_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENROBUST_ABAP_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSEPARATION_CONCERNS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENKISS_PRINCIPLE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCORRECTNESS_QUALITY_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_OBJ_PROGR_MODEL_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPROGR_TYPE_FEATURES_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMODERN_ABAP_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCHECK_CORRECTNESS_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFORMATTING_CODE_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNAMING_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCOMMENTS_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPROGR_PROC_STRUCTURE_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSOURCE_CODE_ORGA_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENALTERNATIVE_SPELLING_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCOMPLEXITY_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENAS_ABAP_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENOBJ_ORIENTED_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENERROR_HANDLING_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSER_INTERFACES_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATA_STORAGE_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATA_TYPE_OBJ_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENASSIGNMENT_ACCESS_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSYSTEM_FIELDS_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENITAB_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMODULARIZATION_UNIT_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDYNAMIC_PROG_TECHNIQUE_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERNATIONALIZATION_GDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNESTING_DEPTH_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXTENDED_PROGRAM_CHECK_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCODE_INSPECTOR_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP-TESTCOCKPIT_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENADT_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_SECURITY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCTS_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFUNCT_MODULE_SUBROUTINE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENENCAP_CLASS_INTERF_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDIAL_MOD_EVENT_BLOCK_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPROGRAM_TYPE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPROGRAM_PROPERTY_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENORIGINAL_LANGU_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTANDARD_ABAP_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_OBSOLETE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCLASS_EXCEPTION_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSYNTAX_CHECK_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLOWER_UPPER_CASE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTATEMENT_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_PRETTY_PRINTER_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLINE_WIDTH_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNAME_LANGU_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTELLING_NAMES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNAMES_REPOS_OBJ_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPROG_INTERN_NAMES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRUC_COMP_NAMES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCOMMENT_LANGU_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONTENT_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARRANGE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENGLOBAL_DECLAR_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLOCAL_DECLAR_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTANDARD_DB_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMACROS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSOURCE_CODE_MODULAR_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMULTIPLE_USE_INCLUDE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENALTERNATIVE_LANGU_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCHAINED_STATEMENTS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMETHOD_CALL_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENASSIGN_CALC_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCALC_EXPRESSSION_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXPRESSION_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPROC_VOLUME_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCLASS_SIZE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDEAD_CODE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENENCAPSULATION_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMODULARIZATION_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTATIC_CLASS_SINGLETON_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINHERITANCE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCLASS_REF_INTERF_REF_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLOCAL_TYPE_GLOB_CLASS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINSTANCE_CONSTRUCTOR_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENREACTION_ERROR_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXCEPTION_CATEGORY_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXCEPTION_TEXTS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_EXCEPTION_CLASS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENHANDL_PROP_EXCEPT_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCLEANUP_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENASSERTIONS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMESSAGES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERFACE_TECH_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLIST_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENACCESSIBILITY_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERNAL_SESSION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPERSISTENT_DATA_STORAGE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATABASE_ACCESS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCLIENT_HANDLING_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_SHARED_MEMORY_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_SHARED_OBJECTS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDECLARATION_OPERATOR_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENBOUND_INDEPENDENT_DTYPE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDECLARATION_DTYPES_CONST_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDECLARATION_VARIABLES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDECLARATION_INLINE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENIMMUTABLE_VARIABLES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINCLUDING_STRUCTURES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSING_TYPES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENREF_TYPES_OBJECTS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_WORK_AREA_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLITERALS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRINGS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTART_VALUES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATAOBJECTS_TRUE_VALUE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEQUALS_OPERATOR.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENASSIGNEMNT_DIFF_TYPES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENAVOIDING_INVALID_VALUES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_CONVERSION_RULES_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTRAILING_BLANKS_LITERALS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNUMBERS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSELECT_NUMERIC_TYPE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENROUNDING_ERROR_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDIVISION_ZERO_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCASTING_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENRUNTIME_ERROR_DATA_OBJ_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUNKNOWN_CONTAINER_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENREF_TRANSF_GLOBAL_DATA_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSYSTEM_FIELDS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSYST_FIELD_ACCESS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENOBS_INTERN_SYSTEM_FIELD_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEVALUATION_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENRETURN_CODE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_ACTUAL_PARAMETERS_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_UI_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_OPERAND_POSITION_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSELECT_TABLE_TYPE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSECONDARY_KEY_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINITIAL_MEMORY_REQU_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSORT_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCOLLECT_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_OUTPUT_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLOOP_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTYPE_FORMAL_PARAM_PROC_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTYPE_TRANSF_FORMAL_PARA_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENREF_TRANSF_OUTPUT_PARAM_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTYPE_FORMAL_PARAM_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERN_EXTERN_PROC_CALL_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXIT_PROCEDURE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_DYNAMIC_PROGR_TECH_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENRUNTIME_ERROR_DYN_PROC_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_DYN_DATA_OBJECT_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMEM_CONS_DYN_MEM_OBJ_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENADMIN_COSTS_DYN_MEM_OBJ_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDYN_ACCESS_DATA_OBJ_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENGENERIC_PROGR_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENESCAPE_FUNCTIONS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSYSTEM_TEXT_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTRANS_RELEVANT_TEXT_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTEXT_ENVIRONM_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCHARACTER_SET_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSPLIT_TEXT_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCODEPAGE_FILE_GUIDL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_TEST_COCKPIT_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_DEV_ENVIR_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXTENDED_PROGRAM_CHECK_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_VERSION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNON_UNICODE_ABAP_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_SQL_STRICT_MODES.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFIXED_POINT_ARITHMETIC_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXCEPTIONS_NON_CLASS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRAISE_EXCEPTION.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMESSAGE_RAISING.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_METHOD_STATIC_SHORT.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_FUNCTION.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXCEPTIONS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPLET.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPREFIX_NAME_SPACE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNAME_SPACE_PREFIX_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPARTNER_NAMESPACE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCUSTOMER_NAMESPACE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSAP_NAMESPACE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENOBJECT_TYPE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCLASS_LIBRARY_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATA_TYPE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_DICTIONARY_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_CDS_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMOVE-CORRESPONDING.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPR_CORRESPONDING.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCL_ABAP_CORRESPONDING.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPINTO_CLAUSE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCOMPUTING_OBSOLETE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPADD-CORRESPONDING.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTOP_INCLUDE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_MACROS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDEFINE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPEND-OF-DEFINITION.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_VALUE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENREL_OPERATOR_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENHOST_VARIABLE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXPRESSION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_METHOD_STATIC.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMOVE_CAST.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENWRITABLE_EXPRESSION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMOVE_OBS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCOMPUTE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENGENERAL_EXPR_POSITION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDECLARATION_POSITION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_EXACT.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITHMETIC_OPERATOR_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARITHMETIC_EXPRESSION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCALCULATION_ASSIGNMENT_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCALCULATION_ASSIGNMENTS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCLASS_POOL_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCCDEF_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCCIMP_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTEST_CLASS_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTEST_INCLUDE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRAISE_SHORTDUMP.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONDITIONAL_EXPRESSION_RESULT.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXCEPTION_TEXTS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXCEPTION_TEXTS_T100.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXCEPTION_TEXTS_INTERNAL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_FUNCTION_PARAMETER.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENIF_T100_DYN_MSG.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRAISE_EXCEPTION_MESSAGE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPRAISE_EXCEPTION_CLASS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONDITIONAL_EXPRESSIONS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUUID_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPASSERT.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMESSAGE_MAINTENANCE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMESSAGE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_MESSAGES_TYPES.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMESSAGE_INTO.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENXML_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENJSON_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENICF_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENAPC_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENGUI_CONTROL_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCL_DEMO_OUTPUT.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_EXAMPLES.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENHOST_COMPUTER_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSECONDARY_DB_CONNECTION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDBA_COCKPIT_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXPORT_IMPORT_TABLE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_SQL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_DB_SCHEMA_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENAMDP.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENADBC.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPEXEC.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPENDEXEC.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATABASE_CONNECTION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_BUFFERING_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENADBC_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATABASE_ACCESS_RECOMM.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCDS_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENAMDP_VS_ABAP_SQL_CS_ABEXA.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSQL_SCRIPT_CURR_CONV_ABEXA.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSQL_CURR_UNIT_CONV_FUNC.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_SQL_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT_CLIENT.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPIUMD_CLIENT.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNATIVE_SQL_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENAMDP_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCLIENT_SAFE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCURRENT_CLIENT_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENAMDP_CLIENT_SAFETY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSELECT_CLIENT_OBSOLETE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPUD_CLIENT_OBSOLETE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSHM_AREA_CONSTRUCTOR_CLASS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATA_INLINE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFINAL_INLINE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFIELD-SYMBOL_INLINE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENWRITE_POSITION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDECLARATION_STATEMENT_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLOCAL_DATA_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENIMMUTABLE_VARIABLE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONTEXT_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPDATA_OPTIONS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPMETHODS_PARAMETERS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPREDICATE_OPERATOR_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCHAR_DATE_TIME_FIELDS_VALIDITY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLOSSLESS_ASSIGNMENT_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONVERSION_ELEMENTARY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONVERSION_FLAT_ELEMENTARY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONVERSION_STRUC.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONVERSION_ITAB.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONVERSION_REFERENCES.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRING_PROCESSING_TRAIL_BLANKS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUP_CAST_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDOWN_CAST_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUCS2_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSYSTEM_FIELDS_OBSOLETE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSYSTEM_FIELDS_INTERNAL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENRETURN_CODE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCALL_METHOD_FUNCTIONAL.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_NEW.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINITIAL_MEM_REQ_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPTYPES_ITAB.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXPRESSION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXPRESSIONS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_EXP_RESULT.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENITAB_LOOP_CHANGE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCALCULATION_TYPE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENBUILT_IN_TYPES_GENERIC.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMATHEMATICAL_FUNKTION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDESCRIPTION_FUNCTION_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONVERSION_OPERATOR_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_CONV.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONDENSE_FUNCTIONS.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_LEAVE_PROGRAM.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUNIT_TEST_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDB_COMMIT_DURING_UPDATE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMEMORY_USAGE_ABEXA.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONSTRUCTOR_EXPRESSION_REF.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENRTTI.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTEXT_SYMBOL_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTEXT_ENVIRONMENT_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLOGON_LANGUAGE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSET_LOCALE.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPSORT_ITAB.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABAPCONVERT_TEXT.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_SOURCE_CODE_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTEXT_ENV_LANGU_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUTF16_GLOSRY.html",
+    "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSURROGATES_GLOSRY.html"
+  ],
+  "files": [
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_PGL.html",
+      "htmlFile": "html\\ABENABAP_PGL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENGENERAL_RULES_GDL.html",
+      "htmlFile": "html\\ABENGENERAL_RULES_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_SPECIFIC_RULES_GDL.html",
+      "htmlFile": "html\\ABENABAP_SPECIFIC_RULES_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRUCTURE_STYLE_GDL.html",
+      "htmlFile": "html\\ABENSTRUCTURE_STYLE_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARCHITECTURE_GDL.html",
+      "htmlFile": "html\\ABENARCHITECTURE_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENROBUST_ABAP_GDL.html",
+      "htmlFile": "html\\ABENROBUST_ABAP_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSEPARATION_CONCERNS_GUIDL.html",
+      "htmlFile": "html\\ABENSEPARATION_CONCERNS_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENKISS_PRINCIPLE_GUIDL.html",
+      "htmlFile": "html\\ABENKISS_PRINCIPLE_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCORRECTNESS_QUALITY_GUIDL.html",
+      "htmlFile": "html\\ABENCORRECTNESS_QUALITY_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP_OBJ_PROGR_MODEL_GUIDL.html",
+      "htmlFile": "html\\ABENABAP_OBJ_PROGR_MODEL_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPROGR_TYPE_FEATURES_GDL.html",
+      "htmlFile": "html\\ABENPROGR_TYPE_FEATURES_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMODERN_ABAP_GUIDL.html",
+      "htmlFile": "html\\ABENMODERN_ABAP_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCHECK_CORRECTNESS_GDL.html",
+      "htmlFile": "html\\ABENCHECK_CORRECTNESS_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFORMATTING_CODE_GDL.html",
+      "htmlFile": "html\\ABENFORMATTING_CODE_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNAMING_GDL.html",
+      "htmlFile": "html\\ABENNAMING_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCOMMENTS_GDL.html",
+      "htmlFile": "html\\ABENCOMMENTS_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPROGR_PROC_STRUCTURE_GDL.html",
+      "htmlFile": "html\\ABENPROGR_PROC_STRUCTURE_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSOURCE_CODE_ORGA_GDL.html",
+      "htmlFile": "html\\ABENSOURCE_CODE_ORGA_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENALTERNATIVE_SPELLING_GDL.html",
+      "htmlFile": "html\\ABENALTERNATIVE_SPELLING_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCOMPLEXITY_GDL.html",
+      "htmlFile": "html\\ABENCOMPLEXITY_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENOBJ_ORIENTED_GDL.html",
+      "htmlFile": "html\\ABENOBJ_ORIENTED_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENERROR_HANDLING_GDL.html",
+      "htmlFile": "html\\ABENERROR_HANDLING_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSER_INTERFACES_GDL.html",
+      "htmlFile": "html\\ABENUSER_INTERFACES_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATA_STORAGE_GDL.html",
+      "htmlFile": "html\\ABENDATA_STORAGE_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATA_TYPE_OBJ_GDL.html",
+      "htmlFile": "html\\ABENDATA_TYPE_OBJ_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENASSIGNMENT_ACCESS_GDL.html",
+      "htmlFile": "html\\ABENASSIGNMENT_ACCESS_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSYSTEM_FIELDS_GDL.html",
+      "htmlFile": "html\\ABENSYSTEM_FIELDS_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENITAB_GDL.html",
+      "htmlFile": "html\\ABENITAB_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMODULARIZATION_UNIT_GDL.html",
+      "htmlFile": "html\\ABENMODULARIZATION_UNIT_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDYNAMIC_PROG_TECHNIQUE_GDL.html",
+      "htmlFile": "html\\ABENDYNAMIC_PROG_TECHNIQUE_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERNATIONALIZATION_GDL.html",
+      "htmlFile": "html\\ABENINTERNATIONALIZATION_GDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNESTING_DEPTH_GUIDL.html",
+      "htmlFile": "html\\ABENNESTING_DEPTH_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXTENDED_PROGRAM_CHECK_GUIDL.html",
+      "htmlFile": "html\\ABENEXTENDED_PROGRAM_CHECK_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCODE_INSPECTOR_GUIDL.html",
+      "htmlFile": "html\\ABENCODE_INSPECTOR_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENABAP-TESTCOCKPIT_GUIDL.html",
+      "htmlFile": "html\\ABENABAP-TESTCOCKPIT_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENFUNCT_MODULE_SUBROUTINE_GUIDL.html",
+      "htmlFile": "html\\ABENFUNCT_MODULE_SUBROUTINE_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENENCAP_CLASS_INTERF_GUIDL.html",
+      "htmlFile": "html\\ABENENCAP_CLASS_INTERF_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDIAL_MOD_EVENT_BLOCK_GUIDL.html",
+      "htmlFile": "html\\ABENDIAL_MOD_EVENT_BLOCK_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPROGRAM_TYPE_GUIDL.html",
+      "htmlFile": "html\\ABENPROGRAM_TYPE_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPROGRAM_PROPERTY_GUIDL.html",
+      "htmlFile": "html\\ABENPROGRAM_PROPERTY_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENORIGINAL_LANGU_GUIDL.html",
+      "htmlFile": "html\\ABENORIGINAL_LANGU_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCLASS_EXCEPTION_GUIDL.html",
+      "htmlFile": "html\\ABENCLASS_EXCEPTION_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSYNTAX_CHECK_GUIDL.html",
+      "htmlFile": "html\\ABENSYNTAX_CHECK_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLOWER_UPPER_CASE_GUIDL.html",
+      "htmlFile": "html\\ABENLOWER_UPPER_CASE_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTATEMENT_GUIDL.html",
+      "htmlFile": "html\\ABENSTATEMENT_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_PRETTY_PRINTER_GUIDL.html",
+      "htmlFile": "html\\ABENUSE_PRETTY_PRINTER_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLINE_WIDTH_GUIDL.html",
+      "htmlFile": "html\\ABENLINE_WIDTH_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNAME_LANGU_GUIDL.html",
+      "htmlFile": "html\\ABENNAME_LANGU_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTELLING_NAMES_GUIDL.html",
+      "htmlFile": "html\\ABENTELLING_NAMES_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNAMES_REPOS_OBJ_GUIDL.html",
+      "htmlFile": "html\\ABENNAMES_REPOS_OBJ_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPROG_INTERN_NAMES_GUIDL.html",
+      "htmlFile": "html\\ABENPROG_INTERN_NAMES_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRUC_COMP_NAMES_GUIDL.html",
+      "htmlFile": "html\\ABENSTRUC_COMP_NAMES_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCOMMENT_LANGU_GUIDL.html",
+      "htmlFile": "html\\ABENCOMMENT_LANGU_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCONTENT_GUIDL.html",
+      "htmlFile": "html\\ABENCONTENT_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENARRANGE_GUIDL.html",
+      "htmlFile": "html\\ABENARRANGE_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENGLOBAL_DECLAR_GUIDL.html",
+      "htmlFile": "html\\ABENGLOBAL_DECLAR_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLOCAL_DECLAR_GUIDL.html",
+      "htmlFile": "html\\ABENLOCAL_DECLAR_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMACROS_GUIDL.html",
+      "htmlFile": "html\\ABENMACROS_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSOURCE_CODE_MODULAR_GUIDL.html",
+      "htmlFile": "html\\ABENSOURCE_CODE_MODULAR_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMULTIPLE_USE_INCLUDE_GUIDL.html",
+      "htmlFile": "html\\ABENMULTIPLE_USE_INCLUDE_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENALTERNATIVE_LANGU_GUIDL.html",
+      "htmlFile": "html\\ABENALTERNATIVE_LANGU_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCHAINED_STATEMENTS_GUIDL.html",
+      "htmlFile": "html\\ABENCHAINED_STATEMENTS_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMETHOD_CALL_GUIDL.html",
+      "htmlFile": "html\\ABENMETHOD_CALL_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENASSIGN_CALC_GUIDL.html",
+      "htmlFile": "html\\ABENASSIGN_CALC_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCALC_EXPRESSSION_GUIDL.html",
+      "htmlFile": "html\\ABENCALC_EXPRESSSION_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXPRESSION_GUIDL.html",
+      "htmlFile": "html\\ABENEXPRESSION_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPROC_VOLUME_GUIDL.html",
+      "htmlFile": "html\\ABENPROC_VOLUME_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCLASS_SIZE_GUIDL.html",
+      "htmlFile": "html\\ABENCLASS_SIZE_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDEAD_CODE_GUIDL.html",
+      "htmlFile": "html\\ABENDEAD_CODE_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENENCAPSULATION_GUIDL.html",
+      "htmlFile": "html\\ABENENCAPSULATION_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMODULARIZATION_GUIDL.html",
+      "htmlFile": "html\\ABENMODULARIZATION_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTATIC_CLASS_SINGLETON_GUIDL.html",
+      "htmlFile": "html\\ABENSTATIC_CLASS_SINGLETON_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINHERITANCE_GUIDL.html",
+      "htmlFile": "html\\ABENINHERITANCE_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCLASS_REF_INTERF_REF_GUIDL.html",
+      "htmlFile": "html\\ABENCLASS_REF_INTERF_REF_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLOCAL_TYPE_GLOB_CLASS_GUIDL.html",
+      "htmlFile": "html\\ABENLOCAL_TYPE_GLOB_CLASS_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINSTANCE_CONSTRUCTOR_GUIDL.html",
+      "htmlFile": "html\\ABENINSTANCE_CONSTRUCTOR_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENREACTION_ERROR_GUIDL.html",
+      "htmlFile": "html\\ABENREACTION_ERROR_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXCEPTION_CATEGORY_GUIDL.html",
+      "htmlFile": "html\\ABENEXCEPTION_CATEGORY_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXCEPTION_TEXTS_GUIDL.html",
+      "htmlFile": "html\\ABENEXCEPTION_TEXTS_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_EXCEPTION_CLASS_GUIDL.html",
+      "htmlFile": "html\\ABENUSE_EXCEPTION_CLASS_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENHANDL_PROP_EXCEPT_GUIDL.html",
+      "htmlFile": "html\\ABENHANDL_PROP_EXCEPT_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCLEANUP_GUIDL.html",
+      "htmlFile": "html\\ABENCLEANUP_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENASSERTIONS_GUIDL.html",
+      "htmlFile": "html\\ABENASSERTIONS_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMESSAGES_GUIDL.html",
+      "htmlFile": "html\\ABENMESSAGES_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERFACE_TECH_GUIDL.html",
+      "htmlFile": "html\\ABENINTERFACE_TECH_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLIST_GUIDL.html",
+      "htmlFile": "html\\ABENLIST_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENACCESSIBILITY_GUIDL.html",
+      "htmlFile": "html\\ABENACCESSIBILITY_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENPERSISTENT_DATA_STORAGE_GUIDL.html",
+      "htmlFile": "html\\ABENPERSISTENT_DATA_STORAGE_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATABASE_ACCESS_GUIDL.html",
+      "htmlFile": "html\\ABENDATABASE_ACCESS_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCLIENT_HANDLING_GUIDL.html",
+      "htmlFile": "html\\ABENCLIENT_HANDLING_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_SHARED_MEMORY_GUIDL.html",
+      "htmlFile": "html\\ABENUSE_SHARED_MEMORY_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_SHARED_OBJECTS_GUIDL.html",
+      "htmlFile": "html\\ABENUSE_SHARED_OBJECTS_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENBOUND_INDEPENDENT_DTYPE_GUIDL.html",
+      "htmlFile": "html\\ABENBOUND_INDEPENDENT_DTYPE_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDECLARATION_DTYPES_CONST_GUIDL.html",
+      "htmlFile": "html\\ABENDECLARATION_DTYPES_CONST_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDECLARATION_VARIABLES_GUIDL.html",
+      "htmlFile": "html\\ABENDECLARATION_VARIABLES_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDECLARATION_INLINE_GUIDL.html",
+      "htmlFile": "html\\ABENDECLARATION_INLINE_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENIMMUTABLE_VARIABLES_GUIDL.html",
+      "htmlFile": "html\\ABENIMMUTABLE_VARIABLES_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINCLUDING_STRUCTURES_GUIDL.html",
+      "htmlFile": "html\\ABENINCLUDING_STRUCTURES_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSING_TYPES_GUIDL.html",
+      "htmlFile": "html\\ABENUSING_TYPES_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENREF_TYPES_OBJECTS_GUIDL.html",
+      "htmlFile": "html\\ABENREF_TYPES_OBJECTS_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_WORK_AREA_GUIDL.html",
+      "htmlFile": "html\\ABENTABLE_WORK_AREA_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLITERALS_GUIDL.html",
+      "htmlFile": "html\\ABENLITERALS_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTRINGS_GUIDL.html",
+      "htmlFile": "html\\ABENSTRINGS_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSTART_VALUES_GUIDL.html",
+      "htmlFile": "html\\ABENSTART_VALUES_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDATAOBJECTS_TRUE_VALUE_GUIDL.html",
+      "htmlFile": "html\\ABENDATAOBJECTS_TRUE_VALUE_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENASSIGNEMNT_DIFF_TYPES_GUIDL.html",
+      "htmlFile": "html\\ABENASSIGNEMNT_DIFF_TYPES_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENAVOIDING_INVALID_VALUES_GUIDL.html",
+      "htmlFile": "html\\ABENAVOIDING_INVALID_VALUES_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_CONVERSION_RULES_GUIDL.html",
+      "htmlFile": "html\\ABENUSE_CONVERSION_RULES_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTRAILING_BLANKS_LITERALS_GUIDL.html",
+      "htmlFile": "html\\ABENTRAILING_BLANKS_LITERALS_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENNUMBERS_GUIDL.html",
+      "htmlFile": "html\\ABENNUMBERS_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSELECT_NUMERIC_TYPE_GUIDL.html",
+      "htmlFile": "html\\ABENSELECT_NUMERIC_TYPE_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENROUNDING_ERROR_GUIDL.html",
+      "htmlFile": "html\\ABENROUNDING_ERROR_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDIVISION_ZERO_GUIDL.html",
+      "htmlFile": "html\\ABENDIVISION_ZERO_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCASTING_GUIDL.html",
+      "htmlFile": "html\\ABENCASTING_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENRUNTIME_ERROR_DATA_OBJ_GUIDL.html",
+      "htmlFile": "html\\ABENRUNTIME_ERROR_DATA_OBJ_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUNKNOWN_CONTAINER_GUIDL.html",
+      "htmlFile": "html\\ABENUNKNOWN_CONTAINER_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENREF_TRANSF_GLOBAL_DATA_GUIDL.html",
+      "htmlFile": "html\\ABENREF_TRANSF_GLOBAL_DATA_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSYST_FIELD_ACCESS_GUIDL.html",
+      "htmlFile": "html\\ABENSYST_FIELD_ACCESS_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENOBS_INTERN_SYSTEM_FIELD_GUIDL.html",
+      "htmlFile": "html\\ABENOBS_INTERN_SYSTEM_FIELD_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEVALUATION_GUIDL.html",
+      "htmlFile": "html\\ABENEVALUATION_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENRETURN_CODE_GUIDL.html",
+      "htmlFile": "html\\ABENRETURN_CODE_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_ACTUAL_PARAMETERS_GUIDL.html",
+      "htmlFile": "html\\ABENUSE_ACTUAL_PARAMETERS_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_UI_GUIDL.html",
+      "htmlFile": "html\\ABENUSE_UI_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_OPERAND_POSITION_GUIDL.html",
+      "htmlFile": "html\\ABENUSE_OPERAND_POSITION_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSELECT_TABLE_TYPE_GUIDL.html",
+      "htmlFile": "html\\ABENSELECT_TABLE_TYPE_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSECONDARY_KEY_GUIDL.html",
+      "htmlFile": "html\\ABENSECONDARY_KEY_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINITIAL_MEMORY_REQU_GUIDL.html",
+      "htmlFile": "html\\ABENINITIAL_MEMORY_REQU_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSORT_GUIDL.html",
+      "htmlFile": "html\\ABENSORT_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCOLLECT_GUIDL.html",
+      "htmlFile": "html\\ABENCOLLECT_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTABLE_OUTPUT_GUIDL.html",
+      "htmlFile": "html\\ABENTABLE_OUTPUT_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENLOOP_GUIDL.html",
+      "htmlFile": "html\\ABENLOOP_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTYPE_FORMAL_PARAM_PROC_GUIDL.html",
+      "htmlFile": "html\\ABENTYPE_FORMAL_PARAM_PROC_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTYPE_TRANSF_FORMAL_PARA_GUIDL.html",
+      "htmlFile": "html\\ABENTYPE_TRANSF_FORMAL_PARA_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENREF_TRANSF_OUTPUT_PARAM_GUIDL.html",
+      "htmlFile": "html\\ABENREF_TRANSF_OUTPUT_PARAM_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTYPE_FORMAL_PARAM_GUIDL.html",
+      "htmlFile": "html\\ABENTYPE_FORMAL_PARAM_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENINTERN_EXTERN_PROC_CALL_GUIDL.html",
+      "htmlFile": "html\\ABENINTERN_EXTERN_PROC_CALL_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENEXIT_PROCEDURE_GUIDL.html",
+      "htmlFile": "html\\ABENEXIT_PROCEDURE_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_DYNAMIC_PROGR_TECH_GUIDL.html",
+      "htmlFile": "html\\ABENUSE_DYNAMIC_PROGR_TECH_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENRUNTIME_ERROR_DYN_PROC_GUIDL.html",
+      "htmlFile": "html\\ABENRUNTIME_ERROR_DYN_PROC_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENUSE_DYN_DATA_OBJECT_GUIDL.html",
+      "htmlFile": "html\\ABENUSE_DYN_DATA_OBJECT_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENMEM_CONS_DYN_MEM_OBJ_GUIDL.html",
+      "htmlFile": "html\\ABENMEM_CONS_DYN_MEM_OBJ_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENADMIN_COSTS_DYN_MEM_OBJ_GUIDL.html",
+      "htmlFile": "html\\ABENADMIN_COSTS_DYN_MEM_OBJ_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENDYN_ACCESS_DATA_OBJ_GUIDL.html",
+      "htmlFile": "html\\ABENDYN_ACCESS_DATA_OBJ_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENGENERIC_PROGR_GUIDL.html",
+      "htmlFile": "html\\ABENGENERIC_PROGR_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSYSTEM_TEXT_GUIDL.html",
+      "htmlFile": "html\\ABENSYSTEM_TEXT_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTRANS_RELEVANT_TEXT_GUIDL.html",
+      "htmlFile": "html\\ABENTRANS_RELEVANT_TEXT_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENTEXT_ENVIRONM_GUIDL.html",
+      "htmlFile": "html\\ABENTEXT_ENVIRONM_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCHARACTER_SET_GUIDL.html",
+      "htmlFile": "html\\ABENCHARACTER_SET_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENSPLIT_TEXT_GUIDL.html",
+      "htmlFile": "html\\ABENSPLIT_TEXT_GUIDL.html"
+    },
+    {
+      "url": "https://help.sap.com/doc/abapdocu_latest_index_htm/latest/en-US/ABENCODEPAGE_FILE_GUIDL.html",
+      "htmlFile": "html\\ABENCODEPAGE_FILE_GUIDL.html"
+    }
+  ],
+  "output": {
+    "htmlDir": "html"
+  },
+  "updatedAt": "2026-07-09T18:47:42.131Z"
+}

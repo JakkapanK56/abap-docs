@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenstructure_style_gdl.html">Structure and Style</a> / <a href="abenformatting_code_gdl.html">Formatting the Source Code</a> / <span>Line Width</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>The maximum line width of an ABAP program is restricted to 255 characters.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Do not use full line width</strong></p>
+<p>Limit the width of a line in the source code to a reasonable size. As a rule of thumb, you should be able to print a program on common paper formats without truncation or line breaks.</p></div>
+<h2>Details</h2><div class="content"><p>Whereas the old restriction to 72 characters was too strict, the full utilization of the 255 characters that are now available would not make a program any more legible. Although very large monitors are now available, it can still be necessary, for example, for code inspections or reviews, to print a program or program section. It is therefore advisable to break long <a target='_parent' href='ABENSTATEMENT_GUIDL.html' class='blue'>statements</a> at suitable positions and to distribute long literals across multiple lines using the literal operator (<code class='code'>&</code>) or the concatenation operator (<code class='code'>&&</code>).</p>
+<p>The example programs in the documentation are restricted in width in a natural way, which makes them legible at the same time. Unfortunately this sometimes means using shorter <a target='_parent' href='ABENTELLING_NAMES_GUIDL.html' class='blue'>names</a> than would actually be possible.</p></div>
+<h2>Example</h2><div class="content"><p>In the first method of the program <code class='code'>PGL_PROGRAM_LINE_WIDTH</code>, a very long literal is assigned to the return value. The literal is not displayed completely even on very wide screens, and in the printout it will be broken up or even truncated.</p>
+<p>The second method uses a literal whose content is identical to the one of the previous method; here, however, it is composed of multiple shorter literals using the literal operator <code class='code'>&</code>. The literal is split at appropriate positions, and the method becomes more legible both on the screen and the printout.</p></div>
+</div>
+</body>
+</html>

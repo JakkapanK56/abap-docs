@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenstructure_style_gdl.html">Structure and Style</a> / <a href="abenformatting_code_gdl.html">Formatting the Source Code</a> / <span>Statements per Program Line</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>An ABAP statement (declaration or executable statement) is closed with a period. This statement can be followed by further statements in the same line. Statements can also span multiple lines.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Maximum of one statement per program line</strong></p>
+<p>Write a maximum of one statement in every source code line. Long statements can and should be split at suitable places. This means the statements can be divided up across consecutive lines.</p></div>
+<h2>Details</h2><div class="content"><p>Using multiple statements in one line makes the source code harder to read. If a line contains an entire control structure, the lack of indentations makes it especially difficult to identify the logical structure. Therefore you should try to avoid using more than one statement in a program line.</p>
+<p>Besides reduced readability, using multiple statements in one line can also make the code more difficult to debug. Even in single steps, ABAP Debugger stops a maximum of once per executable program line. This makes it impractical for the debugging process if there is more than one statement in a line.</p>
+<p>If a statement spans <a target='_parent' href='ABENLINE_WIDTH_GUIDL.html' class='blue'>multiple lines</a> (which occurs frequently due to the potential length of complex ABAP statements), there should be no empty lines between the parts of the statement. The breaks in the statement should occur at semantically suitable places so that groups with a similar semantic meaning are next to each other, if possible. Indentations should be used to ensure that the statement is as well structured and readable as possible.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows a program section with correct syntax but that is poorly laid out and difficult to understand. Even the <a target='_parent' href='ABENUSE_PRETTY_PRINTER_GUIDL.html' class='blue'>Pretty Printer</a> can barely improve the layout of the pattern shown here.</p>
+<pre><code>CLASS class DEFINITION. 
+  PUBLIC SECTION. METHODS meth. ENDCLASS.CLASS class IMPLEMENTATION. METHOD meth. 
+  DATA: itab TYPE TABLE OF dbtab, wa TYPE dbtab. 
+  SELECT * FROM dbtab WHERE column = ' ' INTO TABLE @itab. 
+  IF sy-subrc <> 0. RETURN. ENDIF. 
+  LOOP AT itab INTO wa. ... ENDLOOP. 
+  ENDMETHOD. ENDCLASS.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code shows the same code as above but with the recommended limit of one statement per line. The complex <code class='code'>SELECT</code> statement contains numerous clauses and hence spans multiple consecutive lines.</p>
+<pre><code>CLASS class DEFINITION. 
+  PUBLIC SECTION. 
+    METHODS meth. 
+ENDCLASS.CLASS class IMPLEMENTATION. 
+  METHOD meth. 
+    DATA: itab TYPE TABLE OF dbtab, 
+          wa   TYPE dbtab. 
+    SELECT * 
+           FROM dbtab 
+           WHERE column = ' ' 
+           INTO TABLE @itab. 
+    IF sy-subrc <> 0. 
+      RETURN. 
+    ENDIF. 
+    LOOP AT itab INTO wa. 
+       ... 
+    ENDLOOP. 
+  ENDMETHOD. 
+ENDCLASS.</code></pre></div>
+</div>
+</body>
+</html>

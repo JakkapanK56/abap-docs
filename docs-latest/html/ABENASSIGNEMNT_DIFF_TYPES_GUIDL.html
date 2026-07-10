@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abenassignment_access_gdl.html">Assignments, Calculations, and Other Types of Data Access</a> / <span>Assignments Between Different Types</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>ABAP allows a direct assignment between data objects with different data types. There must be a suitable conversion rule and the content of the source field must be a meaningful value for the data type of the target field. If a suitable conversion rule is not found or the content of the source field is not suitable, an exception is raised.</p>
+<p>Such conversions take place not only in direct assignments, but also in many operand positions and in particular in arithmetic calculations, if the specified operand does not have the data type expected at the position.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Avoid conversions</strong></p>
+<p>Where possible, assignments should be performed between compatible data objects with the same data type.</p></div>
+<h2>Details</h2><div class="content"><p>Type conversions incur additional runtime and may not always have the result intended by the developer.  Therefore, conversions should only be performed between data objects with different data types if there is no other choice. In particular, conversions should be avoided where the <a target='_parent' href='ABENUSE_CONVERSION_RULES_GUIDL.html' class='blue'>conversion rules</a> produce unexpected results.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows an arithmetic calculation involving two unnecessary conversions. First the text field literal '1' has to be converted to the calculation type i, then the result of the calculation has to be converted from type i to data type n. Such conversions produce significant increases in runtime.</p>
+<pre><code>DATA index TYPE n LENGTH 4. 
+... 
+DO ... TIMES. 
+  index = sy-index - '1'. 
+  ... 
+ENDDO.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code shows how code can be improved compared to the previous example, so that no conversions are necessary.</p>
+<pre><code>DATA index TYPE i. 
+... 
+DO ... TIMES. 
+  index = sy-index - 1. 
+  ... 
+ENDDO.</code></pre></div>
+</div>
+</body>
+</html>

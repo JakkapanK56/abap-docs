@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenarchitecture_gdl.html">Architecture</a> / <a href="abenerror_handling_gdl.html">Error Handling</a> / <span>Cleanups After Exceptions</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>Every <code class='code'>TRY</code> control structure can contain a <code class='code'>CLEANUP</code> block. If a class-based exception is raised in the <code class='code'>TRY</code> block of the same <code class='code'>TRY</code> control structure, but is handled in a <code class='code'>CATCH</code> block of an external <code class='code'>TRY</code> control structure, the <code class='code'>CLEANUP</code> block is executed before the context of the exception is deleted. Therefore, when a handler is executed the <code class='code'>CLEANUP</code> blocks of all <code class='code'>TRY</code> control structures that have been unsuccessfully searched for a handler up until that point are executed from the inside out.</p>
+<p>The addition <code class='code'>BEFORE UNWIND</code> of the <code class='code'>CATCH</code> statement determines whether execution takes place before or after handling. However, the <code class='code'>CLEANUP</code> blocks are not executed if <code class='code'>RESUME</code> is used during exception handling to restart in the context of the exception.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Cleanup Before Forwarding</strong></p>
+<p>Before forwarding an exception to higher-level call layers, perform the necessary cleanups in the <code class='code'>CLEANUP</code> block.</p></div>
+<h2>Details</h2><div class="content"><p>Each exception changes the program flow and can thus pose a significant risk to the consistency of an application. If you decide not to handle an exception, but to <a target='_parent' href='ABENHANDL_PROP_EXCEPT_GUIDL.html' class='blue'>forward</a> it, you must make sure that you leave the current software layer in a consistent state. You can implement the <code class='code'>CLEANUP</code> block in this case, to execute cleanups before the exception is forwarded to higher-level software layers.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows the forwarding of an exception without first explicitly closing an open resource (in this case a database cursor). The closing of the database cursor is implicitly delegated to any exception handler.</p>
+<pre><code>TRY. 
+  OPEN CURSOR db_cursor 
+    FOR SELECT ... 
+    ... 
+  CATCH cx_sy_sql_error INTO exc. 
+    RAISE EXCEPTION TYPE cx_persistency_error 
+      EXPORTING previous = exc. 
+ENDTRY.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code shows the same example as above, but the database cursor is closed in the <code class='code'>CLEANUP</code> block.</p>
+<pre><code>TRY. 
+  OPEN CURSOR db_cursor 
+    FOR SELECT ... 
+    ... 
+  CATCH cx_sy_sql_error INTO exc. 
+    RAISE EXCEPTION TYPE cx_persistency_error 
+      EXPORTING previous = exc. 
+  CLEANUP. 
+    CLOSE CURSOR db_cursor. 
+ENDTRY.</code></pre></div>
+</div>
+</body>
+</html>

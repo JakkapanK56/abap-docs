@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abenitab_gdl.html">Internal Tables</a> / <span>Collected Filling</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>The statement <code class='code'>COLLECT</code> can be used to collect lines and insert them in an internal table. If a line with the relevant primary key already exists in the target table, the values of numeric components are added to the values in the existing table line. Otherwise, a new line is inserted in the table.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Do not fill standard tables with collections of lines</strong></p>
+<p>Only use the statement <code class='code'>COLLECT</code> for hashed tables or sorted tables with a unique key. Do not use it any more for standard tables.</p></div>
+<h2>Details</h2><div class="content"><p>The statement <code class='code'>COLLECT</code> is based on unique entries with respect to the primary key and stable key administration. This means that not all categories of internal tables are suitable for <code class='code'>COLLECT</code>:</p>
+<ul><li>If the statement <code class='code'>COLLECT</code> is applied to a standard table, this table first needs its own internal hash administration. Change operations on the table can invalidate this temporary hash administration. After a change operation of this type, the following <code class='code'>COLLECT</code> statements must resort to a linear search, which can affect performance considerably. The primary key of a standard table is also never unique.</li><li><code class='code'>COLLECT</code> can be used for sorted tables and hashed tables without any problems since these, unlike standard tables, always have a separate, stable key administration that can be utilized by <code class='code'>COLLECT</code>. <code class='code'>COLLECT</code> can work properly for sorted tables only if the primary key is unique. If a sorted table has a non-unique key, only <code class='code'>COLLECT</code> can be used to fill the table, which is difficult to guarantee. In hashed tables, the key values are always unique.</li></ul></div>
+</div>
+</body>
+</html>

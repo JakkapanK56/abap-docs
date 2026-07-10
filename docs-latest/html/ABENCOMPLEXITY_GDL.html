@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenstructure_style_gdl.html">Structure and Style</a> / <span>Complexity</span></nav>
+<div class="all">
+<p>The aim of program complexity is to keep the source code as clear and readable as possible for the human reader. The computer has no problems with compiling or executing highly complex programs. Unformatted source code does also not constitute any problems. The human reader, however, is usually overwhelmed by the program complexity.</p>
+<p>High complexity in this context means, for example, voluminous procedures (<a target='_parent' href='ABENFUNCT_MODULE_SUBROUTINE_GUIDL.html' class='blue'>methods</a>) and control structures with a very deep nesting or unclear classes without clearly defined tasks. The program complexity must not be confused with the complexity of the task that is handled by the program. Even if task complexity is very high, it is always possible to keep the program complexity manageable for individual procedures and classes by clearly <a target='_parent' href='ABENSEPARATION_CONCERNS_GUIDL.html' class='blue'>separating the tasks</a>.</p>
+<p>To understand a program, the reader must be able to mentally trace the flow, and keep an eye on the different paths through the program that result from the control structure, under different external conditions. This is very difficult when dealing with voluminous procedures or deep nesting. In these situations, the program author may have been overwhelmed and consequently the program might contain errors. These situations increase the time required for corrections or further developments and the risk of errors. What makes the situation even more difficult is that testing complex procedures requires a great deal of time and effort, due to the high number of possible execution paths. Formulating a test case for every single execution path is often impossible due to the high number of paths.</p>
+<ul><li><a target='_parent' href='ABENEXPRESSION_GUIDL.html' class='blue'>Expressions</a></li><li><a target='_parent' href='ABENNESTING_DEPTH_GUIDL.html' class='blue'>Nesting Depth</a></li><li><a target='_parent' href='ABENPROC_VOLUME_GUIDL.html' class='blue'>Procedure Volume</a></li><li><a target='_parent' href='ABENCLASS_SIZE_GUIDL.html' class='blue'>Class Size</a></li><li><a target='_parent' href='ABENDEAD_CODE_GUIDL.html' class='blue'>Dead Code</a></li></ul>
+</div>
+</body>
+</html>

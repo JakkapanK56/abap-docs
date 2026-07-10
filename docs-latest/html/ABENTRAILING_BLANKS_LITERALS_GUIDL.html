@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abenassignment_access_gdl.html">Assignments, Calculations, and Other Types of Data Access</a> / <span>Trailing Blanks in Character Literals</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>Trailing blanks in text field literals use memory, but are <a target='_parent' href='ABENSTRING_PROCESSING_TRAIL_BLANKS.html' class='blue'>generally</a> ignored in operand positions, like all data objects of the type <code class='code'>c</code>. In text string literals they are always relevant, as is the case for all data objects of type <code class='code'>string</code>.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Do not use trailing blanks in text field literals</strong></p>
+<p>They should also not be specified in literals in any operand positions where trailing blanks are not relevant.</p></div>
+<h2>Details</h2><div class="content"><p>This rule is designed mainly to make programs more readable. It makes no sense to specify literal characters in places where they are ignored, and raises expectations in users of the program that cannot be met. In particular, this also applies to the text field literal <code class='code'>' '</code>.</p>
+<p>Conversely, specifying the supposedly empty text field literal <code class='code'>''</code> in places where trailing blanks are respected may be a trap.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following simple example demonstrates the full scope of the rule.  Any readers with little experience in ABAP would expect the result of the assignment to be a string with length six. In actual fact, the result contains only the three relevant places.</p>
+<pre><code>DATA text TYPE string. 
+ 
+text = '123   '.</code></pre>
+<p></p>
+<p>The following example demonstrates that the supposedly empty literal <code class='code'>''</code> actually represents a blank that is not cut off after <code class='code'>SEPARATED BY</code>. The result is <em>AB AP</em>.</p>
+<pre><code>DATA text TYPE string. 
+ 
+CONCATENATE 'AB' 'AP' INTO text SEPARATED BY ''.</code></pre>
+<p></p></div>
+<h2>Good Example</h2><div class="content"><p>Whether the example needs to be improved depends on whether the trailing blanks are required. If the blanks are needed, use a text string literal:</p>
+<pre><code>text = `123   `.</code></pre>
+<p>If they are not needed, leave them out:</p>
+<pre><code>text = '123'.</code></pre>
+<p>Depending on whether the blank is needed as a separator, either <code class='code'>' '</code> or <code class='code'>``</code> must be specified after <code class='code'>SEPARATED BY</code> to express this clearly.</p></div>
+</div>
+</body>
+</html>

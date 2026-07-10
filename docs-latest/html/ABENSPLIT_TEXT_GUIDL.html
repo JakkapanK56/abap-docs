@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abeninternationalization_gdl.html">Internationalization</a> / <span>Splitting Texts</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>Usually the characters in a character string are encoded based on a code page using a fixed number of bytes. This means that it is always known in the memory where a character begins and ends. However, in some code pages, a character can be formed from a combination of multiple separately saved characters. This applies in particular to the characters of the surrogate area of the Unicode character set, that are collectively represented in the Unicode character representation <a target='_parent' href='ABENUTF16_GLOSRY.html' class='green'>UTF-16</a> by two consecutive 16-bit replacement codes (<a target='_parent' href='ABENSURROGATES_GLOSRY.html' class='green'>surrogate</a>). The surrogate area, for example, includes several Chinese characters that are predominantly used in Hong Kong. The ABAP programming area does not support this area. ABAP supports the subset of UTF-16 covered by <a target='_parent' href='ABENUCS2_GLOSRY.html' class='green'>UCS-2</a>, in which each character occupies two bytes. One character in the surrogate area occupies four bytes and is handled as two characters by ABAP.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Only split texts between characters</strong></p>
+<p>Make sure that statements do not split character strings in any places with composite characters or surrogates.</p></div>
+<h2>Details</h2><div class="content"><p>Operations that split character strings include:</p>
+<ul><li>Substring accesses with offsets/lengths or <code class='code'>substring</code> functions</li><li>The <code class='code'>SPLIT</code> statement</li><li>Every assignment to a character-like field that is too short, where one side of the original value is cut off</li></ul>
+<p>If texts containing combined characters or surrogates are split, this can produce undefined characters that cannot be displayed. If there is a risk of this occurring, you can define a suitable separation position by using the method <code class='code'>STRING_SPLIT_AT_POSITION</code> of class<code class='code'>CL_SCP_LINEBREAK_UTIL</code>.</p></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abenassignment_access_gdl.html">Assignments, Calculations, and Other Types of Data Access</a> / <span>Division by Zero</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>Division by zero is forbidden in all recognized programming languages and raises an exception. This is also the case in ABAP, but with the difference that the exception <code class='code'>cx_sy_zerodivide</code> is not raised if the dividend is also zero when divided by zero. In this case, the division in ABAP produces the result 0.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Prevent division by zero</strong></p>
+<p>Do not exploit the fact that ABAP allows division by zero if the dividend itself is zero.</p></div>
+<h2>Details</h2><div class="content"><p>This ABAP behavior is arbitrary and does not produce the result expected by the user. Therefore, it should not be exploited.  Instead, set preconditions that avoid division by zero or the corresponding exception is to be triggered explicitly for the case 0/0.</p></div>
+<h2>Example</h2><div class="content"><p>The following source code always raises an exception when the divisor has the value 0.</p>
+<pre><code>IF divisor <> 0. 
+   result = dividend / divisor. 
+ELSE. 
+   RAISE EXCEPTION TYPE cx_sy_zerodivide. 
+ENDIF.</code></pre></div>
+</div>
+</body>
+</html>

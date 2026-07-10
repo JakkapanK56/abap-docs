@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenarchitecture_gdl.html">Architecture</a> / <a href="abenobj_oriented_gdl.html">Object-Oriented Programming</a> / <span>Modularization</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>The main programming model that was propagated before the implementation of ABAP Objects was <em>structured programming</em>:</p>
+<ul><li>In this model, the programs are split into procedures as appropriate.</li><li>Sequences, branches, and loops are the only control structures allowed.</li></ul>
+<p>The implementation of object-oriented programming languages such as ABAP Objects does not make structured programming obsolete. Object-oriented programming is based on the structured programming and enhances and supplements it.</p>
+<p>With regard to ABAP, you must note that ABAP is still a programming language of the fourth generation (4GL) that has been developed especially for application programming in the SAP environment, that is, for mass data processing in business applications. Therefore, ABAP includes significantly more language elements than an elementary programming language in which the more complex functions are usually stored in libraries. This ranges from simple statements for string processing, which are provided as methods of string classes in other object-oriented languages such as Java, to the processing of complex mass data objects, such as internal tables, to very complex statements for operating interfaces such as ABAP SQL or for calling data transformations (XML), for which other languages have entire class hierarchies.</p>
+<p>As already <a target='_parent' href='ABENOBJ_ORIENTED_GDL.html' class='blue'>mentioned</a>, the performance of the ABAP language is therefore optimized mainly for the execution of its complex statements for mass data processing and less for the individual method call.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Modularize rather than atomize</strong></p>
+<p>Modularize your program in classes, but not to the extent that there is an individual method for every trivial function. Methods that consist of only one or just a few statements should be an exception in ABAP and not the rule.</p></div>
+<h2>Details</h2><div class="content"><p>You should only use <a target='_parent' href='ABENABAP_OBJ_PROGR_MODEL_GUIDL.html' class='blue'>methods of ABAP Objects</a> for the implementation of functions; there are very good reasons for this. But ABAP remains ABAP, and the good reasons for using a well-structured program are not invalidated by the implementation of ABAP Objects. Indeed, the ABAP language elements proven and tested in so many application cases are still valid today, are undergoing continuously development, and should be used in their present form in ABAP Objects as well.</p>
+<p>A well-structured procedural ABAP program, for instance a function pool that fulfills a specific task and is modularized using subroutines, should therefore be transferable to a class without any major changes to the implementation, while being provided with all the additional benefits of ABAP Objects.</p>
+<p>However, the modularization at the level of a few single statements is and will remain untypical for ABAP. On the one hand this is because of performance reasons, because the costs for the method call must remain low in comparison to the costs for executing the implementation. For example, instead of providing the <code class='code'>get_attribute</code> methods typical for other object-oriented languages that only set their return value to the value of an attribute <code class='code'>attribute</code>, you should use public <code class='code'>READ-ONLY</code> attributes in ABAP. (If reads on an attribute are linked with further actions, for example, authorization checks, <code class='code'>get_attribute</code> methods are appropriate of course.) On the other hand, virtually all non-fundamental statements of ABAP (all language elements that do not have any equivalent in an elementary language like Java) already play the same role that the methods of system classes assume in other programming languages. The use of a statement like this corresponds to a method call, and another encapsulation is usually not necessary.</p>
+<p>Also, for legibility and maintainability reasons, a method with a <a target='_parent' href='ABENPROC_VOLUME_GUIDL.html' class='blue'>reasonable size</a> is preferable to splitting into atomic units, that is, into methods with only one or two statements.</p></div>
+<h2>Use</h2><div class="content"><p>Procedures that encapsulate nothing but the call of another procedure are an exception. A single procedure call represents the implementation of an entire procedure. This applies in particular to function modules and subroutines, which can only be created in <a target='_parent' href='ABENABAP_OBJ_PROGR_MODEL_GUIDL.html' class='blue'>exceptional cases</a> anyway. They should include exactly one <a target='_parent' href='ABENFUNCT_MODULE_SUBROUTINE_GUIDL.html' class='blue'>method call</a>, which delegates the implementation to ABAP Objects. In this case, the improved security through the stricter checks in ABAP Objects outweighs the disadvantages of very short procedures.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows the rudimentary implementation of a string class in ABAP Objects. The methods of this class each contain only a single statement. A consumer must create objects of the class and call the methods to handle the strings.</p>
+<pre><code>CLASS cl_string DEFINITION PUBLIC. 
+   PUBLIC SECTION. 
+     METHODS: 
+       constructor IMPORTING value        TYPE string OPTIONAL, 
+       set_string  IMPORTING value        TYPE string, 
+       get_string  RETURNING VALUE(value) TYPE string, 
+       shift_left  IMPORTING places       TYPE i, 
+       shift_right IMPORTING places       TYPE i, 
+       ... 
+    PRIVATE SECTION. 
+      DATA string TYPE string. 
+ENDCLASS.CLASS cl_string IMPLEMENTATION. 
+   METHOD constructor. 
+     string = value. 
+   ENDMETHOD. 
+   METHOD set_string. 
+     string = value. 
+   ENDMETHOD. 
+   METHOD get_string. 
+     value = string. 
+   ENDMETHOD. 
+   METHOD shift_left. 
+     SHIFT string LEFT BY places PLACES. 
+   ENDMETHOD. 
+   METHOD shift_right. 
+     SHIFT string RIGHT BY places PLACES. 
+   ENDMETHOD. 
+   ... 
+ENDCLASS. 
+...CLASS application IMPLEMENTATION. 
+  ... 
+   METHOD do_something. 
+     DATA string TYPE REF TO cl_string. 
+     CREATE OBJECT string EXPORTING value = 'abcde'. 
+     ... 
+     string->shift_left( ... ). 
+     ... 
+    ENDMETHOD. 
+  ... 
+ENDCLASS.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code shows the handling of strings typical to ABAP. A method directly declares a data object of type <code class='code'>string</code> and directly uses the corresponding ABAP statements for processing.</p>
+<pre><code>CLASS application IMPLEMENTATION. 
+  ... 
+   METHOD do_something. 
+     DATA string TYPE string. 
+     ... 
+     SHIFT string LEFT BY ... PLACES. 
+     ... 
+   ENDMETHOD. 
+  ... 
+ENDCLASS.</code></pre>
+<p>There is a corresponding built-in function for almost every string processing statement. They can also be used in operand positions, negating another reason for the encapsulation of statements in methods. The statement <code class='code'>SHIFT LEFT</code> in this example can be replaced as follows, whereas <code class='code'>shift_left</code> is a built-in function:</p>
+<pre><code>string = shift_left( val = string places = ... ).</code></pre></div>
+</div>
+</body>
+</html>

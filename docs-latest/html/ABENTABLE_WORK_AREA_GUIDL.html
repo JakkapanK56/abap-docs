@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abendata_type_obj_gdl.html">Data Types and Data Objects</a> / <span>Table Work Areas</span></nav>
+<div class="all">
+<h2>Exception</h2><div class="content"><p>If dynpro fields in <a target='_parent' href='ABENUSER_INTERFACES_GDL.html' class='blue'>classic dynpros</a> are defined with reference to flat structures in ABAP Dictionary, the identically named global data objects of the ABAP program must be declared with the statement <code class='code'>TABLES</code>. Otherwise, the data objects of the ABAP program are not linked to the dynpro fields, and their content cannot be accessed. In addition, <code class='code'>TABLES</code> is also required for declaring specific work areas when handling function codes of selection screens.</p></div>
+<h2>Note</h2><div class="content"><p>The restriction on the statement <code class='code'>TABLES</code> to this last remaining technical requirement, that is, the communication with classic dynpros and selection screens, can also be derived from other rules of these guidelines. However, since the use of the statement <code class='code'>TABLES</code> instead of the statement <code class='code'>DATA</code> is still very popular among experienced ABAP developers, the rule above explicitly stresses that it is not allowed.</p></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abendynamic_prog_technique_gdl.html">Dynamic Programming Techniques</a> / <span>Using Dynamic Data Objects</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>Dynamic data objects are a subgroup of <a target='_parent' href='ABENMEM_CONS_DYN_MEM_OBJ_GUIDL.html' class='blue'>dynamic memory objects</a> and simply consist of:</p>
+<ul><li>Strings</li><li>Internal tables</li></ul>
+<p>The data type statically defines all properties for dynamic data objects, apart from memory consumption. Although the objects are managed internally using references, they are addressed by their names and value semantics applies. This means the referenced internal reference is always used for access.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Use appropriate dynamic data objects</strong></p>
+<p>To store dynamic data sets transiently when using dynamic data objects, always select the type that best corresponds to the content and the required access:</p>
+<ul><li>Strings for data that cannot be divided</li><li>Internal tables for data that can be divided</li></ul>
+<p>To avoid memory bottlenecks for large data sets, you might need to use other procedures as well.</p></div>
+<h2>Details</h2><div class="content"><p>When using dynamic data objects, selecting the type is a key decision. The general rule is:</p>
+<ul><li>Data that can be handled as one piece is stored as a character string or byte string (<code class='code'>string</code> or <code class='code'>xstring</code> data type).</li><li>Structured data or data that can be sensibly divided into individual sections is stored as internal table lines.</li></ul>
+<p>However, if you need to store a very large data set as dynamic data objects, different aspects must be considered. <code class='code'>string</code> and <code class='code'>xstring</code> data objects must be stored as one piece in the memory, whereas the content of internal tables is stored in blocks. This is more likely to cause resource bottlenecks when strings are used. Even if sufficient <a target='_parent' href='ABENMEM_CONS_DYN_MEM_OBJ_GUIDL.html' class='blue'>memory</a> space is available, the memory cannot handle a string of the requested length, due to fragmentation. In these cases, it makes more sense to store the data as an internal table instead of storing the data in a string as one piece.</p>
+<p>The <code class='code'>EXPORT</code> statement for storing data in a cluster supports both storage types, for example: <code class='code'>EXPORT ... TO DATA BUFFER</code> stores the cluster in a single long byte string, whereas <code class='code'>EXPORT ... TO</code> <code class='code'>INTERNAL TABLE</code> distributes the cluster across numerous lines of an internal table. The latter possibility (<code class='code'>EXPORT ... TO INTERNAL TABLE</code>) is more secure (for the reason explained above), if the cluster needs to contain a very large data set.</p></div>
+<h2>Hint</h2><div class="content"><p>Strings and internal tables are contained directly in the ABAP language in the form of data types and the corresponding access statements. In other programming languages, however, they are often implemented as libraries (such as string classes and container classes). In ABAP, it is usually <a target='_parent' href='ABENOBJ_ORIENTED_GDL.html' class='blue'>neither necessary nor useful</a> to define specific classes for storing strings or table-like data. However, in rare cases, it may be useful to wrap internal tables in classes, to release more <a target='_parent' href='ABENADMIN_COSTS_DYN_MEM_OBJ_GUIDL.html' class='blue'>memory</a> when data is deleted.</p></div>
+</div>
+</body>
+</html>

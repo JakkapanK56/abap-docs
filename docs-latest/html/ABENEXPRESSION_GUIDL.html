@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenstructure_style_gdl.html">Structure and Style</a> / <a href="abencomplexity_gdl.html">Complexity</a> / <span>Expressions</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>An expression is part of an ABAP statement that returns a result. An expression consists of one or more operands in combination with operators or special ABAP words. Expressions can be logical expressions constructed from relational expressions and also calculation expressions. The latter type is subdivided into arithmetic expressions, bit expressions, and string expressions. Data objects, other suitable expressions, and calls of built-in functions and functional methods can all be used as expression operands. In character string processing, regular expressions for searches and pattern comparisons are also used.</p>
+<p>These expressions can be nested and combined in many different ways. Nested and chained calls are possible for functional methods. The maximum nesting depth of expressions is restricted to 32 by ABAP Compiler.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Limit the complexity of expressions</strong></p>
+<p>Use expressions at operand positions in a way that means the program remains legible and understandable.</p></div>
+<h2>Details</h2><div class="content"><p>The various options for expressions mean that the use of helper variables is superfluous in many places. The use of expressions and functional calls at operand positions is useful under the following prerequisites:</p>
+<ul><li>The result of an expression or a calculation is required only once. If an intermediate result is required multiple times, it should only be calculated once and saved in a helper variable. (ABAP Compiler does not implicitly handle this task at the moment)</li><li>The data type of the result matches the operand position, or the conversion rules for an expression or call used at an operand position are suitable for the task to be implemented. If special type conversions must be performed, for example, for date or time fields, helper variables of an appropriate type might be required.</li></ul>
+<p>Programs should always be kept clear and legible.. Do not be too ambitious and combine everything into one single expression. If an expression becomes too complex, it should be split at suitable points, and the intermediate results should be saved in helper variables. This particularly applies to character string processing with string templates and to regular expressions. These are very powerful but they can also make programs difficult to read very quickly. <a target='_parent' href='ABENCOMMENTS_GDL.html' class='blue'>Comments</a> can also help to describe the way a complex expression works.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows an arithmetic expression in a relational expression in a loop. The same total must be recalculated for each loop pass.</p>
+<pre><code>LOOP AT itab ASSIGNING <wa>. 
+  IF oref->meth( <wa> ) < sy-tabix * ( offset + length ). 
+    ... 
+  ENDIF. 
+ENDLOOP.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code has the same function as the example above. However, the total is only calculated once before the loop.</p>
+<pre><code>limit = offset + length. 
+LOOP AT itab ASSIGNING <wa>. 
+  IF oref->meth( <wa> ) < sy-tabix * limit. 
+    ... 
+  ENDIF. 
+ENDLOOP.</code></pre></div>
+</div>
+</body>
+</html>

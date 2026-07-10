@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abenitab_gdl.html">Internal Tables</a> / <span>Sorted Filling</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>The statement <code class='code'>APPEND</code> for attaching lines to an internal table has the addition <code class='code'>SORTED BY</code>. This addition can be used to fill a standard table by using sorted filling. The prerequisites are:</p>
+<ul><li>A value greater than zero must be specified for the addition <a target='_parent' href='ABENINITIAL_MEMORY_REQU_GUIDL.html' class='blue'><code class='code'>INITIAL SIZE</code></a>.</li><li>Only the statement <code class='code'>APPEND</code> with the addition <code class='code'>SORTED BY</code> can be used to fill the internal table.</li></ul>
+<p>Once these prerequisites have been met, a ranking list is created that contains at most the same number of lines as specified with <code class='code'>INITIAL SIZE</code>. This list is sorted by the component specified after <code class='code'>SORTED BY</code> in descending order.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Create ranking lists with unsorted filling</strong></p>
+<p>Do not use the addition <code class='code'>SORTED BY</code> of the statement <code class='code'>APPEND</code> to create ranking lists. Use the statement <code class='code'>SORT</code> instead.</p></div>
+<h2>Details</h2><div class="content"><p>If the statement <code class='code'>APPEND</code> is used with the addition <code class='code'>SORTED BY</code>, you cannot simply append lines (contrary to what the name implies). Instead, a complicated process is started that only creates a ranking list if specific prerequisites are met. Otherwise incomprehensible results are returned. In addition, it is not possible to sort by more than one column.</p>
+<p>The statement <code class='code'>SORT</code> is more robust, more powerful and easier to comprehend when used in this scenario.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows how to create a ranking list of the ten longest distances from a table of flight connections, by using the rule <code class='code'>APPEND SORTED BY</code>. This rule is no longer recommended, as described above. When declaring the ranking list table, you need to specify the addition <code class='code'>INITIAL SIZE</code>.</p>
+<pre><code>... 
+DATA distance_list TYPE TABLE OF spfli-distance 
+                   INITIAL SIZE 10. 
+FIELD-SYMBOLS <spfli_wa> LIKE LINE OF spfli_tab. 
+... 
+LOOP AT spfli_tab ASSIGNING <spfli_wa>. 
+  APPEND <spfli_wa>-distance TO distance_list 
+    SORTED BY table_line. 
+ENDLOOP. 
+...</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code shows how to create the same ranking list in the previous example, but using the more robust statement <code class='code'>SORT</code>.</p>
+<pre><code>... 
+DATA distance_list TYPE TABLE OF spfli-distance. 
+FIELD-SYMBOLS <spfli_wa> LIKE LINE OF spfli_tab. 
+... 
+SORT spfli_tab BY distance DESCENDING. 
+LOOP AT spfli_tab TO 10 ASSIGNING <spfli_wa>. 
+  APPEND <spfli_wa>-distance TO distance_list. 
+ENDLOOP. 
+...</code></pre></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenarchitecture_gdl.html">Architecture</a> / <a href="abendata_storage_gdl.html">Data Storage</a> / <span>Persistent Data Storage</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>ABAP programs can have both read and write access to data in the following persistent storage media:</p>
+<ul><li>Relational database tables in databases</li><li>Data clusters in special database tables</li><li>Binary files or text files on the <a target='_parent' href='ABENHOST_COMPUTER_GLOSRY.html' class='green'>host computer</a> of the current AS instance</li><li>Binary files or text files on the front-end computer when SAP GUI is used</li></ul>
+<p>According to the <a target='_parent' href='ABENSEPARATION_CONCERNS_GUIDL.html' class='blue'>SoC principle</a>, such accesses are wrapped in service classes of the persistency layer of an application.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Plan persistent data storage carefully</strong></p>
+<p>Select with care the persistent storage media that are used by the application as well as the possible data transport routes between these media. Here is a general rule of thumb:</p>
+<ul><li>Database tables for the general storage of raw data</li><li>Data clusters for the storage of formatted data</li><li>Files for data exchange with external systems</li></ul></div>
+<h2>Details</h2><div class="content"><p>When you plan persistent data storage, you should follow these steps:</p>
+<ol><li>On an AS ABAP, storing in relational database tables is always the first choice. ABAP supports this with the ABAP SQL that is integrated into the language. An object-oriented access is possible using Object Services. The majority of the data is stored in the <a target='_parent' href='ABENSTANDARD_DB_GLOSRY.html' class='green'>standard database</a> of AS ABAP. <a target='_parent' href='ABENSECONDARY_DB_CONNECTION_GLOSRY.html' class='green'>Secondary connections</a> (managed using <a target='_parent' href='ABENDBA_COCKPIT_GLOSRY.html' class='green'>DBA Cockpit</a>) can be used to access further databases.</li><li>The following data can be stored in data clusters when using the <code class='code'>EXPORT</code> and <code class='code'>IMPORT</code> statements:</li><li class='no_list_style'>- Formatted data as the result of comprehensive analyses</li><li class='no_list_style'>- Data that is not suitable for relational databases because it does not exist in the first normal form (such as nested internal tables)</li><li class='no_list_style'>- Object networks after a serialization to XML</li><li>The persistent storage of data in files of the <a target='_parent' href='ABENHOST_COMPUTER_GLOSRY.html' class='green'>host computer</a> of a AS instance or of the presentation server is usually the least suitable for AS ABAP application programs because it is generally platform-dependent (code pages, byte order). In addition, data like this is then only available in specific AS instances, which can cause problems in load distribution scenarios with automated server selection. Such files may be required for the data exchange with external systems, however.</li></ol>
+<p>Under no circumstances should you use existing database tables (or files) to store data that are not provided for this purpose. Follow the convention of restricting reads and writes to database tables to specific packages. A database table must always be considered a semantic entity that is only allowed to contain the corresponding data. This even applies if a table with the required structure already exists. If in doubt, you should create a specific database table.</p>
+<p>You must also be careful when using seemingly cross-system resources, such as the predefined <code class='code'>INDX</code> database table, to store data clusters. Such a resource must only be used to store temporary data for the short term, if at all. You should create specific database tables, for example, <a target='_parent' href='ABENEXPORT_IMPORT_TABLE_GLOSRY.html' class='green'>export/import tables</a>, for application-specific and longer-lasting data.</p></div>
+</div>
+</body>
+</html>

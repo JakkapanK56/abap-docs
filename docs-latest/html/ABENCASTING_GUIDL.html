@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abenassignment_access_gdl.html">Assignments, Calculations, and Other Types of Data Access</a> / <span>Casting</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>Casting refers to the process of handling a data object by assuming a certain data type. This definition is different to the meaning of the concept in other programming languages, such as Java. Here, casting means a different concept which is referred to as 'conversion' in ABAP. Casting in ABAP is either explicit or implicit:</p>
+<ul><li>Explicit casting is possible by using the <code class='code'>CASTING</code> addition with the <code class='code'>ASSIGN</code> statement and by using the <code class='code'>ASSIGNING</code> addition in statements for processing internal tables. Assignments between reference variables allow <a target='_parent' href='ABENUP_CAST_GLOSRY.html' class='green'>upcasts</a> and <a target='_parent' href='ABENDOWN_CAST_GLOSRY.html' class='green'>downcasts</a>. Obsolete explicit casting is also possible for formal parameters and field symbols, if the <code class='code'>STRUCTURE</code> addition is used.</li><li>Implicit casting is sometimes performed for special assignments or during operand handling at certain operand positions. A common example is the handling of flat structures using character-like-only components as a single field of type c.</li></ul></div>
+<h2>Rule</h2><div class="content"><p><strong>Avoid implicit casting</strong></p>
+<p>Avoid implicit casting. If a cast to another data type is required, it can usually be implemented explicitly using <code class='code'>ASSIGN ... CASTING</code>.</p></div>
+<h2>Details</h2><div class="content"><p>Implicit casting can potentially occur if structures are used as follows:</p>
+<ul><li>Assignments between incompatible structures or structures and elementary data objects</li><li>Comparisons between structures and elementary data objects</li><li>Using structures in operand positions where elementary data objects are expected</li><li>Reads from the database using <code class='code'>SELECT * ... INTO wa</code></li><li>Using the <code class='code'>INCREMENT</code> addition for the <code class='code'>ASSIGN</code> statement</li></ul>
+<p>The use of implicit casting is prone to errors and produces source code that is difficult to understand. If the <code class='code'>CASTING</code> addition is used when handling field symbols, explicit casting can be implemented, which is easier to follow and understand. The explicit casting option is a very important reason to <a target='_parent' href='ABENDYN_ACCESS_DATA_OBJ_GUIDL.html' class='blue'>use field symbols</a>.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows the assignment of a text string to a structure with only character-like components. An implicit casting occurs here, which is regarded as unwanted according to the above rule. The entire structure is handled as a text field of type <code class='code'>c</code> and length 6.</p>
+<pre><code>TYPES: BEGIN OF structure, 
+         comp1 TYPE c LENGTH 2, 
+         comp2 TYPE c LENGTH 4, 
+       END OF structure. 
+DATA structure TYPE structure. 
+DATA text TYPE string. 
+... 
+text        = ... 
+structure = text.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code improves the example above, by assigning the structure to a field symbol of type c. Explicit casting occurs. Only the character-like field symbol is used to handle the structure as a character-like field.</p>
+<pre><code>... 
+FIELD-SYMBOLS <text> TYPE c. 
+... 
+ASSIGN structure TO <text> CASTING. 
+<text> = ...</code></pre></div>
+</div>
+</body>
+</html>

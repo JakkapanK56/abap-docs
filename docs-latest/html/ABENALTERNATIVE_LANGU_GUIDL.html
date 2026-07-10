@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenstructure_style_gdl.html">Structure and Style</a> / <a href="abenalternative_spelling_gdl.html">Alternative Spellings</a> / <span>Alternative Language Constructs</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>Alternative language constructs are parts of statements that can be written in different ways. One reason for this are the constant new developments in the language. Often, new spellings are introduced and the old spellings retained for reasons of downward-compatibility.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Use consistent spelling</strong></p>
+<p>If there is more than one spelling for a statement, choose one of these spellings and use it consistently throughout your development work. It is best to choose the spelling that most accurately reflects the semantics of the statement.</p></div>
+<h2>Details</h2><div class="content"><p>To make your programming easier to understand, always choose the spelling that is most accurate and easiest to read, and which (where applicable) matches the spelling used in other statements. The following list contains some examples:</p>
+<ul><li>If you can choose from a range of comparison operators (<code class='code'>=</code> or <code class='code'>EQ</code>, <code class='code'>></code> or <code class='code'>GT</code>, <code class='code'>&lt;</code> or <code class='code'>LT</code>, <code class='code'>>=</code> or <code class='code'>GE</code>, <code class='code'>&lt;=</code> or <code class='code'>LE</code>) we recommend that you pick a type of operator and stick to it within the context of a program. The variant with the characters =, &lt;, and > is seen as more modern, but also overloads these characters. The comparison operators that consist of two letters are better matched to other comparison operators such as <code class='code'>CO</code>, <code class='code'>CN</code>, and so on, which have no alternative forms.</li><li>The addition <code class='code'>NOT</code> of the <a target='_parent' href='ABENREL_OPERATOR_GLOSRY.html' class='green'>comparison operators</a> <code class='code'>BETWEEN</code>, <code class='code'>IN</code>, <code class='code'>IS ASSIGNED</code>, <code class='code'>IS BOUND</code>, <code class='code'>IS INSTANCE OF</code>, <code class='code'>IS INITIAL</code>, and <code class='code'>IS SUPPLIED</code> is a better option than the identical Boolean operator <code class='code'>NOT</code>, for improved readability. For example, the expression <code class='code'>a IS NOT INITIAL</code> is easier than the logically identical expression <code class='code'>NOT a IS INITIAL</code>. This corresponds to the definition of comparison expressions, where <code class='code'>a <> b</code> is more intuitive than <code class='code'>NOT a = b</code>.</li><li>The addition <code class='code'>LENGTH len</code> of the declarative statements <code class='code'>DATA</code> and <code class='code'>TYPES</code> is preferable to the length specified in parentheses (<code class='code'>len</code>). This then matches the spelling used in <code class='code'>CREATE DATA ... LENGTH</code>. In addition to this, it is easy to mistake the parenthesized form for <a target='_parent' href='ABENDYNAMIC_PROG_TECHNIQUE_GDL.html' class='blue'>dynamic tokens</a>. Only dynamic tokens should use this form.</li><li>The optional addition <code class='code'>SUBSTRING</code> of the statements <code class='code'>FIND</code> and <code class='code'>REPLACE</code> can be used to make a clearer distinction from the alternative addition <code class='code'>PCRE<span class='meta_style'>|</span>REGEX</code>.</li><li>In ABAP SQL, comma-separated lists are preferable to lists without commas. Using commas as separators is the prerequisite for using expressions in lists. <a target='_parent' href='ABENHOST_VARIABLE_GLOSRY.html' class='green'>Host variables</a> should always be indicated by the escape character <code class='code'>@</code>.</li><li>Within the parameter list of the statements <code class='code'>EXPORT</code> and <code class='code'>IMPORT</code>, use the equal sign (=) instead of the additions <code class='code'>FROM</code> or <code class='code'>TO</code>. The spelling then matches the spelling used in parameter lists in other calls, such as methods, functions modules, and transformations.</li><li>Always use the semantically identical addition <code class='code'>ACTUAL LENGTH</code> instead of the addition <code class='code'>LENGTH</code> of the statement <code class='code'>READ DATASET</code>. This makes the distinction from the similar addition <code class='code'>MAXIMUM LENGTH</code> clearer. The last two examples are typical of the way new additions are added to the language, while retaining the old spelling as a kind of short form for reasons of downward compatibility.</li></ul></div>
+<h2>Bad Example</h2><div class="content"><p>The following piece of source code shows how the statement <code class='code'>FIND</code> is used inconsistently within a program. The first and third <code class='code'>FIND</code> statements are alternative spellings with the same meaning.</p>
+<pre><code>DATA text TYPE string. 
+... 
+FIND '...' IN text. 
+... 
+FIND PCRE '...' IN text. 
+... 
+FIND SUBSTRING '...' IN text. 
+...</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following piece of source code shows the same statements as in the example above, but with consistent spelling. This expresses the semantic distinction between searching for a substring and searching for a regular expression in clear syntax.</p>
+<pre><code>DATA text TYPE string. 
+... 
+FIND SUBSTRING '...' IN text. 
+... 
+FIND PCRE '...' IN text. 
+... 
+FIND SUBSTRING '...' IN text. 
+...</code></pre></div>
+</div>
+</body>
+</html>

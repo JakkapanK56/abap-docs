@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abendata_type_obj_gdl.html">Data Types and Data Objects</a> / <span>Literals</span></nav>
+<div class="all">
+<h2>Exception</h2><div class="content"><p>In certain situations, however, using constants can affect the readability of a program. It is better to specify a literal in these cases, as in the following examples:</p>
+<ul><li><code class='code'>CALL FUNCTION 'MY_FUNC'.</code></li><li><code class='code'>IF sy-subrc = 0</code>.</li><li><code class='code'>READ TABLE itab INDEX 1</code> or <code class='code'>itab[ 1 ]</code></li><li><code class='code'>ADD 1 TO counter</code>.</li></ul>
+<p>These examples make the semantic meaning of the literals clear and translatability is not an issue.</p>
+<p>Another area where character literals are vital is dynamic programming. Here, parts of statements or entire programs are generated, which is virtually impossible without using character literals. In addition, string templates offer various enhanced options for using literal texts.</p></div>
+<h2>Hint</h2><div class="content"><p>If literals are used, ensure that literals are actually used, not equivalent expressions:</p>
+<ul><li>Numeric literal <code class='code'>+<span class='meta_style'>|</span>-literal</code> instead of arithmetic expression <code class='code'>+<span class='meta_style'>|</span>- literal</code></li><li>Text string literal <code class='code'>`...`</code> instead of string expression <code class='code'>|...|</code></li></ul>
+<p>The expressions are not evaluated until runtime, meaning that they have a lower performance. This distinction is irrelevant only if the literals are parts of expressions anyway.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code uses the same literal multiple times to specify <code class='code'>pi</code> in operand positions. This multiple use makes the program unclear and error-prone.</p>
+<pre><code>DATA: radius TYPE decfloat34, 
+      circumference TYPE decfloat34, 
+      area TYPE decfloat34. 
+... 
+circumference = 
+  2* '3.141592653589793238462643383279503' * radius. 
+area = 
+  '3.141592653589793238462643383279503' * radius ** 2.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code declares a constant that requires the literal the value of <code class='code'>pi</code> only once, and uses it in the respective operand positions.</p>
+<pre><code>CONSTANTS pi TYPE decfloat34 
+             VALUE '3.141592653589793238462643383279503'. 
+DATA: radius        TYPE decfloat34, 
+      circumference TYPE decfloat34, 
+      area          TYPE decfloat34. 
+... 
+circumference = 2 * pi * radius. 
+area          = pi * radius ** 2.</code></pre></div>
+</div>
+</body>
+</html>

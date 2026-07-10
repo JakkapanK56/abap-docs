@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abensystem_fields_gdl.html">System Fields</a> / <span>Using System Fields as Actual Parameters</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>The structure <code class='code'>sy</code> exists once in an <a target='_parent' href='ABENINTERNAL_SESSION_GLOSRY.html' class='green'>internal session</a> and is shared by all programs in this internal session. The components of <code class='code'>sy</code> represent the system fields. System fields are global for all programs of an internal session and their procedures.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Do not use system fields as actual parameters</strong></p>
+<p>Never use system fields as actual parameters - especially not for passing by reference.</p></div>
+<h2>Details</h2><div class="content"><p>This rule reinforces the rule <a target='_parent' href='ABENREF_TRANSF_GLOBAL_DATA_GUIDL.html' class='blue'>do not pass global data to local contexts by reference</a>. Since system fields are set implicitly, it is important to be even more careful. If the value of a system field changes implicitly within a procedure, the value of the parameter passed by reference, which refers to this system field, also changes. Procedures are never prepared for this behavior.</p>
+<p>Even pass by value should be avoided for system fields. This is because a procedure might be switched to pass by reference in an enhancement process, without the consumer of the procedure being notified. The only secure method is to assign the value of a system field to a regular variable and then use this variable as the actual parameter when calling the program.</p></div>
+<h2>Bad Example</h2><div class="content"><p>Looking at the method <code class='code'>do_something</code> in the following source code, it could be expected that the parameter <code class='code'>index</code> in the loop to contain the unchanged value that was passed to the procedure. In fact, <code class='code'>index</code> references <code class='code'>sy-index</code>, which is set to the current loop counter in the <code class='code'>DO</code> loop.</p>
+<pre><code>CLASS class DEFINITION. 
+  PUBLIC SECTION. 
+    METHODS main. 
+  PRIVATE SECTION. 
+    METHODS do_something IMPORTING index TYPE i. 
+ENDCLASS. 
+CLASS class IMPLEMENTATION. 
+  METHOD main. 
+    DO 2 TIMES. 
+      do_something( sy-index ). 
+    ENDDO. 
+  ENDMETHOD. 
+  METHOD do_something. 
+    DO 3 TIMES. 
+      ... index ... . 
+    ENDDO. 
+  ENDMETHOD. 
+ENDCLASS.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code corrects the call of the method <code class='code'>do_something</code>. A helper variable is passed with the corresponding value instead of <code class='code'>sy-index</code>.</p>
+<pre><code>... 
+CLASS class IMPLEMENTATION. 
+  METHOD main. 
+    DATA index TYPE sy-index. 
+    DO 2 TIMES. 
+      index = sy-index. 
+      do_something( index ). 
+    ENDDO. 
+  ENDMETHOD. 
+  ... 
+ENDCLASS. 
+...</code></pre></div>
+</div>
+</body>
+</html>

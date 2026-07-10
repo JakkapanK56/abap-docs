@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenabap_specific_rules_gdl.html">ABAP-Specific Rules</a> / <a href="abencheck_correctness_gdl.html">Checks for Correctness</a> / <span>ABAP Test Cockpit</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p><a target='_blank' href='https://help.sap.com/docs/ABAP_PLATFORM_NEW/ba879a6e2ea04d9bb94c7ccd7cdac446/62c41ad841554516bb06fb3620540e47' class=''>ABAP Test Cockpit (ATC)</a> is a framework that is integrated into ABAP Workbench and the <a target='_parent' href='ABENADT_GLOSRY.html' class='green'>ABAP development tools for Eclipse (ADT)</a>; it simplifies considerably the handling of the tests required during development. ATC makes it possible to execute and display results for various tests on development objects, for example:</p>
+<ul><li>Extended program checks</li><li>Static performance tests</li><li>Unit tests with ABAP Unit</li><li>Static usability tests</li><li>Package checks</li><li>Security checks</li></ul>
+<p>Whereas Code Inspector is only integrated into the <a target='_parent' href='ABENABAP_DEV_ENVIR_GLOSRY.html' class='green'>ABAP development environment</a> by way of the <a target='_parent' href='ABENCODE_INSPECTOR_GUIDL.html' class='blue'>standard check</a> and can otherwise only be used by calling a separate transaction, ATC is completely integrated into Object Navigator and Transport Organizer, and is available there for tests during development. ATC allows quality managers to perform mass tests. In the <a target='_parent' href='ABENADT_GLOSRY.html' class='green'>ABAP development tools for Eclipse (ADT)</a>, some tests are provided only from ATC.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Configure and use ABAP Test Cockpit correctly</strong></p>
+<p>If ABAP Test Cockpit is available in your system, make sure that an ATC run is performed on all involved development objects and that no messages are displayed before you release the objects for transport. The ATC check should be integrated directly into the transport release.</p></div>
+<h2>Details</h2><div class="content"><p>ATC is a tool that can be used both by SAP developers and as part of central quality assurance management. For example, if a developer checks all development objects of a package in the development system using the same ATC configuration used by a quality manager as part of a mass run in a consolidation system, all messages can be taken care of without having to wait for feedback from the quality manager.</p>
+<p>If ATC is configured correctly, the above rule includes the previous rules for <a target='_parent' href='ABENSYNTAX_CHECK_GUIDL.html' class='blue'>syntax warnings</a>, <a target='_parent' href='ABENEXTENDED_PROGRAM_CHECK_GUIDL.html' class='blue'>extended program checks</a>, and <a target='_parent' href='ABENCODE_INSPECTOR_GUIDL.html' class='blue'>Code Inspector</a>.</p></div>
+<h2>Hints</h2><div class="content"><ul><li>More specifically, the security checks in the <a target='_parent' href='ABENEXTENDED_PROGRAM_CHECK_GLOSRY.html' class='green'>extended program check</a> can be executed and managed from ATC, which makes their integration into the transport release possible.</li><li>Outside of SAP, ATC is available from the following releases:</li><ul><li>AS ABAP 7.0, EhP2, Support Package 12</li><li>AS ABAP 7.0, EhP3, Support Package 05</li><li>AS ABAP 7.3, EhP1, Support Package 05</li><li>AS ABAP 7.4, Support Package 02</li></ul></ul></div>
+</div>
+</body>
+</html>

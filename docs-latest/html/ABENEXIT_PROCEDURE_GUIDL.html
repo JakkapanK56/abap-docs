@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abenmodularization_unit_gdl.html">Modularization Units</a> / <span>Exiting Procedures</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>You can exit procedures in the usual way using the <code class='code'>END...</code> statement or by using one of the following statements:</p>
+<ul><li><code class='code'>RETURN</code></li><li><code class='code'>EXIT</code></li><li><code class='code'>CHECK log_exp</code></li></ul>
+<p>These statements end a procedure properly, that is, the system passes output parameters for which passing by value is specified and returns values to the assigned actual parameters. In addition, you can terminate the processing of a procedure as follows, without supplying the actual parameters with values:</p>
+<ul><li>Calling another unit (program, dynpro) without returning to the procedure</li><li>Triggering an exception or sending a dialog message if an <a target='_parent' href='ABENERROR_HANDLING_GDL.html' class='blue'>error occurs</a></li></ul></div>
+<h2>Rule</h2><div class="content"><p><strong>Only use <code class='code'>RETURN</code> to exit procedures</strong></p>
+<p>Use the statement <code class='code'>RETURN</code> to properly exit a procedure (method, see rule <a target='_parent' href='ABENFUNCT_MODULE_SUBROUTINE_GUIDL.html' class='blue'>no implementations in function modules and subroutines</a>) early.</p></div>
+<h2>Details</h2><div class="content"><p>The statement <code class='code'>RETURN</code> is used to exit procedures and always has this effect. The behavior of the <code class='code'>EXIT</code> and <code class='code'>CHECK</code> statements (conditional exit), in contrast, is context- dependent: Within a loop, only the loop is exited; outside a loop, the surrounding procedure is exited. This ambiguity limits the legibility of source code. Therefore, <code class='code'>EXIT</code> and <code class='code'>CHECK</code> should only be used to exit loops, and <code class='code'>RETURN</code> only to exit procedures. Only <code class='code'>RETURN</code> enables you to exit a procedure in a loop context.</p>
+<p>The statements for <a target='_parent' href='ABENABAP_LEAVE_PROGRAM.html' class='blue'>exiting programs</a> are not recommended inside procedures. They are not allowed in contexts like <a target='_parent' href='ABENUNIT_TEST_GLOSRY.html' class='green'>unit tests</a> or during <a target='_parent' href='ABENDB_COMMIT_DURING_UPDATE.html' class='blue'>update</a> and lead to exceptions if a procedure is called from such a context.</p></div>
+<h2>Hint</h2><div class="content"><p>As well as the statements <code class='code'>RETURN</code>, <code class='code'>EXIT</code>, and <code class='code'>CHECK</code> specified here, the statements <code class='code'>REJECT</code> and <code class='code'>STOP</code> can be used to exit special <a target='_parent' href='ABENDIAL_MOD_EVENT_BLOCK_GUIDL.html' class='blue'>event blocks</a>. Conversely, <code class='code'>RETURN</code>, <code class='code'>EXIT</code>, and <code class='code'>CHECK</code> can also exit processing blocks other than procedures. In both cases, you must consider the particular behavior of the ABAP runtime framework regarding the exited processing block. Because other processing blocks are only supposed to contain one method call according to the rules <a target='_parent' href='ABENABAP_OBJ_PROGR_MODEL_GUIDL.html' class='blue'>use ABAP Objects</a> and <a target='_parent' href='ABENDIAL_MOD_EVENT_BLOCK_GUIDL.html' class='blue'>no implementations in dialog modules and event blocks</a>, these cases should no longer occur in new programs.</p></div>
+<h2>Use</h2><div class="content"><p>An exception to the rule to only use <code class='code'>RETURN</code> to exit procedures are <code class='code'>CHECK</code> statements that are located at the beginning of a procedure and that check the prerequisites for the execution of the procedure there. Using the <code class='code'>CHECK</code> statement in such a way does not impair the legibility and is thus allowed. However, this exception does not apply to other positions within a procedure and outside loops.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows how a method is left early with a <code class='code'>CHECK</code> statement, whose meaning cannot be identified by simply looking at it. You have to know that <code class='code'>CHECK</code> exits the procedure if the following logical expression is false, which is why a double negation is necessary here.</p>
+<pre><code>METHOD some_method. 
+   ... 
+   CHECK is_finished = abap_false. 
+   ... 
+ENDMETHOD.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code corrects and simplifies the above example by implementing a conditional exit with an <code class='code'>IF</code> control structure that is easy to read.</p>
+<pre><code>METHOD some_method. 
+   ... 
+   IF is_finished = abap_true. 
+      RETURN. 
+   ENDIF. 
+   ... 
+ENDMETHOD.</code></pre></div>
+</div>
+</body>
+</html>

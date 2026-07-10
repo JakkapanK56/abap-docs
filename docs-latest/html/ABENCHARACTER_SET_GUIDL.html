@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abeninternationalization_gdl.html">Internationalization</a> / <span>Character Set of ABAP Source Code</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p><a target='_parent' href='ABENABAP_SOURCE_CODE_GLOSRY.html' class='green'>ABAP source code</a> is edited in the ABAP Editor tool in ABAP Workbench, itself an ABAP program. ABAP Editor saves and processes the ABAP source code internally in a data object (an internal table).</p>
+<p>The source code is processed in the current</p>
+<p><a target='_parent' href='ABENTEXT_ENVIRONMENT_GLOSRY.html' class='green'>text environment</a> of the developer, using the associated code page.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Use only 7-bit ASCII characters in source code</strong></p>
+<p>Use only characters from the 7-bit ASCII character set in ABAP source code. This avoids problems in systems with different code pages.</p></div>
+<h2>Details</h2><div class="content"><p>The 7 bit ASCII character set contains only characters that also exist in all other code pages. Restricting the characters used in source code to this character set guarantees that this code can be edited and executed regardless of the <a target='_parent' href='ABENLOGON_LANGUAGE_GLOSRY.html' class='green'>logon language</a> or <a target='_parent' href='ABENTEXT_ENV_LANGU_GLOSRY.html' class='green'>text environment language</a>. Source code that contains characters from other character sets could, in the worst case, have incorrect syntax in a system with a different code page.</p>
+<p>ABAP words in ABAP statements use only 7-bit ASCII characters anyway, which means that this rules to names, literals, and comments.</p></div>
+<h2>Hint</h2><div class="content"><p>Since the programs with the ABAP language version <a target='_parent' href='ABENSTANDARD_ABAP_GLOSRY.html' class='green'>Standard ABAP</a> are now the only possible programs, so names comply with the rule above automatically.  Comments are supposed to be <a target='_parent' href='ABENCOMMENT_LANGU_GUIDL.html' class='blue'>written in English</a> anyway, which removes the need for any country-specific special characters.</p>
+<p>In a current system, all <a target='_parent' href='ABENABAP_SOURCE_CODE_GLOSRY.html' class='green'>ABAP source code</a> is stored in Unicode and this is why this problem does not occur there. If a guarantee could be given that a program was written only for Unicode systems, the rule above would not be needed for literals and comments (at the very least). It is not possible to ensure that a program is not used in any non-Unicode systems, which is why general robustness rules should always be followed. This ensures that programs can be transported from Unicode systems to non-Unicode systems without conversion losses.</p></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenstructure_style_gdl.html">Structure and Style</a> / <a href="abencomments_gdl.html">Comments</a> / <span>Content of Comments</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>It is usually sufficient to examine the ABAP statements to find out what happens in an implementation. However, it much more difficult to find out why something happens. This is often only possible in a much wider context and requires a great deal of effort.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Make meaningful comments</strong></p>
+<p>Write comments for your implementations that describe why something is done and not how.</p></div>
+<h2>Details</h2><div class="content"><p>The best case scenario is where meaningful <a target='_parent' href='ABENNAMING_GDL.html' class='blue'>identifiers</a> are used in the source code; the source code effectively documents itself. This is the best way to document the concept of <em>what happens in this program section</em>. In this case, any additional comments that only describe obvious behavior are superfluous and do not make the code easier to understand. There is also the risk that when changes are made to the program logic, the associated comments are not adapted and are therefore no longer correct. In summary, these comments are not only useless but can even be misleading and should be avoided from the start.</p>
+<p>Conversely, developers often tend to assume that their source code is sufficiently self-documenting and leave out descriptive comments. However, this assumption is often incorrect. This becomes apparent when a third party tries to understand the source code (either when attempting to enhance the source code or identify a problem). Even the authors of the code can often face this problem, if they are confronted with source code that they wrote a long time ago and have not seen the source code since.</p>
+<p>Even if the identifier names allow readers to easily follow what happens in the code, the question <em>why</em> often remains unanswered. Therefore, this information must be provided as comments in the source code. This also includes a description of the algorithms used or at least a list of their names.</p></div>
+<h2>Hint</h2><div class="content"><p>This section mainly deals with commenting the implementation of functions.. <em>Header comments</em> play a different role. Such comments, usually in the form of line comments that start with an asterisk (*), subdivide large source codes into meaningful sections and can contain administrative entries. Here the rule also applies that these comments should not repeat what is already clearly described in the source code or described by any other means. For example, the person who last changed the program or the change date is indicated in the program properties. A header comment with the name of a class or method directly above the class or method is also redundant information. However, it makes more sense to differentiate between logical program parts, which cannot be indicated in the code. For example, you can subdivide the program into a global declaration part and an implementation part. Usually, this is only required if the program is not subdivided by <a target='_parent' href='ABENSOURCE_CODE_MODULAR_GUIDL.html' class='blue'>include programs</a>.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The meaning of the comments in the following source code is actually already perfectly obvious due to the commented statements.</p>
+<pre><code>"Select udat, stime from trdir 
+"into change_date, change_time 
+SELECT SINGLE udat, stime 
+       FROM trdir 
+       WHERE name = @prog_name 
+       INTO (@change_date, @change_time)."Set version_date, version_time to change_date, change_time 
+IF sy-subrc = 0. 
+   IF change_date > version_date. 
+      version_date = change_date. 
+      version_time = change_time. 
+   ELSEIF change_date = version_date AND 
+          change_time > version_time. 
+   version_time = change_time. 
+  ENDIF. 
+ENDIF.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>In the following source code, the comments in the above example have been replaced with a description of why something happens.</p>
+<pre><code>"If a newer program exists, version time stamp must 
+"be adjusted to program time stamp 
+SELECT SINGLE udat, stime 
+       FROM trdir 
+       WHERE name = @prog_name 
+       INTO (@change_date, @change_time).IF sy-subrc = 0. 
+   IF change_date > version_date. 
+      version_date = change_date. 
+      version_time = change_time. 
+   ELSEIF change_date = version_date AND 
+          change_time > version_time. 
+   version_time = change_time. 
+  ENDIF. 
+ENDIF.</code></pre></div>
+</div>
+</body>
+</html>

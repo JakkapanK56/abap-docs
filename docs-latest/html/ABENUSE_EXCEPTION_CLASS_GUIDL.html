@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenarchitecture_gdl.html">Architecture</a> / <a href="abenerror_handling_gdl.html">Error Handling</a> / <span>Using Exception Classes</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>The concept of freely definable exception classes involves being able to create an exception class that adequately describes the exception situation in question. The description consists both of the name of the exception class, the associated exception texts, and their documentation. You can divide an exception class into multiple subexceptions by creating multiple exception texts. Subclasses of exception classes can be used to make the information even more specific.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Only use suitable exception classes</strong></p>
+<p>When describing an error situation, only use exception classes with the correct category and name, the appropriate attributes and texts, and which contain the correct documentation. Do not reuse inappropriate exception classes.</p></div>
+<h2>Details</h2><div class="content"><p>Reusing existing exception classes with the wrong content removes all benefits of freely definable exception classes. The new exception object cannot describe the exception situation adequately. It also makes it very difficult to maintain and analyze the code. In particular, you run a great risk of handling the exception incorrectly. This is because a caller layer higher up in the hierarchy never expects the exceptions it handles to be raised by a situation with the wrong semantics.</p>
+<p>The following procedure is recommended for raising correct exceptions:</p>
+<ol><li>Search for an existing exception class that is released for use in the current concept (and as part of the package concept) and which matches that error situation exactly.</li><li>Make an existing, almost ideal exception class more specific by passing on and/or adding new exception texts.</li><li>Create an new ideal exception class, possibly as a part of a predefined inheritance hierarchy.</li></ol>
+<p>In doing so, it must be ensured that an appropriate <a target='_parent' href='ABENEXCEPTION_CATEGORY_GUIDL.html' class='blue'>exception category</a> is used.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows the incorrect use of the system class <code class='code'>cx_sy_arithmetic_overflow</code> (which exists in every system) for an application-specific exception situation. This system exception should usually only be raised by the ABAP runtime framework when an arithmetic calculation takes place.</p>
+<pre><code>CLASS warehouse DEFINITION. 
+  PUBLIC SECTION. 
+    METHODS calculate_storage_capacity 
+      RAISING   cx_sy_arithmetic_error. 
+ENDCLASS.CLASS warehouse IMPLEMENTATION. 
+  METHOD calculate_storage_capacity. 
+    ... 
+    RAISE EXCEPTION TYPE cx_sy_arithmetic_overflow. 
+    ... 
+  ENDMETHOD. 
+ENDCLASS.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code shows how an application-specific exception class is used that has been created especially for the situation and whose name reflects the topic.</p>
+<pre><code>CLASS cx_warehouse_out_of_capacity DEFINITION 
+  INHERITING FROM cx_static_check. 
+ENDCLASS.CLASS warehouse DEFINITION. 
+  PUBLIC SECTION. 
+    METHODS calculate_storage_capacity 
+      RAISING cx_warehouse_out_of_capacity. 
+ENDCLASS.CLASS warehouse IMPLEMENTATION. 
+  METHOD calculate_storage_capacity. 
+    ... 
+    RAISE EXCEPTION TYPE cx_warehouse_out_of_capacity. 
+    ... 
+  ENDMETHOD. 
+ENDCLASS.</code></pre></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenarchitecture_gdl.html">Architecture</a> / <a href="abendata_storage_gdl.html">Data Storage</a> / <span>Client Handling</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>A client indicates a data area in an AS ABAP database that contains independent application data. The application data of different clients use the same database tables, but are flagged with a three-figure client ID within these tables.</p>
+<p>When logging on to AS ABAP, this client ID must be entered. This selects the client whose data is processed by the user session. The current client is entered in the system field <code class='code'>sy-mandt</code>.</p>
+<ul><li><a target='_parent' href='ABENABAP_SQL_GLOSRY.html' class='green'>ABAP SQL</a> statements work with implicit client handling, where the data of the current client is accessed by default. This is specified by passing an implicit condition for the current client to <code class='code'>WHERE</code> conditions, and ignoring clients specified in modifying statements in work areas. Implicit client handling in ABAP SQL can be switched to one more different clients by using the addition <a target='_parent' href='ABAPSELECT_CLIENT.html' class='blue'><code class='code'>USING</code></a> in queries or the additions <a target='_parent' href='ABAPIUMD_CLIENT.html' class='blue'><code class='code'>USING</code></a> or <a target='_parent' href='ABAPIUMD_CLIENT.html' class='blue'><code class='code'>CLIENT SPECIFIED</code></a> in write statements.</li><li><a target='_parent' href='ABENNATIVE_SQL_GLOSRY.html' class='green'>Native SQL</a> and <a target='_parent' href='ABENAMDP_GLOSRY.html' class='green'>ADBC</a> do not apply implicit client handling. The client in question must be selected explicitly when Native SQL or AMDP is used to access client-dependent database tables or views. In AMDP, <a target='_parent' href='ABENCLIENT_SAFE_GLOSRY.html' class='green'>client-safe</a> AMDP methods can be used, to access the current client only.</li></ul></div>
+<h2>Rule</h2><div class="content"><p><strong>Do not access the data of other clients</strong></p>
+<p>In the persistency services of business applications, access the data of the current client only.</p></div>
+<h2>Details</h2><div class="content"><p>Each client within the AS ABAP is to be viewed as a self-contained unit. The additions <code class='code'>USING CLIENT</code> and <code class='code'>CLIENT SPECIFIED</code> should not be used in ABAP SQL statements of business applications. When Native SQL or AMDP is used, only the <a target='_parent' href='ABENCURRENT_CLIENT_GLOSRY.html' class='green'>current client</a> should be selected. In AMDP, only <a target='_parent' href='ABENAMDP_CLIENT_SAFETY.html' class='blue'>client-safe AMDP</a> methods must be used, that restrict the access to the current client.</p>
+<p>The system field <code class='code'>sy-mandt</code> does not generally need to be evaluated, unless Native SQL is used to access client-dependent database tables or views. The client ID is then needed to select the data of the current client explicitly.</p></div>
+<h2>Hints</h2><div class="content"><ul><li>Client-independent database tables (tables without client ID) are usually system tables. This means that client-independent access to these tables is also reserved for system programs.</li><li>The addition <code class='code'>CLIENT SPECIFIED</code> is fully <a target='_parent' href='ABAPSELECT_CLIENT_OBSOLETE.html' class='blue'>obsolete</a> in queries and partially <a target='_parent' href='ABAPUD_CLIENT_OBSOLETE.html' class='blue'>obsolete</a> in write statements.</li></ul></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code demonstrates ABAP SQL access on application data where implicit client handling is switched to a different client.</p>
+<pre><code>SELECT SINGLE ... 
+       FROM scarr USING '...' 
+       WHERE ...             ... 
+       INTO ...</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code demonstrates the recommended use of ABAP SQL where implicit client handling accesses the current client by default.</p>
+<pre><code>SELECT SINGLE ... 
+       FROM scarr 
+       WHERE ... 
+       INTO ...</code></pre></div>
+</div>
+</body>
+</html>

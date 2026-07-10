@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenarchitecture_gdl.html">Architecture</a> / <a href="abendata_storage_gdl.html">Data Storage</a> / <span>Using the Shared Memory</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>The shared memory of an AS instance is an highly important medium for buffering data with the goal of high-performance access. For this purpose, the shared memory can be used as follows:</p>
+<ul><li>To buffer data from database tables implicitly using <a target='_parent' href='ABENTABLE_BUFFERING_GLOSRY.html' class='green'>table buffering</a>, which can be determined when defining the tables in ABAP Dictionary</li><li>To explicitly store data clusters in the cross-transaction application buffer using the statements <code class='code'>EXPORT TO SHARED</code> <code class='code'>MEMORY</code> or <code class='code'>EXPORT TO SHARED BUFFER</code></li><li>To explicitly handle (data) objects stored there using shared objects, which are created using the addition <code class='code'>AREA HANDLE</code> of the statements <code class='code'>CREATE OBJECT</code> or <code class='code'>CREATE DATA</code></li></ul></div>
+<h2>Rule</h2><div class="content"><p><strong>Implement the explicit buffering in the shared memory using shared objects</strong></p>
+<p>Work with shared objects to explicitly use the shared memory for cross-program data buffering. The appropriate application scenarios are shared buffer and exclusive buffer. The access to shared objects should be wrapped in loader and broker classes.</p></div>
+<h2>Details</h2><div class="content"><p>For explicit access to the shared memory, shared objects (<code class='code'>CREATE AREA HANDLE</code>) provide the following advantages compared to the cross-transaction application buffer (<code class='code'>SHARED MEMORY</code>, <code class='code'>SHARED BUFFER</code>):</p>
+<ul><li>Any number of (data) objects can be saved, including their mutual interdependencies.</li><li>(Data) objects can be used in the shared objects memory just like objects in the <a target='_parent' href='ABENINTERNAL_SESSION_GLOSRY.html' class='green'>internal session</a>. Technically, the shared objects memory can be considered an extension of the internal session during the time the memory is bound to it.</li><li>Multiple programs can access the same memory area simultaneously without having to copy data to their own internal session.</li></ul>
+<p>Scenarios in which shared objects can be used efficiently include the following:</p>
+<ul><li><strong>Usage as a shared buffer</strong></li><li class='no_list_style'>A shared buffer contains a large data set on which many consumers can perform reads but which is changed rarely and is usually provided by a single program.</li><li><strong>Usage as an exclusive buffer</strong></li><li class='no_list_style'>An exclusive buffer contains data that are accessed by only one program but that is maintained for various programs across transaction boundaries.</li></ul>
+<p>The shared memory should not be used for different purposes, if, for example this results in many modifying accesses of parallel consumers, since the current locking concept does not support this.</p>
+<p>Access to the shared memory should be encapsulated in specific classes, and application programs should access the shared memory using these classes only. Normally, there are two classes, which can also be combined into one class:</p>
+<ul><li>A <em>loader</em> for creating and changing area instances</li><li>A <em>broker</em> for reads on area instances</li></ul>
+<p>Such wrapping ensures the following:</p>
+<ul><li>Central management of the connection of the internal session to the shared objects memory and the associated locks</li><li>Central exception handling and respective fallback strategies (for example, if the shared objects memory overflows, it is possible to ensure that objects in the internal session are used without the using program having to be notified of this).</li><li>Potential authorization checks</li></ul>
+<p>This makes the application program more legible, more robust, and easier to maintain.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows how an internal table <code class='code'>index_table</code>, which has been formatted elsewhere and buffered in the cross-transaction application buffer, is imported to a program. To store it locally, a local data object is required. Tasks like these can be performed more efficiently by using shared objects.</p>
+<pre><code>"Get index page from data cluster 
+IMPORT index_html = index_html 
+       FROM SHARED MEMORY docutables(...) ID ... 
+ASSERT sy-subrc = 0.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code shows how an internal table <code class='code'>index_table</code>, which has been formatted elsewhere and buffered in the shared objects memory, can be accessed within program. By calling a <code class='code'>get</code> method, the corresponding broker ensures that its <code class='code'>root</code> attribute refers to a shared object that contains the table. A local data object is then not required to access the internal table in the program.</p>
+<pre><code>"Get index page from shared memory 
+cl_docu_tables_broker=>get_index_table( ). 
+ASSERT cl_docu_tables_broker=>root->index_html 
+       IS NOT INITIAL.</code></pre></div>
+</div>
+</body>
+</html>

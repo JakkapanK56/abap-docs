@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abenmodularization_unit_gdl.html">Modularization Units</a> / <span>Typing of Formal Parameters</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>The typing of formal parameters can be full or generic. Formal parameters of methods must be, and formal parameters of function modules and subroutines should be, explicitly typed using the <code class='code'>TYPE</code> or <code class='code'>LIKE</code> addition. When actual parameters are bound to formal parameters, the system checks whether the data type of the actual parameter matches the typing of the formal parameter.</p>
+<ul><li>Full typing completely defines the data type of a formal parameter and applies to both dynamic access and static access to the formal parameter.</li><li>Generic typing does not define the data type of a formal parameter in full. Instead, the actual data type of the supplied actual parameter is used. The properties of the actual parameter apply to dynamic access performed on formal parameters like this. The properties defined by the typing apply to static access.</li></ul>
+<p>For generic typing, a set of built-in generic types is available in ABAP, which are only intended for the typing of formal parameters and field symbols. Using them in any other way can lead either to errors or to missing properties being filled with default values. The generic types are: <code class='code'>any</code>, <code class='code'>any table</code>, <code class='code'>c</code>, <code class='code'>clike</code>, <code class='code'>csequence</code>, <code class='code'>data</code>, <code class='code'>decfloat</code>, <code class='code'>hashed table</code>, <code class='code'>index table</code>, <code class='code'>n</code>, <code class='code'>numeric</code>, <code class='code'>object</code>, <code class='code'>simple</code>, <code class='code'>sorted table</code>, <code class='code'>standard</code> <code class='code'>table</code>, <code class='code'>table</code>, <code class='code'>x</code>, and <code class='code'>xsequence</code>. User-defined table types without fully specified table keys are also generic.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Be as specific as possible when typing formal parameters</strong></p>
+<p>Be only as generic as necessary when typing formal parameters. Fully generic types (<code class='code'>any</code>) should be the exception rather than the rule. When used, a formal parameter must be compliant with all possible fixed types.</p></div>
+<h2>Details</h2><div class="content"><p>Absolute type security within a procedure can only be achieved using full typing. It should always be used when providing a generic service is not a defined goal. It is much easier to carry out <a target='_parent' href='ABENCORRECTNESS_QUALITY_GUIDL.html' class='blue'>tests</a> for non-generic services than for generic services.</p>
+<p>A generically typed procedure interface usually involves more implementation effort within the procedure (<a target='_parent' href='ABENFUNCT_MODULE_SUBROUTINE_GUIDL.html' class='blue'>method</a>) to avoid <a target='_parent' href='ABENRUNTIME_ERROR_DYN_PROC_GUIDL.html' class='blue'>runtime errors</a>. Therefore, use the following principle when providing generic interfaces: as little generic typing as possible and as much generic typing as necessary. You should use specific generic types, such as <code class='code'>numeric</code> or <code class='code'>csequence</code>, instead of <code class='code'>any</code> or <code class='code'>data</code>, for example, if services are involved that are supposed to process numeric values or character strings. However, already when <code class='code'>csequence</code> is used, you must take into account that the possible concrete types  <code class='code'>c</code> and <code class='code'>string</code> behave differently with respect to trailing blanks.  or that the concrete numeric types that are possible for <code class='code'>numeric</code> lead to different <a target='_parent' href='ABENCALCULATION_TYPE_GLOSRY.html' class='green'>calculation types</a> in calculations. Especially, when existing typings are generalized, it may be necessary to modify the implementation accordingly.</p>
+<p>Generic typing can be a pitfall if you are not aware that you have used generic typing instead of full typing, because only the technical type properties are checked when an actual parameter is connected, but no component names, for example. This can lead to different behavior than expected.</p></div>
+<h2>Hints</h2><div class="content"><ul><li>These statements about typing apply equally to <a target='_parent' href='ABENDYN_ACCESS_DATA_OBJ_GUIDL.html' class='blue'>field symbols</a>.</li><li>In typings of formal parameters with the generic type <a target='_parent' href='ABENBUILT_IN_TYPES_GENERIC.html' class='blue'><code class='code'>data</code></a>, it should be noted that no <a target='_parent' href='ABENMATHEMATICAL_FUNKTION_GLOSRY.html' class='green'>numeric functions</a>, no <a target='_parent' href='ABENDESCRIPTION_FUNCTION_GLOSRY.html' class='green'>description functions</a>, and no <a target='_parent' href='ABENARITHMETIC_EXPRESSION_GLOSRY.html' class='green'>arithmetic expressions</a> can be passed to these parameters. This restriction can be bypassed by applying the <a target='_parent' href='ABENCONVERSION_OPERATOR_GLOSRY.html' class='green'>conversion operator</a> <a target='_parent' href='ABENCONSTRUCTOR_EXPRESSION_CONV.html' class='blue'><code class='code'>CONV</code></a> to the actual parameter. This restriction does not apply to the generic type <code class='code'>any</code>, however, which means that, if required, a typing with the generic type <code class='code'>any</code> is recommended.</li></ul></div>
+<h2>Bad Example</h2><div class="content"><p>The following method shows different behavior when a blank is passed as a string of the type <code class='code'>string</code> or as a text field of the type <code class='code'>c</code>.</p>
+<pre><code>CLASS demo DEFINITION. 
+  PUBLIC SECTION. 
+    CLASS-METHODS main IMPORTING flag TYPE csequence. 
+ENDCLASS. 
+ 
+CLASS demo IMPLEMENTATION. 
+  METHOD main. 
+    IF flag = abap_false. 
+      ... 
+    ENDIF. 
+  ENDMETHOD. 
+ENDCLASS.</code></pre>
+<p></p>
+<p>The example in the following source code shows the trap you can fall into, particularly when working with table types, if the table key is not specified in full their declaration (in a program or in ABAP Dictionary). Due to the missing key specification, the table type that is used to type the formal parameter of <code class='code'>sort_itab</code> is generic. While the first static sort is successful, the second <code class='code'>SORT</code> statement fails and raises a runtime error. For the dynamic component specification, the properties of the actual parameter apply to the formal parameter, and the actual parameter does not have the <code class='code'>col2</code> component (this can also be tracked in the ABAP Debugger).</p>
+<pre><code>CLASS class DEFINITION. 
+  PUBLIC SECTION. 
+    TYPES: BEGIN OF struc, 
+              col1 TYPE type1, 
+              col2 TYPE type2, 
+           END OF struc, 
+           itab TYPE STANDARD TABLE OF struc. 
+    METHODS: main, 
+             sort_itab CHANGING c_itab TYPE itab. 
+ENDCLASS.CLASS class IMPLEMENTATION. 
+  METHOD main. 
+    TYPES: BEGIN OF struc, 
+             col1 TYPE type1, 
+             col3 TYPE type2, 
+           END OF struc. 
+    DATA itab TYPE STANDARD TABLE OF struc 
+              WITH NON-UNIQUE KEY col1 col3. 
+              ... 
+     sort_itab( CHANGING c_itab = itab ). 
+  ENDMETHOD. 
+  METHOD sort_itab. 
+     SORT c_itab BY col1 col2. 
+     SORT c_itab BY ('COL1') ('COL2'). "<- Runtime error! 
+  ENDMETHOD. 
+ENDCLASS.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>Using the built-in function <a target='_parent' href='ABENCONDENSE_FUNCTIONS.html' class='blue'><code class='code'>condense</code></a> produces the same behavior when a blank is passed, regardless of the fixed type.</p>
+<pre><code>CLASS demo DEFINITION. 
+  PUBLIC SECTION. 
+    CLASS-METHODS main IMPORTING flag TYPE csequence. 
+ENDCLASS. 
+ 
+CLASS demo IMPLEMENTATION. 
+  METHOD main. 
+    IF condense( flag ) = abap_false. 
+      ... 
+    ENDIF. 
+  ENDMETHOD. 
+ENDCLASS.</code></pre>
+<p></p>
+<p>The following source code shows a very simple correction of the typing in the above example. Because the primary table key is specified in full, the type used is no longer generic, and dynamic sorts work like static sorts.</p>
+<pre><code>... 
+itab TYPE STANDARD TABLE OF struc 
+     WITH NON-UNIQUE KEY col1 col2. 
+...</code></pre></div>
+</div>
+</body>
+</html>

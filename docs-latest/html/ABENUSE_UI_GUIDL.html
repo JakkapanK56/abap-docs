@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abensystem_fields_gdl.html">System Fields</a> / <span>Using System Fields on the User Interface</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>As system fields are defined using the <code class='code'>syst</code> structure in ABAP Dictionary, you can technically use them to define input fields in dynpros or in Web Dynpro.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Do not use system fields on the user interface</strong></p>
+<p>Never use system field types to define input or output fields for dynpros or selection screens in application programs.</p></div>
+<h2>Details</h2><div class="content"><p>This rule is derived from the <a target='_parent' href='ABENSEPARATION_CONCERNS_GUIDL.html' class='blue'>SoC</a> rule and the <a target='_parent' href='ABENUSING_TYPES_GUIDL.html' class='blue'>use of data types rule</a>. System fields are purely technical. Their semantic properties, are defined in ABAP Dictionary (documentation and other texts), do not allow meaningful use in the user dialogs of application programs.</p></div>
+<h2>Hint</h2><div class="content"><p>Similarly, you can apply the rule <a target='_parent' href='ABENUSING_TYPES_GUIDL.html' class='blue'>only use semantically appropriate data types</a> to the use of <code class='code'>SYST</code> structure components (for typing interface parameters of procedures). The semantic meaning of a system field (expressed in the short text) does not generally match the meaning of the parameter.</p></div>
+<h2>Example</h2><div class="content"><p>When the program <code class='code'>PGL_SYSTEM_FIELD_ON_UI</code> is executed, input fields for document output language are displayed on a classic dynpro. The first input field is declared with reference to data type <code class='code'>syst-langu</code> of system field <code class='code'>sy-langu</code>. The second input field is declared with reference to a semantically suitable ABAP Dictionary data type.  The displayed <code class='code'>F1</code> help clearly indicates that <code class='code'>syst-langu</code> is not suited for language fields in a user dialog. This is because the help only describes the behavior of the <code class='code'>sy-langu</code> field in a program. It does not describe the meaning of the language field in the relevant application.</p></div>
+</div>
+</body>
+</html>

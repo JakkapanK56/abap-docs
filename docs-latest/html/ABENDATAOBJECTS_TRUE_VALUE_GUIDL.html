@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abendata_type_obj_gdl.html">Data Types and Data Objects</a> / <span>Data Type for Truth Values</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>Truth values are results of logical expressions. A truth value is either true or false. ABAP does not yet support Boolean data types and thus does not support data objects for truth values. Therefore, the result of a logical expression cannot be assigned directly to a data object.</p>
+<p>It has become common practice to express the truth value <em>true</em> as value <em>X</em> and the truth value <em>false</em> as a blank. There are also Boolean functions that have a logical expression as an argument and are returned as the value <em>X</em> or a blank, depending on the result.</p>
+<p>To make it easier to handle truth values expressed in this way, there is a predefined data element <code class='code'>ABAP_BOOLEAN</code> of data type <code class='code'>CHAR</code> of length 1 and the type pool <code class='code'>abap</code> contains constants <code class='code'>abap_true</code> of value <em>X</em> and <code class='code'>abap_false</code> of value blank as substitutes for a real Boolean data type. There is also a constant <code class='code'>abap_undefined</code> of value <em>-</em>.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Use the data type <code class='code'>ABAP_BOOLEAN</code> for truth values</strong></p>
+<p>When working explicitly with truth values, use the data element <code class='code'>ABAP_BOOLEAN</code> as a substitute for a real Boolean data type. A data object declared in this way should have no values other than the predefined constants <code class='code'>abap_true</code> and <code class='code'>abap_false</code> (also <code class='code'>abap_undefined</code>) from type pool ABAP.</p></div>
+<h2>Details</h2><div class="content"><p>Using the type <code class='code'>ABAP_BOOLEAN</code> and the constants <code class='code'>abap_true</code> and <code class='code'>abap_false</code> makes it clear that truth values are being used here.</p>
+<p>In accordance with the rule for <a target='_parent' href='ABENLITERALS_GUIDL.html' class='blue'>avoiding</a> literals in operand positions, not only the literals <code class='code'>'X'</code> and <code class='code'>' '</code> should be used. State queries about the <a target='_parent' href='ABENPREDICATE_OPERATOR_GLOSRY.html' class='green'>predicate operators</a> <code class='code'>IS INITIAL</code> and <code class='code'>IS NOT INITIAL</code> or the use of the constant <code class='code'>space</code> are also not advisable, because they require knowledge of the technical values of <code class='code'>abap_true</code> and <code class='code'>abap_false</code>, which are not significant in the sense of real Boolean data objects.</p>
+<p>The type pool <code class='code'>abap</code> contains a third constant for the type <code class='code'>ABAP_BOOLEAN</code>, namely <code class='code'>abap_undefined</code>. However, implementing a three-value logic is only useful and recommended in exceptional cases. In this case, note that <code class='code'>abap_undefined</code> does not contain the initial value for a variable of type <code class='code'>ABAP_BOOLEAN</code>. The initial value is always the value of <code class='code'>abap_false</code>. However, the value of <code class='code'>abap_undefined</code> can, if required, be specified using the addition <code class='code'>VALUE</code> when declaring a truth value as the start value.</p></div>
+<h2>Hint</h2><div class="content"><p>The type pool <code class='code'>abap</code> also contains a data type <code class='code'>abap_bool</code> as a predecessor of data element <code class='code'>ABAP_BOOLEAN</code>. It is recommended that the data element <code class='code'>ABAP_BOOLEAN</code> is used in new programs because it is more versatile. As a data element it can be also used in ABAP Dictionary objects or in ABAP CDS. A data type from type pool ABAP can be used in ABAP programs only.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows an unsuitable emulation of the Boolean data objects not present in ABAP.</p>
+<pre><code>DATA is_found TYPE c LENGTH 1. 
+... 
+is_found = 'X'. 
+... 
+IF is_found IS NOT INITIAL. 
+   ... 
+ENDIF.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code shows the recommended emulation of the Boolean data objects not present in ABAP.</p>
+<pre><code>DATA is_found TYPE abap_boolean. 
+... 
+is_found = abap_true. 
+... 
+IF is_found = abap_true. 
+   ... 
+ENDIF.</code></pre></div>
+</div>
+</body>
+</html>

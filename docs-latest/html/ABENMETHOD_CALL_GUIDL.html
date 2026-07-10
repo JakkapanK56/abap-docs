@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenstructure_style_gdl.html">Structure and Style</a> / <a href="abenalternative_spelling_gdl.html">Alternative Spellings</a> / <span>Method Calls</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>Static calls of methods can be formulated in two different ways. The <a target='_parent' href='ABAPCALL_METHOD_STATIC.html' class='blue'>obsolete long form</a></p>
+<pre><p>CALL METHOD meth EXPORTING ...</p></pre>
+<p>is based on the notation of the function module call. Alternatively, a <a target='_parent' href='ABAPCALL_METHOD_STATIC_SHORT.html' class='blue'>short form</a> can be used:</p>
+<pre><p>meth( ... ).</p></pre>
+<pre><p>This form uses a parenthesis notation instead of the initiating ABAP words <a target='_parent' href='ABAPCALL_METHOD_STATIC.html' class='blue'><code class='code'>CALL METHOD</code></a>. A combination of CALL METHOD and parentheses is also possible.</p></pre></div>
+<h2>Rule</h2><div class="content"><p><strong>Formulate</strong> <strong>static method calls without</strong> <code class='code'>CALL METHOD</code></p>
+<p>Use the long form of the method call using <code class='code'>CALL METHOD</code> only for dynamic method calls.</p></div>
+<h2>Details</h2><div class="content"><p>The short form of the static method call is clearer. The redundant ABAP words <code class='code'>CALL METHOD</code> provide no additional information to the reader. Using the short form, self-contained method calls have the same appearance as functional method calls on operand positions. For dynamic method calls, the long form with <code class='code'>CALL METHOD</code> is required by the syntax. If it is only used there, the different notations provide the reader with another distinguishing feature between the static and dynamic method call.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code shows the long form of a static method call using <code class='code'>CALL METHOD</code>, which is no longer recommended.</p>
+<pre><code>... 
+CALL METHOD cl_class=>do_something 
+  EXPORTING 
+    some_input = value1 
+  IMPORTING 
+    some_output = value2 
+  CHANGING 
+    some_change = value3. 
+...</code></pre>
+<p>The following source code shows the same static method call as above, but with parentheses inserted. In this form, which also has correct syntax, either <code class='code'>CALL METHOD</code> or the parentheses are superfluous.</p>
+<pre><code>... 
+CALL METHOD cl_class=>do_something( 
+  EXPORTING 
+    some_input = value1 
+  IMPORTING 
+    some_output = value2 
+  CHANGING 
+    some_change = value3 ). 
+...</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following source code shows the same method call as above, but as recommended, without <code class='code'>CALL METHOD</code>. If a method has only importing parameters, <code class='code'>IMPORTING</code> and <code class='code'>CHANGING</code> can be omitted, and also the <code class='code'>EXPORTING</code> addition. If it is a single importing parameter, its name can also be omitted.</p>
+<pre><code>... 
+cl_class=>do_something( 
+  EXPORTING 
+    some_input = value1 
+  IMPORTING 
+    some_output = value2 
+  CHANGING 
+    some_change = value3 ). 
+...</code></pre></div>
+</div>
+</body>
+</html>

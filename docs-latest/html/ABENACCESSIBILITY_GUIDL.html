@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenarchitecture_gdl.html">Architecture</a> / <a href="abenuser_interfaces_gdl.html">User Interfaces</a> / <span>Accessibility</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>Accessibility is a <a target='_parent' href='ABENCORRECTNESS_QUALITY_GUIDL.html' class='blue'>product standard</a> that ensures that information technology products can also be used by people with impairments. For user interfaces, for instance, this means meeting the needs of visually impaired or blind users in particular. These users usually need a screen reader program, which reads the content of the screen aloud.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Ensuring Accessibility</strong></p>
+<p>Make sure that your user interfaces are accessible, no matter what interface technology is used, so that they can be used by users with impairments.</p></div>
+<h2>Details</h2><div class="content"><p>Primarily, user interfaces must be designed so that they can be processed by technologies such as screen readers or magnifiers. This means meeting the following requirements:</p>
+<ul><li>All input and output fields must have meaningful labels.</li><li>All table columns must have a header.</li><li>All icons must have a tooltip.</li><li>Information must not be expressed by color alone.</li><li>Input and output fields on the screen should be grouped as appropriate in frames, each with a meaningful title.</li></ul>
+<p>This is another reason to use the most up-to-date interface technologies, such as SAPUI5, Web Dynpro ABAP or ALV. These automatically only allow accessible interfaces, whereas application developers using older technologies such as classic screens or classic lists are themselves responsible for ensuring that the accessibility requirements are met. There are some checks in the <a target='_parent' href='ABENCHECK_CORRECTNESS_GDL.html' class='blue'>check tools</a> for classic dynpros and selection screens that report violations of these rules (if they can be identified statically). However, for classic lists such checks are only possible at the time of display.</p></div>
+<h2>Hint</h2><div class="content"><p>As regards using the browser control in classic dynpros, we refer here to the class <code class='code'>CL_HTMLTIDY</code>. This class enables HTML files to be checked for formal correctness and accessibility. It is best to only display HTML files in a browser control if they have been checked by <code class='code'>CL_HTMLTIDY</code>. The class <code class='code'>CL_ABAP_BROWSER</code>, which wraps the browser control for simple displays of HTML files, performs a check with <code class='code'>CL_HTMLTIDY</code> by default.</p></div>
+</div>
+</body>
+</html>

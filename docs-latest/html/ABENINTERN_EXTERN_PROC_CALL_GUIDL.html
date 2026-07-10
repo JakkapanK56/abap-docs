@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abenmodularization_unit_gdl.html">Modularization Units</a> / <span>Internal and External Procedure Calls</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>When a procedure is called, a distinction is made between <em>internal</em> and <em>external</em> procedure calls. An internal call calls a procedure of the same program, whereas an external call calls a procedure of a different program. The major difference between internal and external procedure calls is that the program might have to be loaded first for an external call. With internal calls, the program is already loaded. Possible external calls, where a program might have to be loaded, include:</p>
+<ul><li>Methods of global classes in class pools</li><li>Function modules in function pools</li><li>Subroutines in all programs that can contain subroutines (<code class='code'>PERFORM...IN PROGRAM</code>)</li><li>Methods of local classes, where the name of the class is specified dynamically using an absolute type name (<code class='code'>\PROGRAM= ... \CLASS=...</code>)</li></ul>
+<p>The programs loaded within an <a target='_parent' href='ABENINTERNAL_SESSION_GLOSRY.html' class='green'>internal session</a> are grouped into <em>program groups</em>. There is always one <em>main program group</em> and a number of optional <em>additional program groups</em>. Each program group contains a main program and possibly several additional programs (loaded due to external use). The loaded programs are not always the result of a call. The reason could also have to do with other references to components of external programs, such as a reference to a visible data type of a global class. The loaded programs are not always the result of a call. The reason could also have to do with other references to components of external programs, such as a reference to a visible data type of a global class.</p>
+<p>If shared resources of the program group are accessed in an externally called procedure, the information about which program group the program was loaded into is very important. Whether a program creates a separate program group when loaded or whether it is loaded into an existing program group, largely depends on the program type:</p>
+<ul><li>Class pools and function pools (and external calls of global class methods or function modules) always create a new program group when loaded.</li><li>If subroutines or methods of local classes of other program types (not class pools and function pools) are called externally, the programs are loaded into the program group of the calling program.</li></ul></div>
+<h2>Rule</h2><div class="content"><p><strong>Only call suitable procedures externally</strong></p>
+<p>Only call procedures externally that are intended for external calls. The methods of global classes and function modules are intended for external calls. Subroutines and the methods of local classes are not designed for external calls.</p></div>
+<h2>Details</h2><div class="content"><p>The only procedures designed for external calls are the visible methods of global classes and function modules. The master programs of these procedures are always main programs of their program groups and the procedure always works with the resources of this program group.</p>
+<p>However, external calls of subroutines and dynamic calls of methods in local classes of other programs are problematic. Usually, subroutines and local classes are intended for internal use within their program. External calls are not anticipated during the development phase. (On the other hand, no problems occur when an already loaded program deliberately passes a reference to an object of a local class to another program). Therefore, these subroutines and local classes should always be handled as private components of the program, even though they are technically public.</p>
+<p>In addition, an assignment to a particular program group is not statically defined. Because the call order can depend on user actions or data content, the program of the called procedure can belong to the main program group in one instance and can belong to an additional program group in another instance. This does not define which program group the shared resources belong to. The shared resources are:</p>
+<ul><li><strong>Classic dynpros (including selection screens and classic lists) and GUI statuses</strong></li><li class='no_list_style'>The classic dynpros and GUI statuses are always shared within a program group (the classic dynpros and GUI statuses of the main program in this program group). For example, the <code class='code'>CALL SCREEN</code> statement in an externally called procedure always calls a dynpro of the main program of the program group and not a dynpro of the compilation unit of the procedure. The response to user actions in the dynpro (called as described above) is also handled in the main program of the program group.</li><li><strong>Interface work areas</strong></li><li class='no_list_style'>Interface work areas are defined as table work areas using the <code class='code'>TABLES</code> and <code class='code'>NODES</code> statements or using the obsolete statement <code class='code'>DATA ... COMMON PART</code>. They are only created once for each program group and are shared by the main program and the loaded additional programs.</li></ul></div>
+<h2>Hint</h2><div class="content"><p>Except for the warning regarding dynamic calls of methods of local classes from other programs, this rule is basically intended to raise the awareness of problems when using existing programs. In new programs, the creation of new subroutines and the use of <a target='_parent' href='ABENTABLE_WORK_AREA_GUIDL.html' class='blue'>shared resources</a> are largely obsolete anyway. The problems mentioned above can only occur if classic dynpros or selection screens (and therefore GUI statuses and table work areas) are used.</p></div>
+<h2>Example</h2><div class="content"><p>The following source code demonstrates how to assign interface work areas to program groups, in the case of external subroutine calls. The table work area <code class='code'>dbtab</code> declared in <code class='code'>sapssubr</code> is shared either with <code class='code'>sapmprog</code> or with <code class='code'>saplfugr</code>. If <code class='code'>share</code> has the value <em>'FUGR'</em>, <code class='code'>saplfugr</code> and <code class='code'>sapssubr</code> share the table work area. Otherwise it is shared by <code class='code'>sapmprog</code> and <code class='code'>sapssubr</code>. It is not possible to rely on a specific assignment.</p>
+<pre><code>*********************************** 
+PROGRAM sapmprog. 
+TABLES dbtab. 
+... 
+IF share = 'FUGR'. 
+  CALL FUNCTION 'FUNC'. 
+ENDIF. 
+... 
+PERFORM sub IN PROGRAM sapssubr. 
+********************************************************************** 
+FUNCTION-POOL saplfugr.&#x00A0; 
+TABLES dbtab. 
+... 
+FUNCTION func. 
+  PERFORM sub IN PROGRAM sapssubr. 
+ENDFUNCTION. 
+********************************************************************** 
+PROGRAM sapssubr. 
+TABLES dbtab. 
+... 
+FORM sub. 
+  ... 
+ENDFORM. 
+***********************************</code></pre></div>
+</div>
+</body>
+</html>

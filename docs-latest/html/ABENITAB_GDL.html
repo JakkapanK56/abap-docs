@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <span>Internal Tables</span></nav>
+<div class="all">
+<p>An internal table is a dynamic data object consisting of a sequence of lines with the same data type. The data type of an internal table is a table type that has the following basic properties of every internal table:</p>
+<ul><li><strong>Line Type</strong></li><li class='no_list_style'>The line type can be any data type. In particular, tables of</li><li class='no_list_style'>elementary types, tables of structures, tables of tables, and</li><li class='no_list_style'>tables or references are all possible.</li><li><strong>Table category</strong></li><li class='no_list_style'>The table category specifies the storage method and primary access method. The possible table categories are:</li><ul><li>Standard tables administered using a primary table index and which cannot have a unique primary table key.</li><li>Sorted tables administered using a primary table index and that can have a unique or non-unique primary table key (used to sort the table).</li><li>Hashed tables whose primary table key always has to be unique and which use a hash algorithm (distributed memory management) to administer their lines. A hashed table does not have a primary table index.</li></ul><li><strong>Primary table key</strong></li><li class='no_list_style'>Every internal table has a primary table key. A table key consists of columns from the internal table. The content of these columns identifies table lines. The table category determines whether a key is unique or non-unique.</li></ul>
+<p>Internal tables enable variable datasets (a variable number of lines) with a fixed structure (the line type) to be processed in the working memory of the <a target='_parent' href='ABENINTERNAL_SESSION_GLOSRY.html' class='green'>internal session</a> of a program. The content of an internal table can either be accessed sequentially in a <code class='code'>LOOP</code> or by accessing individual lines (for example, by using <code class='code'>READ TABLE</code> or a table expression).</p>
+<p>There are two ways of accessing individual lines:</p>
+<ul><li>By specifying a key (a table key or a free key)</li><li>By specifying a line index</li></ul>
+<p>Primary table access is possible for all three table categories. Access using the primary key, however, is optimized only for sorted tables and hashed tables. In standard tables, primary key access uses a linear search. Access using the primary line index, on the other hand, is possible for standard tables and sorted tables only. As well as its primary key, an internal key can also have further secondary keys. These keys enhance and optimize access options to the various table categories.</p>
+<ul><li><a target='_parent' href='ABENSELECT_TABLE_TYPE_GUIDL.html' class='blue'>Selecting the Table Category</a></li><li><a target='_parent' href='ABENSECONDARY_KEY_GUIDL.html' class='blue'>Secondary Keys</a></li><li><a target='_parent' href='ABENINITIAL_MEMORY_REQU_GUIDL.html' class='blue'>Initial Memory Requirement</a></li><li><a target='_parent' href='ABENSORT_GUIDL.html' class='blue'>Sorted Filling</a></li><li><a target='_parent' href='ABENCOLLECT_GUIDL.html' class='blue'>Compressed Filling</a></li><li><a target='_parent' href='ABENTABLE_OUTPUT_GUIDL.html' class='blue'>Target Area</a></li><li><a target='_parent' href='ABENLOOP_GUIDL.html' class='blue'>Loop Processing</a></li></ul>
+</div>
+</body>
+</html>

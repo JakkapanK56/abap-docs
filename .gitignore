@@ -1,5 +1,1 @@
-# Generated ABAP docs HTML (kept out of VCS)
-docs/*/html/
-# Legacy text files (no longer generated)
-docs/*/text/
 node_modules/

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abenassignment_access_gdl.html">Assignments, Calculations, and Other Types of Data Access</a> / <span>Runtime Errors when Accessing Data Objects</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>Using data objects can cause runtime errors if the data object contains unsuitable content or the access to the data object is unsuitable. Examples:</p>
+<ul><li>Assigning values outside the value range of a target variable</li><li>Using values that cannot be converted to the required type. In other words, a conversion rule exists but the source field content is not convertible. For example, you are trying to assign a character field (with content that cannot be interpreted as a number) to a numeric field.</li><li>Access to parts of data objects (substring access). Either offset/length access or the use of built-in subfunctions such as <code class='code'>substring</code>.</li></ul></div>
+<h2>Rule</h2><div class="content"><p><strong>Prevent runtime errors when accessing data objects</strong></p>
+<p>You need to prevent runtime errors that can occur when accessing data objects. Robust applications should always be programmed to avoid these errors.</p></div>
+<h2>Details</h2><div class="content"><p>If it is not possible to determine whether subsequent access causes errors by filling data objects appropriately, either the relevant properties must be checked before the data is accessed or possible exceptions (subclasses of <code class='code'>CX_SY_CONVERSION_ERROR</code> or <code class='code'>CX_SY_DATA_ACCESS_ERROR</code>) must be caught during data access.</p></div>
+<h2>Bad Example</h2><div class="content"><p>The following source code illustrates a typical situation that can easily cause a runtime error if the subarea defined by <code class='code'>offset</code> and <code class='code'>length</code> is not defined in <code class='code'>text</code>.</p>
+<pre><code>DATA text TYPE string. 
+... 
+substring = text+offset(length). 
+...</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>The following two pieces of source code illustrate how the above example can be changed to avoid runtime errors using prevention or exception handling.</p>
+<pre><code>IF strlen( text ) > offset + length. 
+  substring = text+offset(length). 
+ELSE. 
+  ... 
+ENDIF.TRY. 
+  substring = text+offset(length). 
+ CATCH cx_sy_range_out_of_bounds. 
+   ... 
+ENDTRY.</code></pre></div>
+</div>
+</body>
+</html>

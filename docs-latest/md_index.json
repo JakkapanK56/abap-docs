@@ -1,0 +1,606 @@
+{
+  "generatedAt": "2026-07-09T19:17:45.489Z",
+  "count": 150,
+  "files": [
+    {
+      "htmlFile": "ABENABAP-TESTCOCKPIT_GUIDL.html",
+      "mdFile": "ABENABAP-TESTCOCKPIT_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENABAP_OBJ_PROGR_MODEL_GUIDL.html",
+      "mdFile": "ABENABAP_OBJ_PROGR_MODEL_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENABAP_PGL.html",
+      "mdFile": "ABENABAP_PGL.md"
+    },
+    {
+      "htmlFile": "ABENABAP_SPECIFIC_RULES_GDL.html",
+      "mdFile": "ABENABAP_SPECIFIC_RULES_GDL.md"
+    },
+    {
+      "htmlFile": "ABENACCESSIBILITY_GUIDL.html",
+      "mdFile": "ABENACCESSIBILITY_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENADMIN_COSTS_DYN_MEM_OBJ_GUIDL.html",
+      "mdFile": "ABENADMIN_COSTS_DYN_MEM_OBJ_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENALTERNATIVE_LANGU_GUIDL.html",
+      "mdFile": "ABENALTERNATIVE_LANGU_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENALTERNATIVE_SPELLING_GDL.html",
+      "mdFile": "ABENALTERNATIVE_SPELLING_GDL.md"
+    },
+    {
+      "htmlFile": "ABENARCHITECTURE_GDL.html",
+      "mdFile": "ABENARCHITECTURE_GDL.md"
+    },
+    {
+      "htmlFile": "ABENARRANGE_GUIDL.html",
+      "mdFile": "ABENARRANGE_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENASSERTIONS_GUIDL.html",
+      "mdFile": "ABENASSERTIONS_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENASSIGNEMNT_DIFF_TYPES_GUIDL.html",
+      "mdFile": "ABENASSIGNEMNT_DIFF_TYPES_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENASSIGNMENT_ACCESS_GDL.html",
+      "mdFile": "ABENASSIGNMENT_ACCESS_GDL.md"
+    },
+    {
+      "htmlFile": "ABENASSIGN_CALC_GUIDL.html",
+      "mdFile": "ABENASSIGN_CALC_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENAVOIDING_INVALID_VALUES_GUIDL.html",
+      "mdFile": "ABENAVOIDING_INVALID_VALUES_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENBOUND_INDEPENDENT_DTYPE_GUIDL.html",
+      "mdFile": "ABENBOUND_INDEPENDENT_DTYPE_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENCALC_EXPRESSSION_GUIDL.html",
+      "mdFile": "ABENCALC_EXPRESSSION_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENCASTING_GUIDL.html",
+      "mdFile": "ABENCASTING_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENCHAINED_STATEMENTS_GUIDL.html",
+      "mdFile": "ABENCHAINED_STATEMENTS_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENCHARACTER_SET_GUIDL.html",
+      "mdFile": "ABENCHARACTER_SET_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENCHECK_CORRECTNESS_GDL.html",
+      "mdFile": "ABENCHECK_CORRECTNESS_GDL.md"
+    },
+    {
+      "htmlFile": "ABENCLASS_EXCEPTION_GUIDL.html",
+      "mdFile": "ABENCLASS_EXCEPTION_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENCLASS_REF_INTERF_REF_GUIDL.html",
+      "mdFile": "ABENCLASS_REF_INTERF_REF_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENCLASS_SIZE_GUIDL.html",
+      "mdFile": "ABENCLASS_SIZE_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENCLEANUP_GUIDL.html",
+      "mdFile": "ABENCLEANUP_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENCLIENT_HANDLING_GUIDL.html",
+      "mdFile": "ABENCLIENT_HANDLING_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENCODEPAGE_FILE_GUIDL.html",
+      "mdFile": "ABENCODEPAGE_FILE_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENCODE_INSPECTOR_GUIDL.html",
+      "mdFile": "ABENCODE_INSPECTOR_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENCOLLECT_GUIDL.html",
+      "mdFile": "ABENCOLLECT_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENCOMMENTS_GDL.html",
+      "mdFile": "ABENCOMMENTS_GDL.md"
+    },
+    {
+      "htmlFile": "ABENCOMMENT_LANGU_GUIDL.html",
+      "mdFile": "ABENCOMMENT_LANGU_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENCOMPLEXITY_GDL.html",
+      "mdFile": "ABENCOMPLEXITY_GDL.md"
+    },
+    {
+      "htmlFile": "ABENCONTENT_GUIDL.html",
+      "mdFile": "ABENCONTENT_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENCORRECTNESS_QUALITY_GUIDL.html",
+      "mdFile": "ABENCORRECTNESS_QUALITY_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENDATABASE_ACCESS_GUIDL.html",
+      "mdFile": "ABENDATABASE_ACCESS_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENDATAOBJECTS_TRUE_VALUE_GUIDL.html",
+      "mdFile": "ABENDATAOBJECTS_TRUE_VALUE_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENDATA_STORAGE_GDL.html",
+      "mdFile": "ABENDATA_STORAGE_GDL.md"
+    },
+    {
+      "htmlFile": "ABENDATA_TYPE_OBJ_GDL.html",
+      "mdFile": "ABENDATA_TYPE_OBJ_GDL.md"
+    },
+    {
+      "htmlFile": "ABENDEAD_CODE_GUIDL.html",
+      "mdFile": "ABENDEAD_CODE_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENDECLARATION_DTYPES_CONST_GUIDL.html",
+      "mdFile": "ABENDECLARATION_DTYPES_CONST_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENDECLARATION_INLINE_GUIDL.html",
+      "mdFile": "ABENDECLARATION_INLINE_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENDECLARATION_VARIABLES_GUIDL.html",
+      "mdFile": "ABENDECLARATION_VARIABLES_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENDIAL_MOD_EVENT_BLOCK_GUIDL.html",
+      "mdFile": "ABENDIAL_MOD_EVENT_BLOCK_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENDIVISION_ZERO_GUIDL.html",
+      "mdFile": "ABENDIVISION_ZERO_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENDYNAMIC_PROG_TECHNIQUE_GDL.html",
+      "mdFile": "ABENDYNAMIC_PROG_TECHNIQUE_GDL.md"
+    },
+    {
+      "htmlFile": "ABENDYN_ACCESS_DATA_OBJ_GUIDL.html",
+      "mdFile": "ABENDYN_ACCESS_DATA_OBJ_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENENCAPSULATION_GUIDL.html",
+      "mdFile": "ABENENCAPSULATION_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENENCAP_CLASS_INTERF_GUIDL.html",
+      "mdFile": "ABENENCAP_CLASS_INTERF_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENERROR_HANDLING_GDL.html",
+      "mdFile": "ABENERROR_HANDLING_GDL.md"
+    },
+    {
+      "htmlFile": "ABENEVALUATION_GUIDL.html",
+      "mdFile": "ABENEVALUATION_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENEXCEPTION_CATEGORY_GUIDL.html",
+      "mdFile": "ABENEXCEPTION_CATEGORY_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENEXCEPTION_TEXTS_GUIDL.html",
+      "mdFile": "ABENEXCEPTION_TEXTS_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENEXIT_PROCEDURE_GUIDL.html",
+      "mdFile": "ABENEXIT_PROCEDURE_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENEXPRESSION_GUIDL.html",
+      "mdFile": "ABENEXPRESSION_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENEXTENDED_PROGRAM_CHECK_GUIDL.html",
+      "mdFile": "ABENEXTENDED_PROGRAM_CHECK_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENFORMATTING_CODE_GDL.html",
+      "mdFile": "ABENFORMATTING_CODE_GDL.md"
+    },
+    {
+      "htmlFile": "ABENFUNCT_MODULE_SUBROUTINE_GUIDL.html",
+      "mdFile": "ABENFUNCT_MODULE_SUBROUTINE_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENGENERAL_RULES_GDL.html",
+      "mdFile": "ABENGENERAL_RULES_GDL.md"
+    },
+    {
+      "htmlFile": "ABENGENERIC_PROGR_GUIDL.html",
+      "mdFile": "ABENGENERIC_PROGR_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENGLOBAL_DECLAR_GUIDL.html",
+      "mdFile": "ABENGLOBAL_DECLAR_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENHANDL_PROP_EXCEPT_GUIDL.html",
+      "mdFile": "ABENHANDL_PROP_EXCEPT_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENIMMUTABLE_VARIABLES_GUIDL.html",
+      "mdFile": "ABENIMMUTABLE_VARIABLES_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENINCLUDING_STRUCTURES_GUIDL.html",
+      "mdFile": "ABENINCLUDING_STRUCTURES_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENINHERITANCE_GUIDL.html",
+      "mdFile": "ABENINHERITANCE_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENINITIAL_MEMORY_REQU_GUIDL.html",
+      "mdFile": "ABENINITIAL_MEMORY_REQU_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENINSTANCE_CONSTRUCTOR_GUIDL.html",
+      "mdFile": "ABENINSTANCE_CONSTRUCTOR_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENINTERFACE_TECH_GUIDL.html",
+      "mdFile": "ABENINTERFACE_TECH_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENINTERNATIONALIZATION_GDL.html",
+      "mdFile": "ABENINTERNATIONALIZATION_GDL.md"
+    },
+    {
+      "htmlFile": "ABENINTERN_EXTERN_PROC_CALL_GUIDL.html",
+      "mdFile": "ABENINTERN_EXTERN_PROC_CALL_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENITAB_GDL.html",
+      "mdFile": "ABENITAB_GDL.md"
+    },
+    {
+      "htmlFile": "ABENKISS_PRINCIPLE_GUIDL.html",
+      "mdFile": "ABENKISS_PRINCIPLE_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENLINE_WIDTH_GUIDL.html",
+      "mdFile": "ABENLINE_WIDTH_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENLIST_GUIDL.html",
+      "mdFile": "ABENLIST_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENLITERALS_GUIDL.html",
+      "mdFile": "ABENLITERALS_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENLOCAL_DECLAR_GUIDL.html",
+      "mdFile": "ABENLOCAL_DECLAR_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENLOCAL_TYPE_GLOB_CLASS_GUIDL.html",
+      "mdFile": "ABENLOCAL_TYPE_GLOB_CLASS_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENLOOP_GUIDL.html",
+      "mdFile": "ABENLOOP_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENLOWER_UPPER_CASE_GUIDL.html",
+      "mdFile": "ABENLOWER_UPPER_CASE_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENMACROS_GUIDL.html",
+      "mdFile": "ABENMACROS_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENMEM_CONS_DYN_MEM_OBJ_GUIDL.html",
+      "mdFile": "ABENMEM_CONS_DYN_MEM_OBJ_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENMESSAGES_GUIDL.html",
+      "mdFile": "ABENMESSAGES_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENMETHOD_CALL_GUIDL.html",
+      "mdFile": "ABENMETHOD_CALL_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENMODERN_ABAP_GUIDL.html",
+      "mdFile": "ABENMODERN_ABAP_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENMODULARIZATION_GUIDL.html",
+      "mdFile": "ABENMODULARIZATION_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENMODULARIZATION_UNIT_GDL.html",
+      "mdFile": "ABENMODULARIZATION_UNIT_GDL.md"
+    },
+    {
+      "htmlFile": "ABENMULTIPLE_USE_INCLUDE_GUIDL.html",
+      "mdFile": "ABENMULTIPLE_USE_INCLUDE_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENNAMES_REPOS_OBJ_GUIDL.html",
+      "mdFile": "ABENNAMES_REPOS_OBJ_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENNAME_LANGU_GUIDL.html",
+      "mdFile": "ABENNAME_LANGU_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENNAMING_GDL.html",
+      "mdFile": "ABENNAMING_GDL.md"
+    },
+    {
+      "htmlFile": "ABENNESTING_DEPTH_GUIDL.html",
+      "mdFile": "ABENNESTING_DEPTH_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENNUMBERS_GUIDL.html",
+      "mdFile": "ABENNUMBERS_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENOBJ_ORIENTED_GDL.html",
+      "mdFile": "ABENOBJ_ORIENTED_GDL.md"
+    },
+    {
+      "htmlFile": "ABENOBS_INTERN_SYSTEM_FIELD_GUIDL.html",
+      "mdFile": "ABENOBS_INTERN_SYSTEM_FIELD_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENORIGINAL_LANGU_GUIDL.html",
+      "mdFile": "ABENORIGINAL_LANGU_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENPERSISTENT_DATA_STORAGE_GUIDL.html",
+      "mdFile": "ABENPERSISTENT_DATA_STORAGE_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENPROC_VOLUME_GUIDL.html",
+      "mdFile": "ABENPROC_VOLUME_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENPROGRAM_PROPERTY_GUIDL.html",
+      "mdFile": "ABENPROGRAM_PROPERTY_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENPROGRAM_TYPE_GUIDL.html",
+      "mdFile": "ABENPROGRAM_TYPE_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENPROGR_PROC_STRUCTURE_GDL.html",
+      "mdFile": "ABENPROGR_PROC_STRUCTURE_GDL.md"
+    },
+    {
+      "htmlFile": "ABENPROGR_TYPE_FEATURES_GDL.html",
+      "mdFile": "ABENPROGR_TYPE_FEATURES_GDL.md"
+    },
+    {
+      "htmlFile": "ABENPROG_INTERN_NAMES_GUIDL.html",
+      "mdFile": "ABENPROG_INTERN_NAMES_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENREACTION_ERROR_GUIDL.html",
+      "mdFile": "ABENREACTION_ERROR_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENREF_TRANSF_GLOBAL_DATA_GUIDL.html",
+      "mdFile": "ABENREF_TRANSF_GLOBAL_DATA_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENREF_TRANSF_OUTPUT_PARAM_GUIDL.html",
+      "mdFile": "ABENREF_TRANSF_OUTPUT_PARAM_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENREF_TYPES_OBJECTS_GUIDL.html",
+      "mdFile": "ABENREF_TYPES_OBJECTS_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENRETURN_CODE_GUIDL.html",
+      "mdFile": "ABENRETURN_CODE_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENROBUST_ABAP_GDL.html",
+      "mdFile": "ABENROBUST_ABAP_GDL.md"
+    },
+    {
+      "htmlFile": "ABENROUNDING_ERROR_GUIDL.html",
+      "mdFile": "ABENROUNDING_ERROR_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENRUNTIME_ERROR_DATA_OBJ_GUIDL.html",
+      "mdFile": "ABENRUNTIME_ERROR_DATA_OBJ_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENRUNTIME_ERROR_DYN_PROC_GUIDL.html",
+      "mdFile": "ABENRUNTIME_ERROR_DYN_PROC_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENSECONDARY_KEY_GUIDL.html",
+      "mdFile": "ABENSECONDARY_KEY_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENSELECT_NUMERIC_TYPE_GUIDL.html",
+      "mdFile": "ABENSELECT_NUMERIC_TYPE_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENSELECT_TABLE_TYPE_GUIDL.html",
+      "mdFile": "ABENSELECT_TABLE_TYPE_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENSEPARATION_CONCERNS_GUIDL.html",
+      "mdFile": "ABENSEPARATION_CONCERNS_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENSORT_GUIDL.html",
+      "mdFile": "ABENSORT_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENSOURCE_CODE_MODULAR_GUIDL.html",
+      "mdFile": "ABENSOURCE_CODE_MODULAR_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENSOURCE_CODE_ORGA_GDL.html",
+      "mdFile": "ABENSOURCE_CODE_ORGA_GDL.md"
+    },
+    {
+      "htmlFile": "ABENSPLIT_TEXT_GUIDL.html",
+      "mdFile": "ABENSPLIT_TEXT_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENSTART_VALUES_GUIDL.html",
+      "mdFile": "ABENSTART_VALUES_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENSTATEMENT_GUIDL.html",
+      "mdFile": "ABENSTATEMENT_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENSTATIC_CLASS_SINGLETON_GUIDL.html",
+      "mdFile": "ABENSTATIC_CLASS_SINGLETON_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENSTRINGS_GUIDL.html",
+      "mdFile": "ABENSTRINGS_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENSTRUCTURE_STYLE_GDL.html",
+      "mdFile": "ABENSTRUCTURE_STYLE_GDL.md"
+    },
+    {
+      "htmlFile": "ABENSTRUC_COMP_NAMES_GUIDL.html",
+      "mdFile": "ABENSTRUC_COMP_NAMES_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENSYNTAX_CHECK_GUIDL.html",
+      "mdFile": "ABENSYNTAX_CHECK_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENSYSTEM_FIELDS_GDL.html",
+      "mdFile": "ABENSYSTEM_FIELDS_GDL.md"
+    },
+    {
+      "htmlFile": "ABENSYSTEM_TEXT_GUIDL.html",
+      "mdFile": "ABENSYSTEM_TEXT_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENSYST_FIELD_ACCESS_GUIDL.html",
+      "mdFile": "ABENSYST_FIELD_ACCESS_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENTABLE_OUTPUT_GUIDL.html",
+      "mdFile": "ABENTABLE_OUTPUT_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENTABLE_WORK_AREA_GUIDL.html",
+      "mdFile": "ABENTABLE_WORK_AREA_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENTELLING_NAMES_GUIDL.html",
+      "mdFile": "ABENTELLING_NAMES_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENTEXT_ENVIRONM_GUIDL.html",
+      "mdFile": "ABENTEXT_ENVIRONM_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENTRAILING_BLANKS_LITERALS_GUIDL.html",
+      "mdFile": "ABENTRAILING_BLANKS_LITERALS_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENTRANS_RELEVANT_TEXT_GUIDL.html",
+      "mdFile": "ABENTRANS_RELEVANT_TEXT_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENTYPE_FORMAL_PARAM_GUIDL.html",
+      "mdFile": "ABENTYPE_FORMAL_PARAM_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENTYPE_FORMAL_PARAM_PROC_GUIDL.html",
+      "mdFile": "ABENTYPE_FORMAL_PARAM_PROC_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENTYPE_TRANSF_FORMAL_PARA_GUIDL.html",
+      "mdFile": "ABENTYPE_TRANSF_FORMAL_PARA_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENUNKNOWN_CONTAINER_GUIDL.html",
+      "mdFile": "ABENUNKNOWN_CONTAINER_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENUSER_INTERFACES_GDL.html",
+      "mdFile": "ABENUSER_INTERFACES_GDL.md"
+    },
+    {
+      "htmlFile": "ABENUSE_ACTUAL_PARAMETERS_GUIDL.html",
+      "mdFile": "ABENUSE_ACTUAL_PARAMETERS_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENUSE_CONVERSION_RULES_GUIDL.html",
+      "mdFile": "ABENUSE_CONVERSION_RULES_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENUSE_DYNAMIC_PROGR_TECH_GUIDL.html",
+      "mdFile": "ABENUSE_DYNAMIC_PROGR_TECH_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENUSE_DYN_DATA_OBJECT_GUIDL.html",
+      "mdFile": "ABENUSE_DYN_DATA_OBJECT_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENUSE_EXCEPTION_CLASS_GUIDL.html",
+      "mdFile": "ABENUSE_EXCEPTION_CLASS_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENUSE_OPERAND_POSITION_GUIDL.html",
+      "mdFile": "ABENUSE_OPERAND_POSITION_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENUSE_PRETTY_PRINTER_GUIDL.html",
+      "mdFile": "ABENUSE_PRETTY_PRINTER_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENUSE_SHARED_MEMORY_GUIDL.html",
+      "mdFile": "ABENUSE_SHARED_MEMORY_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENUSE_SHARED_OBJECTS_GUIDL.html",
+      "mdFile": "ABENUSE_SHARED_OBJECTS_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENUSE_UI_GUIDL.html",
+      "mdFile": "ABENUSE_UI_GUIDL.md"
+    },
+    {
+      "htmlFile": "ABENUSING_TYPES_GUIDL.html",
+      "mdFile": "ABENUSING_TYPES_GUIDL.md"
+    }
+  ]
+}

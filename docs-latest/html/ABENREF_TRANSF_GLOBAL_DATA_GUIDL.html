@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenrobust_abap_gdl.html">Robust ABAP</a> / <a href="abenassignment_access_gdl.html">Assignments, Calculations, and Other Types of Data Access</a> / <span>Pass by Reference of Global Data</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>In a local context you can normally directly access the <a target='_parent' href='ABENDATA_TYPE_OBJ_GDL.html' class='blue'>data objects</a> of superordinate more global contexts. For example, it is possible in a method to perform writes on the attributes of its class and on any global data of the current program.</p>
+<p>Therefore, if a more global data object is passed to a procedure by reference, access is granted there both through its name and the formal parameter.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Do not pass global data to local contexts using pass by reference</strong></p>
+<p>Do not use global data as actual parameters for formal parameters of procedures if you can change them in the procedure in another way, and the parameter is passed by reference.</p></div>
+<h2>Details</h2><div class="content"><p>If a global data object that has also been passed by reference is changed in a procedure (<a target='_parent' href='ABENFUNCT_MODULE_SUBROUTINE_GUIDL.html' class='blue'>method</a>), this also changes the formal parameter and vice versa. This behavior is not usually anticipated when writing the procedure.</p>
+<p>Global data is only supposed to be passed to formal parameters for which <a target='_parent' href='ABENTYPE_TRANSF_FORMAL_PARA_GUIDL.html' class='blue'>pass by value</a> is declared, or to procedures that are guaranteed not to have any unwanted consequences for this data.</p></div>
+<h2>Bad Example</h2><div class="content"><p>After the <code class='code'>do_something</code> method has been called in the <code class='code'>main</code> method in the following source code, the <code class='code'>attr</code> attribute contains the unexpected value <code class='code'>2.0</code>, because the first assignment to the <code class='code'>c_value</code> changing parameter, which has been passed by reference, also changes <code class='code'>attr</code>.</p>
+<pre><code>CLASS class DEFINITION. 
+   PUBLIC SECTION. 
+     METHODS 
+       main. 
+   PRIVATE SECTION. 
+     DATA 
+       attr TYPE p DECIMALS 2. 
+     METHODS 
+       do_something CHANGING c_value TYPE numeric. 
+ENDCLASS. 
+CLASS class IMPLEMENTATION. 
+   METHOD main. 
+     attr = '1.23'. 
+     do_something( CHANGING c_value = attr ). 
+   ENDMETHOD. 
+   METHOD do_something. 
+     ... 
+     c_value = floor( attr ). 
+     ... 
+     c_value = c_value + attr. 
+     ... 
+   ENDMETHOD. 
+ENDCLASS.</code></pre></div>
+<h2>Good Example</h2><div class="content"><p>If the pass by reference method in the method declaration of <code class='code'>do_something</code> in the above example is converted into a pass by value method, as shown in the following source code, the <code class='code'>attr</code> attribute contains the expected value <code class='code'>2.23</code> after the method has been called.</p>
+<pre><code>... 
+     METHODS 
+       do_something CHANGING VALUE(c_value) TYPE numeric. 
+...</code></pre></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Extracted Content</title>
+</head>
+<body>
+<nav class="breadcrumbs"><a href="abenabap.html">ABAP - Keyword Documentation</a> / <a href="abenabap_reference.html">ABAP Programming Language</a> / <a href="abenabap_pgl.html">ABAP Programming Guidelines</a> / <a href="abenarchitecture_gdl.html">Architecture</a> / <a href="abenobj_oriented_gdl.html">Object-Oriented Programming</a> / <span>Encapsulation</span></nav>
+<div class="all">
+<h2>Background</h2><div class="content"><p>A program that is created based on the procedural programming model and that includes many procedures and global variables is usually difficult to understand because the numerous possible interdependencies of these publicly accessible variables and procedures are difficult to comprehend. The object-oriented approach solves this particular problem by providing visibility sections that are not public. This enables readers who want to get an overview of how the software functions to restrict the overview to the public interfaces of the classes involved. The non-public visibility sections only contain details of the implementation that are not important for a view from the outside.</p>
+<p>Of course, this clear overview benefit is only realized in places where the developer makes use of the non-public visibility sections. The same applies to non-public object creation and final classes, where it is becomes immediately clear whether objects can also be generated outside of the class or whether derived classes can exist.</p>
+<p>For the development or the design of an application, it is useful to encapsulate as restrictively as possible initially, and to undo the encapsulation only where required.</p></div>
+<h2>Rule</h2><div class="content"><p><strong>Exploit the benefits of encapsulation</strong></p>
+<p>Utilize the encapsulation options provided in the form of non-public visibility sections, non-public object creation, and final classes as much as possible. The use of units that are encapsulated in such a way should preferably be free of side effects.</p></div>
+<h2>Details</h2><div class="content"><p>This simple rule provides practical access to object-oriented programming that produces programs that are more robust and more easily maintainable than if you use procedural ABAP, and without a prolonged object-oriented design phase. To use encapsulation appropriately, do the following:</p>
+<ul><li>Keep the number of public components of a class as small as possible (components that may be private or protected should therefore be created in the corresponding visibility section as well).</li><li>Declare public attributes only as <code class='code'>READ-ONLY</code>.</li><li>Consider the private instantiation of classes.</li><li>Mark classes that are not intended as superclasses as <a target='_parent' href='ABENINHERITANCE_GUIDL.html' class='blue'><code class='code'>FINAL</code></a>.</li></ul>
+<p>Conversely, within an encapsulated unit, that is, within a class, you should avoid accessing more global data directly. Within methods, you should generally modify attributes of the class only. Performing writes to global data outside the class is not recommended. Accessing data in this way should only be done using specially marked methods, if at all. The use of methods of a class should not evoke any side effects outside the class itself.</p></div>
+</div>
+</body>
+</html>
